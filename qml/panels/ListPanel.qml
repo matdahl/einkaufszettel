@@ -33,6 +33,7 @@ Item {
                 if (category===""){
                     var found = false
                     for (var j=0; j<categories.length; j++){
+                        if (categories[j]==="sonstige") continue
                         if (categories[j]===rows[i].category) found = true
                     }
                     if (found) continue
