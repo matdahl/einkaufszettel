@@ -1,6 +1,8 @@
 # Einkaufszettel
 
-A simple app to store your shopping lists
+A simple app for Ubuntu Touch to store your shopping lists.
+
+You can create different categories to sort your shopping items into different lists.
 
 ## License
 
