@@ -13,6 +13,7 @@ Item {
     function refresh(){
         // read categories
         categories = []
+        categories.push("alle")
         var rows = dbcon.selectCategories()
         for (var i=0; i<rows.length; i++){
             categories.push(rows[i].name)
@@ -25,20 +26,27 @@ Item {
     function refreshListView(){
         listView.model.clear()
         var category = sections.model[sections.selectedIndex]
-        if (category==="sonstige") category = ""
-        var rows = dbcon.selectItems(category)
-        if (rows){
-            for (var i= rows.length-1;i>-1;i--){
-                // if category=sonstige, then check whether category exists
-                if (category===""){
-                    var found = false
-                    for (var j=0; j<categories.length; j++){
-                        if (categories[j]==="sonstige") continue
-                        if (categories[j]===rows[i].category) found = true
-                    }
-                    if (found) continue
-                }
+        // check if all entries should be displayed
+        if (sections.selectedIndex==0){
+            var rows = dbcon.selectItems("")
+            for (var i=0; i<rows.length; i++) {
                 listView.model.append(rows[i])
+            }
+        } else {
+            if (category==="sonstige") category = ""
+            var rows = dbcon.selectItems(category)
+            if (rows){
+                for (var i= rows.length-1;i>-1;i--){
+                    // if category=sonstige, then check whether category exists
+                    if (category===""){
+                        var found = false
+                        for (var j=1; j<categories.length-1; j++){
+                            if (categories[j]===rows[i].category) found = true
+                        }
+                        if (found) continue
+                    }
+                    listView.model.append(rows[i])
+                }
             }
         }
     }
@@ -65,12 +73,14 @@ Item {
             id: inputItem
             width: root.width-btNewItem.width - 2*inputRow.padding - inputRow.spacing
             placeholderText: "neue Eingabe ..."
+            enabled: sections.selectedIndex>0
         }
         Button{
             id: btNewItem
             color: UbuntuColors.green
             width: 1.6*height
             iconName: "add"
+            enabled: sections.selectedIndex>0
             onClicked: {
                 if (inputItem.text !== ""){
                     dbcon.insertItem(inputItem.text,sections.model[sections.selectedIndex])
