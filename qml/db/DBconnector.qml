@@ -111,5 +111,28 @@ Item {
         }
     }
 
-
+    function countEntriesPerCategory(categorylist){
+        // get list of all categories
+        if (!db) init()
+        try{
+            var rt
+            db.transaction(function(tx){
+                rt = tx.executeSql("SELECT category FROM "+db_table_items)
+            })
+            var counts = []
+            for (var i=0;i<categorylist.length+1;i++) counts.push(0)
+            // go through each DB entry
+            for (var i=0; i<rt.rows.length;i++){
+                // check which category is the current one - if none fits, count it as "sonstige"
+                var j
+                for (j=0; j<categorylist.length;j++){
+                    if (categorylist[j]===rt.rows[i].category) break
+                }
+                counts[j] += 1
+            }
+            return counts
+        } catch (err){
+            console.error("Error when select from table '"+db_table_items+"': " + err)
+        }
+    }
 }

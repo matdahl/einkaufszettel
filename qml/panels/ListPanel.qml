@@ -12,20 +12,29 @@ Item {
 
     function refresh(){
         // read categories
-        categories = []
-        categories.push("alle")
+        var rawcat = []
         var rows = dbcon.selectCategories()
         for (var i=0; i<rows.length; i++){
-            categories.push(rows[i].name)
+            rawcat.push(rows[i].name)
+        }
+        // count entries
+        var counts = dbcon.countEntriesPerCategory(rawcat)
+        var counts_all = 0
+        for (var i=0;i<counts.length;i++) counts_all += counts[i]
+        categories = []
+        categories.push("alle")
+        var j
+        for (j=0;j<rawcat.length;j++){
+            categories.push(rawcat[j])
         }
         categories.push("sonstige")
-        sections.model = categories
+        sections.refresh()
         refreshListView()
     }
 
     function refreshListView(){
         listView.model.clear()
-        var category = sections.model[sections.selectedIndex]
+        var category = root.categories[sections.selectedIndex]
         // check if all entries should be displayed
         if (sections.selectedIndex==0){
             var rows = dbcon.selectItems("")
@@ -60,9 +69,40 @@ Item {
             left:  parent.left
             right: parent.right
         }
-
-        model: root.categories
+        model: ["alle","sonstige"]
         onSelectedIndexChanged: refreshListView()
+        function refresh(){
+            var index = selectedIndex
+            // get raw categories
+            var rawcat = []
+            for (var i=1;i<categories.length-1;i++) rawcat.push(categories[i])
+            // count entries
+            var counts = dbcon.countEntriesPerCategory(rawcat)
+            var counts_all = 0
+            for (var i=0;i<counts.length;i++) counts_all += counts[i]
+            // generate titles for sections
+            var newmodel = []
+            if (counts_all>0){
+                newmodel.push("<b>alle ("+counts_all+")</b>")
+            } else {
+                newmodel.push("alle ("+counts_all+")")
+            }
+            var j
+            for (j=0;j<rawcat.length;j++){
+                if (counts[j]>0){
+                    newmodel.push("<b>"+rawcat[j]+" ("+counts[j]+")</b>")
+                } else {
+                    newmodel.push(rawcat[j]+" ("+counts[j]+")")
+                }
+            }
+            if (counts[j]>0){
+                newmodel.push("<b>sonstige ("+counts[j]+")</b>")
+            } else {
+                newmodel.push("sonstige ("+counts[j]+")")
+            }
+            model = newmodel
+            selectedIndex = index
+        }
     }
     Row{
         id: inputRow
@@ -83,9 +123,9 @@ Item {
             enabled: sections.selectedIndex>0
             onClicked: {
                 if (inputItem.text !== ""){
-                    dbcon.insertItem(inputItem.text,sections.model[sections.selectedIndex])
+                    dbcon.insertItem(inputItem.text,root.categories[sections.selectedIndex])
                     inputItem.text = ""
-                    refreshListView()
+                    refresh()
                 }
             }
         }
@@ -107,6 +147,7 @@ Item {
                         iconName: "delete"
                         onTriggered: {
                             dbcon.deleteItem(listView.model.get(index).uid)
+                            sections.refresh()
                             root.refreshListView()
                         }
                     }
@@ -136,6 +177,7 @@ Item {
         onClicked: {
             for (var i=listView.model.count-1;i>-1;i--){
                 dbcon.deleteItem(listView.model.get(i).uid)
+                sections.refresh()
                 refreshListView()
             }
         }
