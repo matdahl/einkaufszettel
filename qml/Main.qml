@@ -29,14 +29,25 @@ MainView {
     applicationName: 'einkaufszettel.mdahl'
     automaticOrientation: true
 
+    theme.name: settings.useDarkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
+    backgroundColor: theme.palette.normal.background
+    opacity: 1.0
+
     width: units.gu(45)
     height: units.gu(75)
 
     property var dbcon: DBconnector{}
 
+    Settings{
+        id: settings
+        property bool useDarkMode: true
+        onUseDarkModeChanged: {
+            root.theme.name = settings.useDarkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
+        }
+    }
+
     Page {
         anchors.fill: parent
-
         header: PageHeader {
             id: header
             title: i18n.tr('Einkaufszettel')
@@ -52,6 +63,7 @@ MainView {
                 Action{
                     iconName: "settings"
                     onTriggered: {
+                        while (stack.depth>1 && stack.currentItem!==settingsPanel) stack.pop()
                         if (stack.currentItem!==settingsPanel) {
                             settingsPanel.refresh()
                             stack.push(settingsPanel)
@@ -60,7 +72,11 @@ MainView {
                 }
             ]
         }
-
+        Rectangle{
+            id: background
+            color: theme.palette.normal.background
+            anchors.fill: parent
+        }
         StackView{
             id: stack
             anchors.fill: parent
@@ -75,6 +91,12 @@ MainView {
             id: settingsPanel
             visible: false
             dbcon: root.dbcon
+            stack: stack
+            Component.onCompleted: {
+                useDarkMode = settings.useDarkMode
+            }
+
+            onUseDarkModeChanged: settings.useDarkMode = useDarkMode
             onCategoriesChanged: listPanel.refresh()
         }
     }

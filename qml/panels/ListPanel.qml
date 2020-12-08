@@ -64,12 +64,14 @@ Item {
 
     Sections{
         id: sections
+        theme.name: "Ubuntu.Components.Themes.SuruDark"
         anchors{
             top:   parent.top
             left:  parent.left
             right: parent.right
         }
-        model: ["alle","sonstige"]
+        height: units.gu(6)
+        model: [i18n.tr("alle"),i18n.tr("sonstige")]
         onSelectedIndexChanged: refreshListView()
         function refresh(){
             var index = selectedIndex
@@ -83,9 +85,9 @@ Item {
             // generate titles for sections
             var newmodel = []
             if (counts_all>0){
-                newmodel.push("<b>alle ("+counts_all+")</b>")
+                newmodel.push("<b>"+i18n.tr("alle")+" ("+counts_all+")</b>")
             } else {
-                newmodel.push("alle ("+counts_all+")")
+                newmodel.push(i18n.tr("alle")+" ("+counts_all+")")
             }
             var j
             for (j=0;j<rawcat.length;j++){
@@ -96,9 +98,9 @@ Item {
                 }
             }
             if (counts[j]>0){
-                newmodel.push("<b>sonstige ("+counts[j]+")</b>")
+                newmodel.push("<b>"+i18n.tr("sonstige")+" ("+counts[j]+")</b>")
             } else {
-                newmodel.push("sonstige ("+counts[j]+")")
+                newmodel.push(i18n.tr("sonstige")+" ("+counts[j]+")")
             }
             model = newmodel
             selectedIndex = index
@@ -112,7 +114,7 @@ Item {
         TextField{
             id: inputItem
             width: root.width-btNewItem.width - 2*inputRow.padding - inputRow.spacing
-            placeholderText: "neue Eingabe ..."
+            placeholderText: i18n.tr("neue Eingabe ...")
             enabled: sections.selectedIndex>0
         }
         Button{
@@ -171,7 +173,7 @@ Item {
         width: root.width/2
         x:     root.width/4
         y:     root.height - height - units.gu(2)
-        text: "Liste leeren"
+        text: i18n.tr("Liste leeren")
         color: UbuntuColors.orange
         visible: listView.model.count>0
         onClicked: {
