@@ -1,0 +1,57 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the einkaufszettel.matdahl package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: einkaufszettel.matdahl\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-10 17:51+0000\n"
+"PO-Revision-Date: 2020-12-10 22:09+0100\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.2\n"
+"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: nl\n"
+
+#: ../qml/Main.qml:64 einkaufszettel.desktop.in.h:1
+msgid "Shopping List"
+msgstr "Boodschappenlijst"
+
+#: ../qml/panels/ListPanel.qml:74 ../qml/panels/ListPanel.qml:88
+#: ../qml/panels/ListPanel.qml:90
+msgid "all"
+msgstr "alle"
+
+#: ../qml/panels/ListPanel.qml:74 ../qml/panels/ListPanel.qml:101
+#: ../qml/panels/ListPanel.qml:103
+msgid "other"
+msgstr "overige"
+
+#: ../qml/panels/ListPanel.qml:117
+msgid "new entry ..."
+msgstr "item toevoegen..."
+
+#: ../qml/panels/ListPanel.qml:178
+msgid "clear list"
+msgstr "lijst wissen"
+
+#: ../qml/panels/SettingsCategoriesPanel.qml:25
+msgid "edit categories:"
+msgstr "categorieën aanpassen:"
+
+#: ../qml/panels/SettingsCategoriesPanel.qml:35
+msgid "new category ..."
+msgstr "categorie toevoegen..."
+
+#: ../qml/panels/SettingsPanel.qml:26
+msgid "Categories"
+msgstr "Categorieën"
+
+#: ../qml/panels/SettingsPanel.qml:32
+msgid "Dark Mode"
+msgstr "Donker thema"
