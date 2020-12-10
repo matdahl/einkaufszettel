@@ -72,11 +72,13 @@ MainView {
                 }
             ]
         }
+
         Rectangle{
             id: background
             color: theme.palette.normal.background
             anchors.fill: parent
         }
+
         StackView{
             id: stack
             anchors.fill: parent

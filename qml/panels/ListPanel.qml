@@ -116,6 +116,7 @@ Item {
             width: root.width-btNewItem.width - 2*inputRow.padding - inputRow.spacing
             placeholderText: i18n.tr("neue Eingabe ...")
             enabled: sections.selectedIndex>0
+            onAccepted: btNewItem.clicked()
         }
         Button{
             id: btNewItem
