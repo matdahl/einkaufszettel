@@ -9,6 +9,7 @@ It allows to create different lists where items to be shopped can be easily coll
 * a flexible number of categories by which the entries can be sorted
 * Ubuntu Style UI with a dark and a light theme
 * Current language versions:
+  * Dutch
   * English
   * French
   * German
