@@ -1,14 +1,23 @@
 # Einkaufszettel
 
-A simple app for Ubuntu Touch to store your shopping lists.
+A simple app for [**Ubuntu Touch**](https://ubuntu-touch.io) to manage your shopping lists.
 
-You can create different categories to sort your shopping items into different lists.
+It allows to create different lists where items to be shopped can be easily collected.
+
+## Features
+
+* a flexible number of categories by which the entries can be sorted
+* Ubuntu Style UI with a dark and a light theme
+* Current language versions:
+  * English
+  * French
+  * German
 
 ## Installation
 
-This is a pure QML app which can be built using [**clickable**](https://gitlab.com/clickable/clickable).
+This app can be built using [**clickable**](https://gitlab.com/clickable/clickable).
 
-Once `clickable` was installed, simply clone this repository, open it in the commandline and execute the command `clickable` with your Ubuntu Phone connected and with developer mode enabled.
+Once `clickable` is installed on your computer, simply clone this repository, open the root directory of it in the commandline and execute the command `clickable` with your Ubuntu Phone connected and with developer mode enabled. **Clickable** then installs and start the app on your phone.
 
 ## License
 
