@@ -26,14 +26,22 @@ import "db"
 MainView {
     id: root
     objectName: 'mainView'
-    applicationName: 'einkaufszettel.mdahl'
+    applicationName: 'einkaufszettel.matdahl'
     automaticOrientation: true
 
-    theme.name: settings.useDarkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
-    property color headerBackgroundColor: settings.useDarkMode ? "#ffc40561" : "#ffff64dc"
+    /*
+        define theme and colors
 
-    backgroundColor: settings.useDarkMode ? "#ff660333" : "#fffecee5"
-    opacity: 1.0
+        main color params (using gpick):
+        hue: 354
+        saturation: 96%
+        lightness:
+            headerBackground:  -20% / +10%
+            background: -40% / +44%
+     */
+    theme.name: settings.useDarkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
+    property color headerBackgroundColor: settings.useDarkMode ? "#93031B" : "#FB3455"
+    property color backgroundColor: settings.useDarkMode ? "#2F0109" : "#FEDEE3"
 
     width: units.gu(45)
     height: units.gu(75)
@@ -48,11 +56,12 @@ MainView {
         }
     }
 
+    Component.onCompleted: print("locale:",Qt.locale().name)
     Page {
         anchors.fill: parent
         header: PageHeader {
             id: header
-            title: i18n.tr('Einkaufszettel')
+            title: i18n.tr("Shopping List")
             StyleHints{
                 backgroundColor: root.headerBackgroundColor
             }

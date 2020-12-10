@@ -3,54 +3,55 @@
 # This file is distributed under the same license as the einkaufszettel.mdahl package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.mdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-10 17:23+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2020-12-10 17:53+0100\n"
+"PO-Revision-Date: 2020-12-10 17:55+0100\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: de\n"
 
-#: ../qml/Main.qml:64 einkaufszettel.desktop.in.h:1
+#: ../qml/Main.qml:63 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
-msgstr ""
+msgstr "Einkaufszettel"
 
 #: ../qml/panels/ListPanel.qml:74 ../qml/panels/ListPanel.qml:88
 #: ../qml/panels/ListPanel.qml:90
 msgid "all"
-msgstr ""
+msgstr "alle"
 
 #: ../qml/panels/ListPanel.qml:74 ../qml/panels/ListPanel.qml:101
 #: ../qml/panels/ListPanel.qml:103
 msgid "other"
-msgstr ""
+msgstr "sonstige"
 
 #: ../qml/panels/ListPanel.qml:117
 msgid "new entry ..."
-msgstr ""
+msgstr "neuer Eintrag ..."
 
 #: ../qml/panels/ListPanel.qml:178
 msgid "clear list"
-msgstr ""
+msgstr "Liste leeren"
 
 #: ../qml/panels/SettingsCategoriesPanel.qml:25
 msgid "edit categories:"
-msgstr ""
+msgstr "Kategorien bearbeiten:"
 
 #: ../qml/panels/SettingsCategoriesPanel.qml:35
 msgid "new category ..."
-msgstr ""
+msgstr "neue Kategorie ..."
 
 #: ../qml/panels/SettingsPanel.qml:26
 msgid "Categories"
-msgstr ""
+msgstr "Kategorien"
 
 #: ../qml/panels/SettingsPanel.qml:32
 msgid "Dark Mode"
-msgstr ""
+msgstr "Dunkler Modus"

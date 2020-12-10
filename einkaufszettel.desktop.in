@@ -1,5 +1,5 @@
 [Desktop Entry]
-_Name=Einkaufszettel
+_Name=Shopping List
 Exec=qmlscene %U qml/Main.qml
 Icon=assets/logo.svg
 Terminal=false

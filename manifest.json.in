@@ -1,5 +1,5 @@
 {
-    "name": "einkaufszettel.mdahl",
+    "name": "einkaufszettel.matdahl",
     "description": "A simple app to store your shopping lists",
     "architecture": "@CLICK_ARCH@",
     "title": "Einkaufszettel",

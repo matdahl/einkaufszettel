@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(einkaufszettel C CXX)
 
+
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 find_package(Qt5Core)
@@ -20,7 +21,7 @@ execute_process(
 set(QT_IMPORTS_DIR "lib/${ARCH_TRIPLET}")
 
 set(PROJECT_NAME "einkaufszettel")
-set(FULL_PROJECT_NAME "einkaufszettel.mdahl")
+set(FULL_PROJECT_NAME "einkaufszettel.matdahl")
 set(CMAKE_INSTALL_PREFIX /)
 set(DATA_DIR /)
 set(DESKTOP_FILE_NAME ${PROJECT_NAME}.desktop)

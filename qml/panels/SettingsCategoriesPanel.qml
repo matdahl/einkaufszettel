@@ -22,7 +22,7 @@ Item {
         x: units.gu(2)
         y: units.gu(2)
         textSize: Label.Large
-        text: i18n.tr("Kategorien bearbeiten:")
+        text: i18n.tr("edit categories:")
     }
     Row{
         id: inputRow
@@ -32,7 +32,8 @@ Item {
         TextField{
             id: inputCategory
             width: root.width - btNewCategory.width - 2*inputRow.padding - inputRow.spacing
-            placeholderText: i18n.tr("neue Kategorie ...")
+            placeholderText: i18n.tr("new category ...")
+            onAccepted: btNewCategory.clicked()
         }
         Button{
             id: btNewCategory
@@ -57,7 +58,8 @@ Item {
             left:   root.left
             right:  root.right
         }
-        model: ListModel{ListElement{name:"Supermarkt"}}
+        currentIndex: -1
+        model: ListModel{}
         delegate: ListItem{
             leadingActions: ListItemActions{ actions: [
                 Action{

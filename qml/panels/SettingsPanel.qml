@@ -1,6 +1,7 @@
 import QtQuick 2.7
 import Ubuntu.Components 1.3
 import Qt.labs.settings 1.0
+
 import "../components"
 
 Item {
@@ -17,19 +18,18 @@ Item {
 
     signal categoriesChanged()
 
-
     Column{
         id: col
         width: root.width
         SettingsMenuItem{
             id: itCategories
-            text: i18n.tr("Kategorien")
+            text: i18n.tr("Categories")
             subpage: categoriesPanel
             stack: root.stack
         }
         SettingsMenuSwitch{
             id: itDarkMode
-            text: i18n.tr("Dunkler Modus")
+            text: i18n.tr("Dark Mode")
             checked: root.useDarkMode
             onCheckedChanged: useDarkMode = checked
         }
