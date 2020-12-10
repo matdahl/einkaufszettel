@@ -15,8 +15,9 @@ It allows to create different lists where items to be shopped can be easily coll
 
 ## Installation
 
-This app can be built using [**clickable**](https://gitlab.com/clickable/clickable).
+The app is available in the Open Store: https://open-store.io/app/einkaufszettel.matdahl
 
+Otherwise, this app can also be built using [**clickable**](https://gitlab.com/clickable/clickable).
 Once `clickable` is installed on your computer, simply clone this repository, open the root directory of it in the commandline and execute the command `clickable` with your Ubuntu Phone connected and with developer mode enabled. **Clickable** then installs and start the app on your phone.
 
 ## License
