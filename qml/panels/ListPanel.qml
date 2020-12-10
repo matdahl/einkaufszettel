@@ -120,7 +120,7 @@ Item {
         }
         Button{
             id: btNewItem
-            color: UbuntuColors.green
+            color: theme.palette.normal.positive
             width: 1.6*height
             iconName: "add"
             enabled: sections.selectedIndex>0
@@ -142,6 +142,7 @@ Item {
             left:   root.left
             right:  root.right
         }
+        currentIndex: -1
         model: ListModel{}
         delegate: ListItem{
             leadingActions: ListItemActions{

@@ -30,7 +30,9 @@ MainView {
     automaticOrientation: true
 
     theme.name: settings.useDarkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
-    backgroundColor: theme.palette.normal.background
+    property color headerBackgroundColor: settings.useDarkMode ? "#ffc40561" : "#ffff64dc"
+
+    backgroundColor: settings.useDarkMode ? "#ff660333" : "#fffecee5"
     opacity: 1.0
 
     width: units.gu(45)
@@ -51,6 +53,9 @@ MainView {
         header: PageHeader {
             id: header
             title: i18n.tr('Einkaufszettel')
+            StyleHints{
+                backgroundColor: root.headerBackgroundColor
+            }
 
             leadingActionBar.actions: [
                 Action{
@@ -75,7 +80,7 @@ MainView {
 
         Rectangle{
             id: background
-            color: theme.palette.normal.background
+            color: root.backgroundColor
             anchors.fill: parent
         }
 
