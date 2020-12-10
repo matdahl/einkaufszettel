@@ -33,15 +33,15 @@ MainView {
         define theme and colors
 
         main color params (using gpick):
-        hue: 354
+        hue: 340
         saturation: 96%
         lightness:
             headerBackground:  -20% / +10%
-            background: -40% / +44%
+            background: -44% / +44%
      */
     theme.name: settings.useDarkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
-    property color headerBackgroundColor: settings.useDarkMode ? "#93031B" : "#FB3455"
-    property color backgroundColor: settings.useDarkMode ? "#2F0109" : "#FEDEE3"
+    property color headerBackgroundColor: settings.useDarkMode ? "#960334" : "#FB3778"
+    property color backgroundColor: settings.useDarkMode ? "#1E010A" : "#FEE1EB"
 
     width: units.gu(45)
     height: units.gu(75)
