@@ -6,9 +6,14 @@ import "../components"
 Item {
     id: root
 
+    // the connector to interact with the database
     property var dbcon
 
+    // the list of categories
     property var categories: []
+
+    // the list of recently deleted entries
+    property var deletedEntries: []
 
     function refresh(){
         // read categories
@@ -64,7 +69,6 @@ Item {
 
     Sections{
         id: sections
-        theme.name: "Ubuntu.Components.Themes.SuruDark"
         anchors{
             top:   parent.top
             left:  parent.left
@@ -72,7 +76,9 @@ Item {
         }
         height: units.gu(6)
         model: [i18n.tr("all"),i18n.tr("other")]
+
         onSelectedIndexChanged: refreshListView()
+
         function refresh(){
             var index = selectedIndex
             // get raw categories
@@ -125,6 +131,9 @@ Item {
             iconName: "add"
             enabled: sections.selectedIndex>0
             onClicked: {
+                // remove deleted entries from DB
+                dbcon.removeDeleted()
+                // insert new entry
                 if (inputItem.text !== ""){
                     dbcon.insertItem(inputItem.text,root.categories[sections.selectedIndex])
                     inputItem.text = ""
@@ -174,16 +183,76 @@ Item {
         id: btClear
         width: root.width/2
         x:     root.width/4
-        y:     root.height - height - units.gu(2)
+        y:     root.height
+
         text: i18n.tr("clear list")
         color: UbuntuColors.orange
-        visible: listView.model.count>0
-        onClicked: {
-            for (var i=listView.model.count-1;i>-1;i--){
-                dbcon.deleteItem(listView.model.get(i).uid)
-                sections.refresh()
-                refreshListView()
+        state: (listView.model.count>0) ? "on" : "off"
+        states: [
+            State{
+                name: "off"
+                PropertyChanges {target: btClear; y:root.height}
+            },
+            State{
+                name: "on"
+                PropertyChanges {target: btClear; y:root.height - height - units.gu(2)}
             }
+        ]
+        transitions: Transition {
+            reversible: true
+            from: "off"
+            to: "on"
+            PropertyAnimation{
+                property: "y"
+                duration: 400
+            }
+        }
+        onClicked: {
+            // remove all entries that were deleted last time
+            dbcon.removeDeleted()
+            // mark all entries which are currently in listView as deleted
+            for (var i=listView.model.count-1;i>-1;i--){
+                dbcon.markAsDeleted(listView.model.get(i).uid)
+            }
+            // refresh
+            sections.refresh()
+            refreshListView()
+        }
+    }
+    Button{
+        id: btRestore
+        width:  units.gu(6)
+        height: units.gu(6)
+        x: root.width
+        y: root.height - height - units.gu(2)
+
+        iconName: "undo"
+        color: theme.palette.normal.base
+
+        state: (dbcon.hasDeletedEntries) ? "on" : "off"
+        states: [
+            State{
+                name: "off"
+                PropertyChanges {target: btRestore; x:root.width}
+            },
+            State{
+                name: "on"
+                PropertyChanges {target: btRestore; x:root.width - width - units.gu(2)}
+            }
+        ]
+        transitions: Transition {
+            reversible: true
+            from: "off"
+            to: "on"
+            PropertyAnimation{
+                property: "x"
+                duration: 400
+            }
+        }
+        onClicked: {
+            dbcon.restoreDeleted()
+            sections.refresh()
+            refreshListView()
         }
     }
 }

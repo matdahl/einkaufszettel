@@ -56,7 +56,6 @@ MainView {
         }
     }
 
-    Component.onCompleted: print("locale:",Qt.locale().name)
     Page {
         anchors.fill: parent
         header: PageHeader {
