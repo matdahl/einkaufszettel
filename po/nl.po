@@ -7,36 +7,36 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-10 17:51+0000\n"
-"PO-Revision-Date: 2020-12-10 22:09+0100\n"
+"POT-Creation-Date: 2020-12-12 14:22+0000\n"
+"PO-Revision-Date: 2020-12-12 15:28+0100\n"
+"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: \n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
-"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
+"X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: nl\n"
 
-#: ../qml/Main.qml:64 einkaufszettel.desktop.in.h:1
+#: ../qml/Main.qml:57 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
 msgstr "Boodschappenlijst"
 
-#: ../qml/panels/ListPanel.qml:74 ../qml/panels/ListPanel.qml:88
-#: ../qml/panels/ListPanel.qml:90
+#: ../qml/panels/ListPanel.qml:78 ../qml/panels/ListPanel.qml:94
+#: ../qml/panels/ListPanel.qml:96
 msgid "all"
 msgstr "alle"
 
-#: ../qml/panels/ListPanel.qml:74 ../qml/panels/ListPanel.qml:101
-#: ../qml/panels/ListPanel.qml:103
+#: ../qml/panels/ListPanel.qml:78 ../qml/panels/ListPanel.qml:107
+#: ../qml/panels/ListPanel.qml:109
 msgid "other"
 msgstr "overige"
 
-#: ../qml/panels/ListPanel.qml:117
+#: ../qml/panels/ListPanel.qml:123
 msgid "new entry ..."
 msgstr "item toevoegen..."
 
-#: ../qml/panels/ListPanel.qml:178
+#: ../qml/panels/ListPanel.qml:252
 msgid "clear list"
 msgstr "lijst wissen"
 
@@ -48,10 +48,14 @@ msgstr "categorieën aanpassen:"
 msgid "new category ..."
 msgstr "categorie toevoegen..."
 
-#: ../qml/panels/SettingsPanel.qml:26
+#: ../qml/panels/SettingsPanel.qml:27
 msgid "Categories"
 msgstr "Categorieën"
 
-#: ../qml/panels/SettingsPanel.qml:32
+#: ../qml/panels/SettingsPanel.qml:33
 msgid "Dark Mode"
 msgstr "Donker thema"
+
+#: ../qml/panels/SettingsPanel.qml:39
+msgid "Color"
+msgstr "Kleur"

@@ -36,13 +36,14 @@ ListItem{
     }
 
     function buttonClicked(index){
-        root.expanded = false
+        //root.expanded = false
         currentSelectedColor = index
     }
 
     property int collapsedHeight: units.gu(7)
     property int expandedHeight: units.gu(12)
     property bool expanded: false
+   // onFocusChanged: if (!focus) expanded = false
 
     // the text to display on the item
     property string text: ""

@@ -32,8 +32,7 @@ MainView {
     theme.name: settings.useDarkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
     Colors{
         id: colors
-        currentIndex: settings.colorIndex
-        onCurrentIndexChanged: settings.colorIndex = currentIndex
+        currentIndex: 1
         useDarkMode: settings.useDarkMode
     }
 
@@ -44,7 +43,7 @@ MainView {
 
     Settings{
         id: settings
-        property int colorIndex
+        property alias colorIndex: colors.currentIndex
         property bool useDarkMode: true
         onUseDarkModeChanged: {
             root.theme.name = settings.useDarkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"

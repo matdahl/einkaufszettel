@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-10 17:53+0100\n"
-"PO-Revision-Date: 2020-12-10 18:00+0100\n"
+"POT-Creation-Date: 2020-12-12 14:22+0000\n"
+"PO-Revision-Date: 2020-12-12 15:27+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -14,25 +14,25 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../qml/Main.qml:63 einkaufszettel.desktop.in.h:1
+#: ../qml/Main.qml:57 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
 msgstr "Liste des courses"
 
-#: ../qml/panels/ListPanel.qml:74 ../qml/panels/ListPanel.qml:88
-#: ../qml/panels/ListPanel.qml:90
+#: ../qml/panels/ListPanel.qml:78 ../qml/panels/ListPanel.qml:94
+#: ../qml/panels/ListPanel.qml:96
 msgid "all"
 msgstr "tout"
 
-#: ../qml/panels/ListPanel.qml:74 ../qml/panels/ListPanel.qml:101
-#: ../qml/panels/ListPanel.qml:103
+#: ../qml/panels/ListPanel.qml:78 ../qml/panels/ListPanel.qml:107
+#: ../qml/panels/ListPanel.qml:109
 msgid "other"
 msgstr "autres"
 
-#: ../qml/panels/ListPanel.qml:117
+#: ../qml/panels/ListPanel.qml:123
 msgid "new entry ..."
 msgstr "nouvaeu truc ..."
 
-#: ../qml/panels/ListPanel.qml:178
+#: ../qml/panels/ListPanel.qml:252
 msgid "clear list"
 msgstr "vider la liste"
 
@@ -44,10 +44,14 @@ msgstr "éditer catégories:"
 msgid "new category ..."
 msgstr "nouvelle catégorie ..."
 
-#: ../qml/panels/SettingsPanel.qml:26
+#: ../qml/panels/SettingsPanel.qml:27
 msgid "Categories"
 msgstr "Catégories"
 
-#: ../qml/panels/SettingsPanel.qml:32
+#: ../qml/panels/SettingsPanel.qml:33
 msgid "Dark Mode"
 msgstr "Dark Mode"
+
+#: ../qml/panels/SettingsPanel.qml:39
+msgid "Color"
+msgstr "Couleur"

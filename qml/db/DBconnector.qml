@@ -37,7 +37,7 @@ Item {
         try{
             db.transaction(function(tx){
                 tx.executeSql("CREATE TABLE IF NOT EXISTS "+db_table_items+" "
-                              +"(uid INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, category)")
+                              +"(uid INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, category TEXT, deleteFlag INTEGER DEFAULT 0)")
             })
         } catch (err){
             console.error("Error when creating table '"+db_table_items+"': " + err)
@@ -98,6 +98,23 @@ Item {
         }
     }
 
+    function swapCategories(cat1,cat2){
+        if (!db) init()
+        try{
+            db.transaction(function(tx){
+                var dummy = "TEMPSWAPCATNAME"
+                // override cat2 by dummy name (to ensure uniqueness)
+                tx.executeSql("UPDATE "+db_table_categories+" SET name='"+dummy+"' WHERE name='"+cat2+"'")
+                // set cat1=cat2
+                tx.executeSql("UPDATE "+db_table_categories+" SET name='"+cat2+"' WHERE name='"+cat1+"'")
+                // set cat2=cat1
+                tx.executeSql("UPDATE "+db_table_categories+" SET name='"+cat1+"' WHERE name='"+dummy+"'")
+            })
+        } catch (err){
+            console.error("Error when swaping categories in table '"+db_table_categories+"': " + err)
+        }
+    }
+
     function insertItem(name,category){
         if (!db) init()
         try{
@@ -132,6 +149,22 @@ Item {
             return rt.rows
         } catch (err){
             console.error("Error when select from table '"+db_table_items+"': " + err)
+        }
+    }
+
+    /* swap two items in database by exchanging their uids */
+    function swapItems(uid1,uid2){
+        if (!db) init()
+        try{
+            db.transaction(function(tx){
+                var tempID = -1
+                // swap uids, then DB will sort it
+                tx.executeSql("UPDATE "+db_table_items+" SET uid="+tempID+" WHERE uid="+uid1)
+                tx.executeSql("UPDATE "+db_table_items+" SET uid="+uid1+" WHERE uid="+uid2)
+                tx.executeSql("UPDATE "+db_table_items+" SET uid="+uid2+" WHERE uid="+tempID)
+            })
+        } catch (err){
+            console.error("Error when swaping items in table '"+db_table_items+"': " + err)
         }
     }
 
@@ -199,4 +232,20 @@ Item {
             console.error("Error when select from table '"+db_table_items+"': " + err)
         }
     }
+    function printAllItems(){
+        if (!db) init()
+        try{
+            var rows
+            db.transaction(function(tx){
+                rows = tx.executeSql("SELECT * FROM "+db_table_items).rows
+            })
+            for (var i=0;i<rows.length;i++){
+                print(rows[i].uid,rows[i].name,rows[i].category,rows[i].deleteFlag)
+            }
+        } catch (err){
+            console.error("Error when selecting all from table '"+db_table_items+"': " + err)
+        }
+    }
 }
+
+
