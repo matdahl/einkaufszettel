@@ -7,7 +7,7 @@ It allows to create different lists where items to be shopped can be easily coll
 ## Features
 
 * a flexible number of categories by which the entries can be sorted
-* Ubuntu Style UI with a dark and a light theme
+* Ubuntu Style UI with a dark and a light theme in 8 different color flavors
 * Current language versions:
   * Dutch
   * English
