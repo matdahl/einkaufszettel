@@ -29,19 +29,13 @@ MainView {
     applicationName: 'einkaufszettel.matdahl'
     automaticOrientation: true
 
-    /*
-        define theme and colors
-
-        main color params (using gpick):
-        hue: 340
-        saturation: 96%
-        lightness:
-            headerBackground:  -20% / +10%
-            background: -44% / +44%
-     */
     theme.name: settings.useDarkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
-    property color headerBackgroundColor: settings.useDarkMode ? "#960334" : "#FB3778"
-    property color backgroundColor: settings.useDarkMode ? "#1E010A" : "#FEE1EB"
+    Colors{
+        id: colors
+        currentIndex: settings.colorIndex
+        onCurrentIndexChanged: settings.colorIndex = currentIndex
+        useDarkMode: settings.useDarkMode
+    }
 
     width: units.gu(45)
     height: units.gu(75)
@@ -50,6 +44,7 @@ MainView {
 
     Settings{
         id: settings
+        property int colorIndex
         property bool useDarkMode: true
         onUseDarkModeChanged: {
             root.theme.name = settings.useDarkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
@@ -62,7 +57,7 @@ MainView {
             id: header
             title: i18n.tr("Shopping List")
             StyleHints{
-                backgroundColor: root.headerBackgroundColor
+                backgroundColor: colors.currentHeader
             }
 
             leadingActionBar.actions: [
@@ -88,7 +83,7 @@ MainView {
 
         Rectangle{
             id: background
-            color: root.backgroundColor
+            color: colors.currentBackground
             anchors.fill: parent
         }
 
@@ -107,6 +102,7 @@ MainView {
             visible: false
             dbcon: root.dbcon
             stack: stack
+            colors: colors
             Component.onCompleted: {
                 useDarkMode = settings.useDarkMode
             }

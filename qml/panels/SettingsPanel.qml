@@ -8,6 +8,7 @@ Item {
     id: root
     property var dbcon
     property var stack
+    property var colors
 
     // settings
     property bool useDarkMode: false
@@ -32,6 +33,13 @@ Item {
             text: i18n.tr("Dark Mode")
             checked: root.useDarkMode
             onCheckedChanged: useDarkMode = checked
+        }
+        SettingsMenuDoubleColorSelect{
+            id: stColor
+            text: i18n.tr("Color")
+            model: root.colors.headerColors
+            currentSelectedColor: root.colors.currentIndex
+            onCurrentSelectedColorChanged: root.colors.currentIndex = currentSelectedColor
         }
     }
 
