@@ -2,47 +2,45 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-12 14:22+0000\n"
-"PO-Revision-Date: 2020-12-12 15:27+0100\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2020-12-12 15:19+0000\n"
+"PO-Revision-Date: 2020-12-13 18:47+0100\n"
+"Last-Translator: Anne017\n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
-"X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../qml/Main.qml:57 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
-msgstr "Liste des courses"
+msgstr "Liste de courses"
 
 #: ../qml/panels/ListPanel.qml:78 ../qml/panels/ListPanel.qml:94
 #: ../qml/panels/ListPanel.qml:96
 msgid "all"
-msgstr "tout"
+msgstr "Tout"
 
 #: ../qml/panels/ListPanel.qml:78 ../qml/panels/ListPanel.qml:107
 #: ../qml/panels/ListPanel.qml:109
 msgid "other"
-msgstr "autres"
+msgstr "Autre"
 
 #: ../qml/panels/ListPanel.qml:123
 msgid "new entry ..."
-msgstr "nouvaeu truc ..."
+msgstr "Nouvelle entrée..."
 
 #: ../qml/panels/ListPanel.qml:252
 msgid "clear list"
-msgstr "vider la liste"
+msgstr "Vider la liste"
 
 #: ../qml/panels/SettingsCategoriesPanel.qml:25
 msgid "edit categories:"
-msgstr "éditer catégories:"
+msgstr "Modifier les catégories :"
 
 #: ../qml/panels/SettingsCategoriesPanel.qml:35
 msgid "new category ..."
-msgstr "nouvelle catégorie ..."
+msgstr "Nouvelle catégorie..."
 
 #: ../qml/panels/SettingsPanel.qml:27
 msgid "Categories"
@@ -50,7 +48,7 @@ msgstr "Catégories"
 
 #: ../qml/panels/SettingsPanel.qml:33
 msgid "Dark Mode"
-msgstr "Dark Mode"
+msgstr "Mode sombre"
 
 #: ../qml/panels/SettingsPanel.qml:39
 msgid "Color"
