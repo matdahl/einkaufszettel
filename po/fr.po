@@ -19,28 +19,28 @@ msgstr "Liste de courses"
 #: ../qml/panels/ListPanel.qml:78 ../qml/panels/ListPanel.qml:94
 #: ../qml/panels/ListPanel.qml:96
 msgid "all"
-msgstr "Tout"
+msgstr "tout"
 
 #: ../qml/panels/ListPanel.qml:78 ../qml/panels/ListPanel.qml:107
 #: ../qml/panels/ListPanel.qml:109
 msgid "other"
-msgstr "Autre"
+msgstr "autre"
 
 #: ../qml/panels/ListPanel.qml:123
 msgid "new entry ..."
-msgstr "Nouvelle entrée..."
+msgstr "nouvelle entrée..."
 
 #: ../qml/panels/ListPanel.qml:252
 msgid "clear list"
-msgstr "Vider la liste"
+msgstr "vider la liste"
 
 #: ../qml/panels/SettingsCategoriesPanel.qml:25
 msgid "edit categories:"
-msgstr "Modifier les catégories :"
+msgstr "modifier les catégories :"
 
 #: ../qml/panels/SettingsCategoriesPanel.qml:35
 msgid "new category ..."
-msgstr "Nouvelle catégorie..."
+msgstr "nouvelle catégorie..."
 
 #: ../qml/panels/SettingsPanel.qml:27
 msgid "Categories"
