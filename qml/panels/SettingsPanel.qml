@@ -10,9 +10,6 @@ Item {
     property var stack
     property var colors
 
-    // settings
-    property bool useDarkMode: false
-
     function refresh(){
         categoriesPanel.refresh()
     }
@@ -31,15 +28,15 @@ Item {
         SettingsMenuSwitch{
             id: itDarkMode
             text: i18n.tr("Dark Mode")
-            checked: root.useDarkMode
-            onCheckedChanged: useDarkMode = checked
+            onCheckedChanged: colors.darkMode = checked
+            Component.onCompleted: checked = colors.darkMode
         }
         SettingsMenuDoubleColorSelect{
             id: stColor
             text: i18n.tr("Color")
-            model: root.colors.headerColors
-            currentSelectedColor: root.colors.currentIndex
-            onCurrentSelectedColorChanged: root.colors.currentIndex = currentSelectedColor
+            model: colors.headerColors
+            Component.onCompleted: currentSelectedColor =  colors.currentIndex
+            onCurrentSelectedColorChanged: colors.currentIndex = currentSelectedColor
         }
     }
 

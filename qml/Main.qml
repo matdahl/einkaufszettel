@@ -29,35 +29,27 @@ MainView {
     applicationName: 'einkaufszettel.matdahl'
     automaticOrientation: true
 
-    theme.name: settings.useDarkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
-    Colors{
-        id: colors
-        currentIndex: 1
-        useDarkMode: settings.useDarkMode
-    }
-
     width: units.gu(45)
     height: units.gu(75)
 
+    // the database connector which manages all DB interactions
     property var dbcon: DBconnector{}
 
-    Settings{
-        id: settings
-        property alias colorIndex: colors.currentIndex
-        property bool useDarkMode: true
-        onUseDarkModeChanged: {
-            root.theme.name = settings.useDarkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
-        }
+    // the colors object which stores all informations about current color theme settings
+    Colors{
+        id: colors
+        initialIndex: 1
     }
+
+    // set the theme and background color
+    theme.name: colors.darkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
 
     Page {
         anchors.fill: parent
         header: PageHeader {
             id: header
             title: i18n.tr("Shopping List")
-            StyleHints{
-                backgroundColor: colors.currentHeader
-            }
+            StyleHints{backgroundColor: colors.currentHeader}
 
             leadingActionBar.actions: [
                 Action{
@@ -79,17 +71,15 @@ MainView {
                 }
             ]
         }
-
         Rectangle{
-            id: background
-            color: colors.currentBackground
             anchors.fill: parent
+            color: colors.currentBackground
         }
-
         StackView{
             id: stack
             anchors.fill: parent
         }
+
         ListPanel{
             id: listPanel
             Component.onCompleted: stack.push(listPanel)
@@ -102,11 +92,6 @@ MainView {
             dbcon: root.dbcon
             stack: stack
             colors: colors
-            Component.onCompleted: {
-                useDarkMode = settings.useDarkMode
-            }
-
-            onUseDarkModeChanged: settings.useDarkMode = useDarkMode
             onCategoriesChanged: listPanel.refresh()
         }
     }

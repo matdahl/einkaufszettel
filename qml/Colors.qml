@@ -1,11 +1,23 @@
 import QtQuick 2.7
 import Ubuntu.Components.Themes 1.3
+import Qt.labs.settings 1.0
 
 Item {
     id: root
 
+    Settings{
+        id: settings
+        property alias colorIndex: root.currentIndex
+        property alias darkMode:   root.darkMode
+
+    }
+
+    // the initial color
+    property int initialIndex: 0
     // the currently selected color scheme
-    property int currentIndex: 0
+    property int currentIndex: initialIndex
+
+    // ensure that index in not out of range
     readonly property int maxIndex: headerColors.length-1
     onCurrentIndexChanged: {
         if (currentIndex<0) {
@@ -16,8 +28,8 @@ Item {
     }
 
     // states whether light or dark theme is used
-    property bool useDarkMode: true
-    readonly property int indexTheme: useDarkMode ? 0 : 1
+    property bool darkMode: true
+    readonly property int indexTheme: darkMode ? 0 : 1
 
     // the current colors
     readonly property color currentHeader:     headerColors[currentIndex][indexTheme]
@@ -43,15 +55,4 @@ Item {
          ["#1E1E01","#FEFEE1"], // 'yellow'  gpick: hue:  60, saturation:  96%, lightness -44%/+44%
          ["#1E0F01","#FEF0E1"]  // 'orange'  gpick: hue:  30, saturation:  96%, lightness -44%/+44%
         ]
-    /*
-        define theme and colors
-
-        main color params (using gpick):
-        hue: 340
-        saturation: 96%
-        lightness:
-            headerBackground:  -20% / +10%
-            background: -44% / +44%
-     */
-
 }

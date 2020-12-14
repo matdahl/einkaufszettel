@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-12 15:19+0000\n"
+"POT-Creation-Date: 2020-12-14 23:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,25 +17,25 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/Main.qml:57 einkaufszettel.desktop.in.h:1
+#: ../qml/Main.qml:51 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:78 ../qml/panels/ListPanel.qml:94
-#: ../qml/panels/ListPanel.qml:96
+#: ../qml/panels/ListPanel.qml:79 ../qml/panels/ListPanel.qml:95
+#: ../qml/panels/ListPanel.qml:97
 msgid "all"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:78 ../qml/panels/ListPanel.qml:107
-#: ../qml/panels/ListPanel.qml:109
+#: ../qml/panels/ListPanel.qml:79 ../qml/panels/ListPanel.qml:108
+#: ../qml/panels/ListPanel.qml:110
 msgid "other"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:123
+#: ../qml/panels/ListPanel.qml:224
 msgid "new entry ..."
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:252
+#: ../qml/panels/ListPanel.qml:279
 msgid "clear list"
 msgstr ""
 
@@ -47,14 +47,14 @@ msgstr ""
 msgid "new category ..."
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:27
+#: ../qml/panels/SettingsPanel.qml:24
 msgid "Categories"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:33
+#: ../qml/panels/SettingsPanel.qml:30
 msgid "Dark Mode"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:39
+#: ../qml/panels/SettingsPanel.qml:36
 msgid "Color"
 msgstr ""

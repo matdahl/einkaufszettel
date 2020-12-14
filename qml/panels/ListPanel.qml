@@ -1,4 +1,5 @@
 import QtQuick 2.7
+import QtQuick.Controls 2.2
 import Ubuntu.Components 1.3
 
 import "../components"
@@ -112,36 +113,6 @@ Item {
             selectedIndex = index
         }
     }
-    Row{
-        id: inputRow
-        anchors.top: sections.bottom
-        padding: units.gu(2)
-        spacing: units.gu(2)
-        TextField{
-            id: inputItem
-            width: root.width-btNewItem.width - 2*inputRow.padding - inputRow.spacing
-            placeholderText: i18n.tr("new entry ...")
-            enabled: sections.selectedIndex>0
-            onAccepted: btNewItem.clicked()
-        }
-        Button{
-            id: btNewItem
-            color: theme.palette.normal.positive
-            width: 1.6*height
-            iconName: "add"
-            enabled: sections.selectedIndex>0
-            onClicked: {
-                // remove deleted entries from DB
-                dbcon.removeDeleted()
-                // insert new entry
-                if (inputItem.text !== ""){
-                    dbcon.insertItem(inputItem.text,root.categories[sections.selectedIndex])
-                    inputItem.text = ""
-                    refresh()
-                }
-            }
-        }
-    }
 
     UbuntuListView{
         id: listView
@@ -150,6 +121,7 @@ Item {
             bottom: btClear.top
             left:   root.left
             right:  root.right
+            bottomMargin: units.gu(4)
         }
         currentIndex: -1
         model: ListModel{}
@@ -243,11 +215,66 @@ Item {
             }
         }
     }
+
+
+    InputRow{
+        id: inputRow
+        width: parent.width
+        anchors.top: sections.bottom
+        placeholderText: i18n.tr("new entry ...")
+        enabled: sections.selectedIndex>0
+        onAccepted: {
+            // remove deleted entries from DB
+            dbcon.removeDeleted()
+            // insert new entry
+            if (text !== ""){
+                dbcon.insertItem(text,root.categories[sections.selectedIndex])
+                refresh()
+                reset()
+            }
+        }
+    }
+    // button to restore entries which where previously deleted
+    Button{
+        id: btRestore
+        width: 0.4*root.width
+        x:     0.3*root.width
+
+        iconName: "undo"
+        color: theme.palette.normal.base
+
+        state: (dbcon.hasDeletedEntries) ? "on" : "off"
+        states: [
+            State{
+                name: "off"
+                PropertyChanges {target: btRestore; y: root.parent.height}
+            },
+            State{
+                name: "on"
+                PropertyChanges {target: btRestore; y: root.parent.height - height - units.gu(2)}
+            }
+        ]
+        transitions: Transition {
+            reversible: true
+            from: "off"
+            to: "on"
+            PropertyAnimation{
+                property: "y"
+                duration: 400
+            }
+        }
+        onClicked: {
+            dbcon.restoreDeleted()
+            sections.refresh()
+            refreshListView()
+        }
+    }
+
+    // button to delete all currently displayed entries
     Button{
         id: btClear
         width: root.width/2
         x:     root.width/4
-        y:     root.height
 
         text: i18n.tr("clear list")
         color: UbuntuColors.orange
@@ -255,11 +282,11 @@ Item {
         states: [
             State{
                 name: "off"
-                PropertyChanges {target: btClear; y:root.height}
+                PropertyChanges {target: btClear; y:root.parent.height}
             },
             State{
                 name: "on"
-                PropertyChanges {target: btClear; y:root.height - height - units.gu(2)}
+                PropertyChanges {target: btClear; y:root.parent.height - height - units.gu(2)}
             }
         ]
         transitions: Transition {
@@ -283,40 +310,40 @@ Item {
             refreshListView()
         }
     }
+
+    // Navigation buttons to switch between categories
     Button{
-        id: btRestore
-        width:  units.gu(6)
+        id: btPrevious
+        anchors{
+            bottom: parent.bottom
+            left: parent.left
+            margins: units.gu(2)
+        }
         height: units.gu(6)
-        x: root.width
-        y: root.height - height - units.gu(2)
-
-        iconName: "undo"
-        color: theme.palette.normal.base
-
-        state: (dbcon.hasDeletedEntries) ? "on" : "off"
-        states: [
-            State{
-                name: "off"
-                PropertyChanges {target: btRestore; x:root.width}
-            },
-            State{
-                name: "on"
-                PropertyChanges {target: btRestore; x:root.width - width - units.gu(2)}
-            }
-        ]
-        transitions: Transition {
-            reversible: true
-            from: "off"
-            to: "on"
-            PropertyAnimation{
-                property: "x"
-                duration: 400
-            }
-        }
+        width:  height
+        iconName: "previous"
+        visible: sections.selectedIndex>0
         onClicked: {
-            dbcon.restoreDeleted()
-            sections.refresh()
-            refreshListView()
+            dbcon.removeDeleted()
+            sections.selectedIndex -= 1
         }
+        strokeColor: theme.palette.normal.base
+    }
+    Button{
+        id: btNext
+        anchors{
+            bottom: parent.bottom
+            right: parent.right
+            margins: units.gu(2)
+        }
+        height: units.gu(6)
+        width:  height
+        iconName: "next"
+        visible: sections.selectedIndex <sections.model.length-1
+        onClicked: {
+            dbcon.removeDeleted()
+            sections.selectedIndex += 1
+        }
+        strokeColor: theme.palette.normal.base
     }
 }
