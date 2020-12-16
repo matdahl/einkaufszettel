@@ -51,6 +51,7 @@ Row{
         onFocusChanged: if (!focus) dropDown.visible = false
         onTextChanged:  dropDown.visible = (db_histo.active && text.length>0)
         inputMethodHints: Qt.ImhNoPredictiveText
+        
         Rectangle{
             id: dropDown
             anchors{

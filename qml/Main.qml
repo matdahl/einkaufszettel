@@ -32,8 +32,14 @@ MainView {
     width: units.gu(45)
     height: units.gu(75)
 
-    // the database connector which manages all DB interactions
+    // the database connector which manages all DB interactions for entries and categories
     property var dbcon: DBconnector{}
+
+    // the database connector to store the history of entries if wanted
+    DBHistory{
+        id: db_histo
+    }
+
 
     // the colors object which stores all informations about current color theme settings
     Colors{
@@ -48,7 +54,7 @@ MainView {
         anchors.fill: parent
         header: PageHeader {
             id: header
-            title: i18n.tr("Shopping List")
+            //title: i18n.tr("Shopping List")
             StyleHints{backgroundColor: colors.currentHeader}
 
             leadingActionBar.actions: [
@@ -78,18 +84,21 @@ MainView {
         StackView{
             id: stack
             anchors.fill: parent
+            onCurrentItemChanged: header.title = i18n.tr("Shopping List") + ((currentItem.headerSuffix !== "") ? " - "+currentItem.headerSuffix : "")
         }
 
         ListPanel{
             id: listPanel
             Component.onCompleted: stack.push(listPanel)
-            dbcon: root.dbcon
+            dbcon:    root.dbcon
+            db_histo: db_histo
         }
 
         SettingsPanel{
             id: settingsPanel
             visible: false
-            dbcon: root.dbcon
+            dbcon:    root.dbcon
+            db_histo: db_histo
             stack: stack
             colors: colors
             onCategoriesChanged: listPanel.refresh()

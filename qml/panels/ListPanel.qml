@@ -6,9 +6,13 @@ import "../components"
 
 Item {
     id: root
+    property string headerSuffix: ""
 
-    // the connector to interact with the database
+    // the connector to interact with the entries and categories database
     property var dbcon
+
+    // the connector to interact with the history database
+    property var db_histo
 
     // the list of categories
     property var categories: []
@@ -79,6 +83,7 @@ Item {
         model: [i18n.tr("all"),i18n.tr("other")]
 
         onSelectedIndexChanged: refreshListView()
+        onFocusChanged: dbcon.removeDeleted()
 
         function refresh(){
             var index = selectedIndex
@@ -223,14 +228,22 @@ Item {
         anchors.top: sections.bottom
         placeholderText: i18n.tr("new entry ...")
         enabled: sections.selectedIndex>0
+        db_histo: root.db_histo
+        Component.onCompleted: {
+            updateModel(db_histo)
+        }
         onAccepted: {
             // remove deleted entries from DB
             dbcon.removeDeleted()
-            // insert new entry
             if (text !== ""){
+                // insert new entry to database
                 dbcon.insertItem(text,root.categories[sections.selectedIndex])
+                // insert new entry to history
+                db_histo.addKey(text)
+                // refresh
                 refresh()
                 reset()
+                updateModel(db_histo)
             }
         }
     }

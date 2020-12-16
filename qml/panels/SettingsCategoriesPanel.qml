@@ -3,6 +3,7 @@ import Ubuntu.Components 1.3
 
 Item {
     id: root
+    property string headerSuffix: i18n.tr("Categories")
     property var dbcon
 
     signal categoriesChanged()
@@ -17,18 +18,10 @@ Item {
         }
     }
 
-    Label{
-        id: title
-        x: units.gu(2)
-        y: units.gu(2)
-        textSize: Label.Large
-        text: i18n.tr("edit categories:")
-    }
     Row{
         id: inputRow
         padding: units.gu(2)
         spacing: units.gu(2)
-        anchors.top: title.bottom
         TextField{
             id: inputCategory
             width: root.width - btNewCategory.width - 2*inputRow.padding - inputRow.spacing
@@ -52,6 +45,7 @@ Item {
     }
     UbuntuListView{
         id: listView
+        clip: true
         anchors{
             top:    inputRow.bottom
             bottom: root.bottom
@@ -142,5 +136,10 @@ Item {
                 visible: mouseUp.pressed
             }
         }
+    }
+    Label{
+        anchors.centerIn: parent
+        text: "("+i18n.tr("No entries") +")"
+        visible: listView.model.count===0
     }
 }
