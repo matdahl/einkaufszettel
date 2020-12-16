@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-12 15:19+0000\n"
+"POT-Creation-Date: 2020-12-16 21:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,44 +17,78 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/Main.qml:57 einkaufszettel.desktop.in.h:1
+#: ../qml/Main.qml:87 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:78 ../qml/panels/ListPanel.qml:94
-#: ../qml/panels/ListPanel.qml:96
+#: ../qml/panels/ListPanel.qml:83 ../qml/panels/ListPanel.qml:100
+#: ../qml/panels/ListPanel.qml:102
 msgid "all"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:78 ../qml/panels/ListPanel.qml:107
-#: ../qml/panels/ListPanel.qml:109
+#: ../qml/panels/ListPanel.qml:83 ../qml/panels/ListPanel.qml:113
+#: ../qml/panels/ListPanel.qml:115
 msgid "other"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:123
+#: ../qml/panels/ListPanel.qml:229
 msgid "new entry ..."
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:252
+#: ../qml/panels/ListPanel.qml:292
 msgid "clear list"
 msgstr ""
 
-#: ../qml/panels/SettingsCategoriesPanel.qml:25
-msgid "edit categories:"
-msgstr ""
-
-#: ../qml/panels/SettingsCategoriesPanel.qml:35
-msgid "new category ..."
-msgstr ""
-
-#: ../qml/panels/SettingsPanel.qml:27
+#: ../qml/panels/SettingsCategoriesPanel.qml:6
+#: ../qml/panels/SettingsPanel.qml:26
 msgid "Categories"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:33
+#: ../qml/panels/SettingsCategoriesPanel.qml:28
+msgid "new category ..."
+msgstr ""
+
+#: ../qml/panels/SettingsCategoriesPanel.qml:142
+#: ../qml/panels/SettingsHistoryPanel.qml:132
+msgid "No entries"
+msgstr ""
+
+#: ../qml/panels/SettingsHistoryPanel.qml:10
+msgid "History"
+msgstr ""
+
+#: ../qml/panels/SettingsHistoryPanel.qml:103
+msgid "delete history"
+msgstr ""
+
+#: ../qml/panels/SettingsPanel.qml:14
+msgid "Settings"
+msgstr ""
+
+#: ../qml/panels/SettingsPanel.qml:29
+msgid "Edit categories"
+msgstr ""
+
+#: ../qml/panels/SettingsPanel.qml:34
+msgid "Suggestions"
+msgstr ""
+
+#: ../qml/panels/SettingsPanel.qml:37
+msgid "Show suggestions"
+msgstr ""
+
+#: ../qml/panels/SettingsPanel.qml:43
+msgid "Edit history"
+msgstr ""
+
+#: ../qml/panels/SettingsPanel.qml:48
+msgid "Appearance"
+msgstr ""
+
+#: ../qml/panels/SettingsPanel.qml:51
 msgid "Dark Mode"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:39
+#: ../qml/panels/SettingsPanel.qml:57
 msgid "Color"
 msgstr ""

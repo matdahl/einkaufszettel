@@ -25,7 +25,7 @@ Item {
                                                db_description,
                                                db_size,
                                                db_test_callback(db))
-        // create tables if not exist
+// Create categories table if needed
         try{
             db.transaction(function(tx){
                 tx.executeSql("CREATE TABLE IF NOT EXISTS "+db_table_categories+" "
@@ -34,6 +34,7 @@ Item {
         } catch (err){
             console.error("Error when creating table '"+db_table_categories+"': " + err)
         }
+// Create items table if needed
         try{
             db.transaction(function(tx){
                 tx.executeSql("CREATE TABLE IF NOT EXISTS "+db_table_items+" "
@@ -42,7 +43,7 @@ Item {
         } catch (err){
             console.error("Error when creating table '"+db_table_items+"': " + err)
         }
-        // check if all required colunms are in table and create missing ones
+// check if all required colunms are in table and create missing ones
         try{
             var colnames = []
             db.transaction(function(tx){
