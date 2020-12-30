@@ -4,6 +4,26 @@ import QtQuick.LocalStorage 2.0 as Sql
 Item {
     id: root
 
+    property var categoriesModel: ListModel{}
+    property var categoriesList: []
+
+    signal categoriesChanged()
+    signal itemsChanged()
+
+    onCategoriesChanged: {
+        // refresh categoriesModel
+        categoriesModel.clear()
+        categoriesList = [i18n.tr("all")]
+        categoriesModel.append({name:i18n.tr("all")})
+        var cats = selectCategories()
+        for (var i=0;i<cats.length;i++){
+            categoriesModel.append(cats[i])
+            categoriesList.push(cats[i].name)
+        }
+        categoriesModel.append({name:i18n.tr("other")})
+        categoriesList.push(i18n.tr("other"))
+    }
+
     property var db
 
     // flag to state whether there are restorable deleted items
@@ -75,6 +95,7 @@ Item {
         }
         // if there are still deleted items left, remove them form DB for a clean start
         removeDeleted()
+        categoriesChanged()
     }
 
     function insertCategory(name){
@@ -84,6 +105,7 @@ Item {
                 tx.executeSql("INSERT OR IGNORE INTO "+db_table_categories+" VALUES"
                               +"('"+name+"')")
             })
+            categoriesChanged()
         } catch (err){
             console.error("Error when insert into table '"+db_table_categories+"': " + err)
         }
@@ -94,6 +116,7 @@ Item {
             db.transaction(function(tx){
                 tx.executeSql("DELETE FROM "+db_table_categories+" WHERE name='"+name+"'")
             })
+            categoriesChanged()
         } catch (err){
             console.error("Error when delete from table '"+db_table_categories+"': " + err)
         }
@@ -123,6 +146,7 @@ Item {
                 // set cat2=cat1
                 tx.executeSql("UPDATE "+db_table_categories+" SET name='"+cat1+"' WHERE name='"+dummy+"'")
             })
+            categoriesChanged()
         } catch (err){
             console.error("Error when swaping categories in table '"+db_table_categories+"': " + err)
         }
@@ -149,8 +173,7 @@ Item {
                                  ,[name,category,quantity,dimension])
                 })
             }
-
-
+            itemsChanged()
         } catch (err){
             console.error("Error when insert into table '"+db_table_items+"': " + err)
         }
@@ -161,6 +184,7 @@ Item {
             db.transaction(function(tx){
                 tx.executeSql("DELETE FROM "+db_table_items+" WHERE uid='"+uid+"'")
             })
+            itemsChanged()
         } catch (err){
             console.error("Error when delete from table '"+db_table_items+"': " + err)
         }
@@ -192,6 +216,7 @@ Item {
                 tx.executeSql("UPDATE "+db_table_items+" SET uid="+uid1+" WHERE uid="+uid2)
                 tx.executeSql("UPDATE "+db_table_items+" SET uid="+uid2+" WHERE uid="+tempID)
             })
+            itemsChanged()
         } catch (err){
             console.error("Error when swaping items in table '"+db_table_items+"': " + err)
         }
@@ -204,6 +229,7 @@ Item {
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_items+" SET deleteFlag=1 WHERE uid='"+uid+"'")
             })
+            itemsChanged()
             hasDeletedEntries = true
         } catch (err){
             console.error("Error when marking entry as deleted in table '"+db_table_items+"': " + err)
@@ -231,37 +257,47 @@ Item {
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_items+" SET deleteFlag=0 WHERE deleteFlag=1")
             })
+            itemsChanged()
             hasDeletedEntries = false
         } catch (err){
             console.error("Error when restoring deleted entries in table '"+db_table_items+"': " + err)
         }
     }
 
-    function countEntriesPerCategory(categorylist){
-        // get list of all categories
+    /* counts for each category the number of not deleted items in database */
+    function countEntriesPerCategory(){
         if (!db) init()
         try{
+            // get list of all categories
+            var rawcats = []
+            for (var i=1;i<categoriesModel.count-1;i++){
+                rawcats.push(categoriesModel.get(i).name)
+            }
             var rt
             db.transaction(function(tx){
                 rt = tx.executeSql("SELECT category FROM "+db_table_items+" WHERE deleteFlag=0")
             })
-            var counts = []
-            for (var i=0;i<categorylist.length+1;i++) counts.push(0)
+            var counts = [0,0]
+            for (var i=0;i<rawcats.length;i++) counts.push(0)
             // go through each DB entry
             for (var i=0; i<rt.rows.length;i++){
-                // check which category is the current one - if none fits, count it as "sonstige"
+                // check which category is the current one - if none fits, count it as "other"
                 var j
-                for (j=0; j<categorylist.length;j++){
-                    if (categorylist[j]===rt.rows[i].category) break
+                for (j=0; j<rawcats.length;j++){
+                    if (rawcats[j]===rt.rows[i].category) break
                 }
-                counts[j] += 1
+                counts[j+1] += 1
+                // count all
+                counts[0] += 1
             }
             return counts
         } catch (err){
-            console.error("Error when select from table '"+db_table_items+"': " + err)
+            console.error("Error when counting items in table '"+db_table_items+"': " + err)
         }
     }
-    function printAllItems(){
+
+    /* prints all items from the database to the terminal - for debugging purposes only */
+    /*function printAllItems(){
         if (!db) init()
         try{
             var rows
@@ -274,7 +310,7 @@ Item {
         } catch (err){
             console.error("Error when selecting all from table '"+db_table_items+"': " + err)
         }
-    }
+    }*/
 }
 
 

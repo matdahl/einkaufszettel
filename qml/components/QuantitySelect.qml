@@ -23,6 +23,7 @@ Button {
 
     property bool expanded: false
 
+    onEnabledChanged: if (!enabled) expanded = false
     //onFocusChanged: if (!focus && !inputQuantity.focus && !btUnit.focus && !unitsListView.focus) expanded = false
 
     onClicked: expanded = !expanded
@@ -30,7 +31,7 @@ Button {
     Label{
         id: lbText
         anchors.centerIn: parent
-        text: quantity + " " + (dimension ? dimension.symbol : "")
+        text: quantity + " " + (dimension ? dimension.symbol : "x")
     }
 
     Rectangle{

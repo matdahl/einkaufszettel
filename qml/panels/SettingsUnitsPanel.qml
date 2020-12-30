@@ -24,14 +24,14 @@ Item {
         spacing: units.gu(2)
         TextField{
             id: inputSymbol
-            width: units.gu(10)
-            placeholderText: i18n.tr("symbol")
+            width: units.gu(8)
+            placeholderText: i18n.tr("abbr.")
             hasClearButton: false
         }
         TextField{
             id: inputName
             width: root.width - btNewUnit.width - 2*inputRow.padding - 2*inputRow.spacing - inputSymbol.width
-            placeholderText: i18n.tr("enter name ...")
+            placeholderText: i18n.tr("new unit ...")
             onAccepted: btNewUnit.clicked()
         }
         Button{

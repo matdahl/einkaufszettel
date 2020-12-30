@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-30 19:17+0100\n"
+"POT-Creation-Date: 2020-12-30 22:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,8 +21,18 @@ msgstr ""
 msgid "Shopping List"
 msgstr ""
 
-#: ../qml/components/QuantitySelect.qml:68
+#: ../qml/components/QuantitySelect.qml:69
 msgid "OK"
+msgstr ""
+
+#: ../qml/db/DBconnector.qml:16 ../qml/db/DBconnector.qml:17
+#: ../qml/panels/ListPanel.qml:51 ../qml/panels/ListPanel.qml:52
+msgid "all"
+msgstr ""
+
+#: ../qml/db/DBconnector.qml:23 ../qml/db/DBconnector.qml:24
+#: ../qml/panels/ListPanel.qml:58 ../qml/panels/ListPanel.qml:59
+msgid "other"
 msgstr ""
 
 #: ../qml/db/Dimensions.qml:57
@@ -41,28 +51,17 @@ msgstr ""
 msgid "Liter"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:83 ../qml/panels/ListPanel.qml:100
-#: ../qml/panels/ListPanel.qml:102
-msgid "all"
-msgstr ""
-
-#: ../qml/panels/ListPanel.qml:83 ../qml/panels/ListPanel.qml:113
-#: ../qml/panels/ListPanel.qml:115
-msgid "other"
-msgstr ""
-
-#: ../qml/panels/ListPanel.qml:124
-#: ../qml/panels/SettingsCategoriesPanel.qml:142
+#: ../qml/panels/ListPanel.qml:69 ../qml/panels/SettingsCategoriesPanel.qml:142
 #: ../qml/panels/SettingsHistoryPanel.qml:132
 #: ../qml/panels/SettingsUnitsPanel.qml:157
 msgid "No entries"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:244
+#: ../qml/panels/ListPanel.qml:219
 msgid "new entry ..."
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:307
+#: ../qml/panels/ListPanel.qml:276
 msgid "clear list"
 msgstr ""
 
@@ -123,9 +122,9 @@ msgid "Units"
 msgstr ""
 
 #: ../qml/panels/SettingsUnitsPanel.qml:28
-msgid "symbol"
+msgid "abbr."
 msgstr ""
 
 #: ../qml/panels/SettingsUnitsPanel.qml:34
-msgid "enter name ..."
+msgid "new unit ..."
 msgstr ""
