@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.mdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-30 18:41+0100\n"
-"PO-Revision-Date: 2020-12-30 18:43+0100\n"
+"POT-Creation-Date: 2020-12-30 19:48+0100\n"
+"PO-Revision-Date: 2020-12-30 19:50+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -92,10 +92,8 @@ msgid "Edit categories"
 msgstr "Kategorien bearbeiten"
 
 #: ../qml/panels/SettingsPanel.qml:36
-#, fuzzy
-#| msgid "Edit history"
 msgid "Edit units"
-msgstr "Verlauf bearbeiten"
+msgstr "Einheiten bearbeiten"
 
 #: ../qml/panels/SettingsPanel.qml:41
 msgid "Suggestions"
@@ -126,14 +124,20 @@ msgid "Units"
 msgstr "Einheiten"
 
 #: ../qml/panels/SettingsUnitsPanel.qml:28
-msgid "symbol"
-msgstr "Abkürzung"
+msgid "abbr."
+msgstr "Abk."
 
 #: ../qml/panels/SettingsUnitsPanel.qml:34
+msgid "new unit ..."
+msgstr "neue Einheit ..."
+
+#~ msgid "symbol"
+#~ msgstr "Abkürzung"
+
 #, fuzzy
-#| msgid "new category ..."
-msgid "enter name ..."
-msgstr "neue Kategorie ..."
+#~| msgid "new category ..."
+#~ msgid "enter name ..."
+#~ msgstr "neue Kategorie ..."
 
 #~ msgid "edit categories:"
 #~ msgstr "Kategorien bearbeiten:"

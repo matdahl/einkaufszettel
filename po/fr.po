@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-30 18:41+0100\n"
-"PO-Revision-Date: 2020-12-30 18:47+0100\n"
+"POT-Creation-Date: 2020-12-30 19:48+0100\n"
+"PO-Revision-Date: 2020-12-30 19:51+0100\n"
 "Last-Translator: Anne017\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -87,10 +87,8 @@ msgid "Edit categories"
 msgstr "Modifier les catégories"
 
 #: ../qml/panels/SettingsPanel.qml:36
-#, fuzzy
-#| msgid "Edit history"
 msgid "Edit units"
-msgstr "Modifier l'historique"
+msgstr "Modifier les unités"
 
 #: ../qml/panels/SettingsPanel.qml:41
 msgid "Suggestions"
@@ -121,11 +119,17 @@ msgid "Units"
 msgstr "Unités"
 
 #: ../qml/panels/SettingsUnitsPanel.qml:28
-msgid "symbol"
-msgstr "abréviation"
+msgid "abbr."
+msgstr "abr."
 
 #: ../qml/panels/SettingsUnitsPanel.qml:34
+msgid "new unit ..."
+msgstr "nouvelle unité..."
+
+#~ msgid "symbol"
+#~ msgstr "abréviation"
+
 #, fuzzy
-#| msgid "new category ..."
-msgid "enter name ..."
-msgstr "nouvelle catégorie..."
+#~| msgid "new category ..."
+#~ msgid "enter name ..."
+#~ msgstr "nouvelle catégorie..."
