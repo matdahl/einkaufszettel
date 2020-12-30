@@ -1,4 +1,5 @@
 import QtQuick 2.7
+import QtQml 2.2
 import QtQuick.Controls 2.2
 import Ubuntu.Components 1.3
 
@@ -14,64 +15,6 @@ Item {
     // the connector to interact with the history database
     property var db_histo
 
-    // the list of categories
-    property var categories: []
-
-    // the list of recently deleted entries
-    property var deletedEntries: []
-
-    function refresh(){
-        // read categories
-        var rawcat = []
-        var rows = dbcon.selectCategories()
-        for (var i=0; i<rows.length; i++){
-            rawcat.push(rows[i].name)
-        }
-        // count entries
-        var counts = dbcon.countEntriesPerCategory(rawcat)
-        var counts_all = 0
-        for (var i=0;i<counts.length;i++) counts_all += counts[i]
-        categories = []
-        categories.push("alle")
-        var j
-        for (j=0;j<rawcat.length;j++){
-            categories.push(rawcat[j])
-        }
-        categories.push("sonstige")
-        sections.refresh()
-        refreshListView()
-    }
-
-    function refreshListView(){
-        listView.model.clear()
-        var category = root.categories[sections.selectedIndex]
-        // check if all entries should be displayed
-        if (sections.selectedIndex==0){
-            var rows = dbcon.selectItems("")
-            for (var i=rows.length-1; i>-1; i--) {
-                listView.model.append(rows[i])
-            }
-        } else {
-            if (category==="sonstige") category = ""
-            var rows = dbcon.selectItems(category)
-            if (rows){
-                for (var i= rows.length-1;i>-1;i--){
-                    // if category=sonstige, then check whether category exists
-                    if (category===""){
-                        var found = false
-                        for (var j=1; j<categories.length-1; j++){
-                            if (categories[j]===rows[i].category) found = true
-                        }
-                        if (found) continue
-                    }
-                    listView.model.append(rows[i])
-                }
-            }
-        }
-    }
-
-    Component.onCompleted: refresh()
-
     Sections{
         id: sections
         anchors{
@@ -80,42 +23,44 @@ Item {
             right: parent.right
         }
         height: units.gu(6)
-        model: [i18n.tr("all"),i18n.tr("other")]
+        model: []
 
-        onSelectedIndexChanged: refreshListView()
-        onFocusChanged: dbcon.removeDeleted()
+        // connect signals from DB connector with slots
+        Component.onCompleted: {
+            dbcon.itemsChanged.connect(recount)
+            dbcon.categoriesChanged.connect(refresh)
+            // refresh to initialise the model
+            refresh()
+        }
+        onSelectedIndexChanged: listView.refresh()
 
+        /* refreshs the sections in case the categories changed */
         function refresh(){
-            var index = selectedIndex
-            // get raw categories
-            var rawcat = []
-            for (var i=1;i<categories.length-1;i++) rawcat.push(categories[i])
-            // count entries
-            var counts = dbcon.countEntriesPerCategory(rawcat)
-            var counts_all = 0
-            for (var i=0;i<counts.length;i++) counts_all += counts[i]
-            // generate titles for sections
-            var newmodel = []
-            if (counts_all>0){
-                newmodel.push("<b>"+i18n.tr("all")+" ("+counts_all+")</b>")
-            } else {
-                newmodel.push(i18n.tr("all")+" ("+counts_all+")")
+            // empty old model
+            model.length = 0
+            for (var i=0;i<dbcon.categoriesModel.count;i++){
+                model.push(dbcon.categoriesModel.get(i).name)
             }
+            // count entries per category
+            recount()
+        }
+
+        /* update the counts of entries per category */
+        function recount(){
+            var counts = dbcon.countEntriesPerCategory()
+            model[0] = (counts[0]>0) ? "<b>"+i18n.tr("all")+" ("+counts[0]+")</b>"
+                                              :       i18n.tr("all")+" (0)"
             var j
-            for (j=0;j<rawcat.length;j++){
-                if (counts[j]>0){
-                    newmodel.push("<b>"+rawcat[j]+" ("+counts[j]+")</b>")
-                } else {
-                    newmodel.push(rawcat[j]+" ("+counts[j]+")")
-                }
+            for (j=1;j<model.length-1;j++){
+                model[j] = (counts[j]>0) ? "<b>"+dbcon.categoriesModel.get(j).name+" ("+counts[j]+")</b>"
+                                                  :       dbcon.categoriesModel.get(j).name+" (0)"
             }
-            if (counts[j]>0){
-                newmodel.push("<b>"+i18n.tr("other")+" ("+counts[j]+")</b>")
-            } else {
-                newmodel.push(i18n.tr("other")+" ("+counts[j]+")")
-            }
-            model = newmodel
-            selectedIndex = index
+            model[j] = (counts[j]>0) ? "<b>"+i18n.tr("other")+" ("+counts[j]+")</b>"
+                                              :       i18n.tr("other")+" (0)"
+            // trigger event to repaint view
+            var temp = selectedIndex
+            modelChanged()
+            selectedIndex = temp
         }
     }
 
@@ -136,16 +81,46 @@ Item {
         }
         currentIndex: -1
         model: ListModel{}
+
+        Component.onCompleted: {
+            dbcon.itemsChanged.connect(refresh)
+            refresh()
+        }
+
+        function refresh(){
+            model.clear()
+            // check if all entries should be displayed
+            if (sections.selectedIndex==0){
+                var rows = dbcon.selectItems("")
+                for (var i=rows.length-1; i>-1; i--) {
+                    listView.model.append(rows[i])
+                }
+            } else {
+                var category = dbcon.categoriesModel.get(sections.selectedIndex).name
+                if (category==="sonstige") category = ""
+                var rows = dbcon.selectItems(category)
+                if (rows){
+                    for (var i= rows.length-1;i>-1;i--){
+                        // if category=sonstige, then check whether category exists
+                        if (category===""){
+                            var found = false
+                            for (var j=1; j<categories.length-1; j++){
+                                if (categories[j]===rows[i].category) found = true
+                            }
+                            if (found) continue
+                        }
+                        listView.model.append(rows[i])
+                    }
+                }
+            }
+        }
+
         delegate: ListItem{
             leadingActions: ListItemActions{
                 actions: [
                     Action{
                         iconName: "delete"
-                        onTriggered: {
-                            dbcon.deleteItem(listView.model.get(index).uid)
-                            sections.refresh()
-                            root.refreshListView()
-                        }
+                        onTriggered: dbcon.deleteItem(listView.model.get(index).uid)
                     }
                 ]
             }
@@ -252,11 +227,9 @@ Item {
             dbcon.removeDeleted()
             if (text !== ""){
                 // insert new entry to database
-                dbcon.insertItem(text.trim(),root.categories[sections.selectedIndex],inputRow.quantity,inputRow.dimension)
+                dbcon.insertItem(text.trim(),dbcon.categoriesList[sections.selectedIndex],inputRow.quantity,inputRow.dimension)
                 // insert new entry to history
-                db_histo.addKey(text)
-                // refresh
-                refresh()
+                db_histo.addKey(text.trim())
                 reset()
                 updateModel(db_histo)
             }
@@ -291,11 +264,7 @@ Item {
                 duration: 400
             }
         }
-        onClicked: {
-            dbcon.restoreDeleted()
-            sections.refresh()
-            refreshListView()
-        }
+        onClicked: dbcon.restoreDeleted()
     }
 
     // button to delete all currently displayed entries
@@ -333,9 +302,17 @@ Item {
             for (var i=listView.model.count-1;i>-1;i--){
                 dbcon.markAsDeleted(listView.model.get(i).uid)
             }
-            // refresh
-            sections.refresh()
-            refreshListView()
+            // (re)start timer to automatically delete items from database
+            deleteTimer.restart()
+        }
+    }
+
+    // a timer to finally delete list entries 10s after they have been marked as deledeletedEntries:
+    Timer{
+        id: deleteTimer
+        interval: 10000
+        onTriggered:{
+            dbcon.removeDeleted()
         }
     }
 
@@ -351,10 +328,7 @@ Item {
         width:  height
         iconName: "previous"
         visible: sections.selectedIndex>0
-        onClicked: {
-            dbcon.removeDeleted()
-            sections.selectedIndex -= 1
-        }
+        onClicked: sections.selectedIndex -= 1
         strokeColor: theme.palette.normal.base
     }
     Button{
@@ -368,10 +342,7 @@ Item {
         width:  height
         iconName: "next"
         visible: sections.selectedIndex <sections.model.length-1
-        onClicked: {
-            dbcon.removeDeleted()
-            sections.selectedIndex += 1
-        }
+        onClicked: sections.selectedIndex += 1
         strokeColor: theme.palette.normal.base
     }
 }
