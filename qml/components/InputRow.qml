@@ -10,6 +10,9 @@ Row{
     property string text: input.text
     property bool enabled: true
 
+    property alias  quantity: quantitySelect.quantity
+    property string dimension: quantitySelect.dimension ? quantitySelect.dimension.symbol : 'x'
+
     property var db_histo
     property var model: ListModel{}
 
@@ -33,22 +36,38 @@ Row{
     }
 
     signal accepted()
-    function reset(){input.text = ""}
+    function reset(){
+        input.text = ""
+        quantitySelect.reset()
+    }
 
     property int dropDownRowHeight: units.gu(5)
     property int dropDownMaxRows: 5
 
     padding: units.gu(2)
-    spacing: units.gu(2)
+    spacing: units.gu(1)
+
+    QuantitySelect{
+        id: quantitySelect
+        enabled: root.enabled
+    }
+
     TextField{
         id: input
-        width: root.width - button.width - 2*inputRow.padding - inputRow.spacing
+        width: root.width - button.width - 2*inputRow.padding - units.gu(2) - quantitySelect.width
         placeholderText: root.placeholderText
         enabled: root.enabled
         onAccepted: {
             root.accepted()
         }
-        onFocusChanged: if (!focus) dropDown.visible = false
+
+        onFocusChanged: {
+            if (focus){
+                quantitySelect.expanded = false
+            } else {
+                dropDown.visible = false
+            }
+        }
         onTextChanged:  dropDown.visible = (db_histo.active && text.length>0)
         inputMethodHints: Qt.ImhNoPredictiveText
         Rectangle{
@@ -80,18 +99,23 @@ Row{
                     }
                     onClicked: {
                         input.text = key
-                        root.accepted()
+                        dropDown.visible = false
+                        //root.accepted()
                     }
                 }
             }
         }
     }
+
     Button{
         id: button
         color: theme.palette.normal.positive
         width: 1.6*height
         iconName: "add"
         enabled: root.enabled
-        onClicked: root.accepted()
+        onClicked: {
+            quantitySelect.expanded = false
+            root.accepted()
+        }
     }
 }
