@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-12 14:22+0000\n"
-"PO-Revision-Date: 2020-12-12 15:28+0100\n"
+"POT-Creation-Date: 2020-12-30 18:41+0100\n"
+"PO-Revision-Date: 2020-12-30 18:51+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -18,44 +18,119 @@ msgstr ""
 "X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../qml/Main.qml:57 einkaufszettel.desktop.in.h:1
+#: ../qml/Main.qml:92 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
 msgstr "Boodschappenlijst"
 
-#: ../qml/panels/ListPanel.qml:78 ../qml/panels/ListPanel.qml:94
-#: ../qml/panels/ListPanel.qml:96
+#: ../qml/components/QuantitySelect.qml:68
+msgid "OK"
+msgstr "OK"
+
+#: ../qml/db/Dimensions.qml:57
+msgid "Piece"
+msgstr "Stuk"
+
+#: ../qml/db/Dimensions.qml:58
+msgid "Gram"
+msgstr "Gram"
+
+#: ../qml/db/Dimensions.qml:59
+msgid "Kilogram"
+msgstr "Kilogram"
+
+#: ../qml/db/Dimensions.qml:60
+msgid "Liter"
+msgstr "Liter"
+
+#: ../qml/panels/ListPanel.qml:83 ../qml/panels/ListPanel.qml:100
+#: ../qml/panels/ListPanel.qml:102
 msgid "all"
 msgstr "alle"
 
-#: ../qml/panels/ListPanel.qml:78 ../qml/panels/ListPanel.qml:107
-#: ../qml/panels/ListPanel.qml:109
+#: ../qml/panels/ListPanel.qml:83 ../qml/panels/ListPanel.qml:113
+#: ../qml/panels/ListPanel.qml:115
 msgid "other"
 msgstr "overige"
 
-#: ../qml/panels/ListPanel.qml:123
+#: ../qml/panels/ListPanel.qml:124
+#: ../qml/panels/SettingsCategoriesPanel.qml:142
+#: ../qml/panels/SettingsHistoryPanel.qml:132
+#: ../qml/panels/SettingsUnitsPanel.qml:157
+msgid "No entries"
+msgstr "Geen items"
+
+#: ../qml/panels/ListPanel.qml:244
 msgid "new entry ..."
 msgstr "item toevoegen..."
 
-#: ../qml/panels/ListPanel.qml:252
+#: ../qml/panels/ListPanel.qml:307
 msgid "clear list"
 msgstr "lijst wissen"
 
-#: ../qml/panels/SettingsCategoriesPanel.qml:25
-msgid "edit categories:"
-msgstr "categorieën aanpassen:"
-
-#: ../qml/panels/SettingsCategoriesPanel.qml:35
-msgid "new category ..."
-msgstr "categorie toevoegen..."
-
-#: ../qml/panels/SettingsPanel.qml:27
+#: ../qml/panels/SettingsCategoriesPanel.qml:6
 msgid "Categories"
 msgstr "Categorieën"
 
-#: ../qml/panels/SettingsPanel.qml:33
+#: ../qml/panels/SettingsCategoriesPanel.qml:28
+msgid "new category ..."
+msgstr "categorie toevoegen..."
+
+#: ../qml/panels/SettingsHistoryPanel.qml:10
+msgid "History"
+msgstr "Geschiedenis"
+
+#: ../qml/panels/SettingsHistoryPanel.qml:103
+msgid "delete history"
+msgstr "geschiedenis wissen"
+
+#: ../qml/panels/SettingsPanel.qml:15
+msgid "Settings"
+msgstr "Instellingen"
+
+#: ../qml/panels/SettingsPanel.qml:30
+msgid "Edit categories"
+msgstr "Categorieën aanpassen"
+
+#: ../qml/panels/SettingsPanel.qml:36
+#, fuzzy
+#| msgid "Edit history"
+msgid "Edit units"
+msgstr "Geschiedenis bewerken"
+
+#: ../qml/panels/SettingsPanel.qml:41
+msgid "Suggestions"
+msgstr "Suggesties"
+
+#: ../qml/panels/SettingsPanel.qml:44
+msgid "Show suggestions"
+msgstr "Suggesties tonen"
+
+#: ../qml/panels/SettingsPanel.qml:50
+msgid "Edit history"
+msgstr "Geschiedenis bewerken"
+
+#: ../qml/panels/SettingsPanel.qml:55
+msgid "Appearance"
+msgstr "Uiterlijk"
+
+#: ../qml/panels/SettingsPanel.qml:58
 msgid "Dark Mode"
 msgstr "Donker thema"
 
-#: ../qml/panels/SettingsPanel.qml:39
+#: ../qml/panels/SettingsPanel.qml:64
 msgid "Color"
 msgstr "Kleur"
+
+#: ../qml/panels/SettingsUnitsPanel.qml:6
+msgid "Units"
+msgstr "Units"
+
+#: ../qml/panels/SettingsUnitsPanel.qml:28
+msgid "symbol"
+msgstr "afkorting"
+
+#: ../qml/panels/SettingsUnitsPanel.qml:34
+#, fuzzy
+#| msgid "new category ..."
+msgid "enter name ..."
+msgstr "categorie toevoegen..."
