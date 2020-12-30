@@ -1,26 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the einkaufszettel.matdahl package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: einkaufszettel.matdahl\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-12-30 18:41+0100\n"
-"PO-Revision-Date: 2020-12-30 18:51+0100\n"
-"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
+"PO-Revision-Date: 2020-12-30 18:47+0100\n"
+"Last-Translator: Anne017\n"
 "Language-Team: \n"
-"Language: nl\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.3\n"
 
 #: ../qml/Main.qml:92 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
-msgstr "Boodschappenlijst"
+msgstr "Liste de courses"
 
 #: ../qml/components/QuantitySelect.qml:68
 msgid "OK"
@@ -28,109 +23,109 @@ msgstr "OK"
 
 #: ../qml/db/Dimensions.qml:57
 msgid "Piece"
-msgstr "Stuk"
+msgstr "Pièce"
 
 #: ../qml/db/Dimensions.qml:58
 msgid "Gram"
-msgstr "Gram"
+msgstr "Gramme"
 
 #: ../qml/db/Dimensions.qml:59
 msgid "Kilogram"
-msgstr "Kilogram"
+msgstr "Kilogramme"
 
 #: ../qml/db/Dimensions.qml:60
 msgid "Liter"
-msgstr "Liter"
+msgstr "Litre"
 
 #: ../qml/panels/ListPanel.qml:83 ../qml/panels/ListPanel.qml:100
 #: ../qml/panels/ListPanel.qml:102
 msgid "all"
-msgstr "alle"
+msgstr "tout"
 
 #: ../qml/panels/ListPanel.qml:83 ../qml/panels/ListPanel.qml:113
 #: ../qml/panels/ListPanel.qml:115
 msgid "other"
-msgstr "overige"
+msgstr "autre"
 
 #: ../qml/panels/ListPanel.qml:124
 #: ../qml/panels/SettingsCategoriesPanel.qml:142
 #: ../qml/panels/SettingsHistoryPanel.qml:132
 #: ../qml/panels/SettingsUnitsPanel.qml:157
 msgid "No entries"
-msgstr "Geen items"
+msgstr "Pas d'entrée"
 
 #: ../qml/panels/ListPanel.qml:244
 msgid "new entry ..."
-msgstr "item toevoegen..."
+msgstr "nouvelle entrée..."
 
 #: ../qml/panels/ListPanel.qml:307
 msgid "clear list"
-msgstr "lijst wissen"
+msgstr "vider la liste"
 
 #: ../qml/panels/SettingsCategoriesPanel.qml:6
 msgid "Categories"
-msgstr "Categorieën"
+msgstr "Catégories"
 
 #: ../qml/panels/SettingsCategoriesPanel.qml:28
 msgid "new category ..."
-msgstr "categorie toevoegen..."
+msgstr "nouvelle catégorie..."
 
 #: ../qml/panels/SettingsHistoryPanel.qml:10
 msgid "History"
-msgstr "Geschiedenis"
+msgstr "Historique"
 
 #: ../qml/panels/SettingsHistoryPanel.qml:103
 msgid "delete history"
-msgstr "geschiedenis wissen"
+msgstr "vider l'historique"
 
 #: ../qml/panels/SettingsPanel.qml:15
 msgid "Settings"
-msgstr "Instellingen"
+msgstr "Paramètres"
 
 #: ../qml/panels/SettingsPanel.qml:30
 msgid "Edit categories"
-msgstr "Categorieën aanpassen"
+msgstr "Modifier les catégories"
 
 #: ../qml/panels/SettingsPanel.qml:36
 #, fuzzy
 #| msgid "Edit history"
 msgid "Edit units"
-msgstr "Geschiedenis bewerken"
+msgstr "Modifier l'historique"
 
 #: ../qml/panels/SettingsPanel.qml:41
 msgid "Suggestions"
-msgstr "Suggesties"
+msgstr "Suggestions"
 
 #: ../qml/panels/SettingsPanel.qml:44
 msgid "Show suggestions"
-msgstr "Suggesties tonen"
+msgstr "Faire des suggestions"
 
 #: ../qml/panels/SettingsPanel.qml:50
 msgid "Edit history"
-msgstr "Geschiedenis bewerken"
+msgstr "Modifier l'historique"
 
 #: ../qml/panels/SettingsPanel.qml:55
 msgid "Appearance"
-msgstr "Uiterlijk"
+msgstr "Apparence"
 
 #: ../qml/panels/SettingsPanel.qml:58
 msgid "Dark Mode"
-msgstr "Donker thema"
+msgstr "Mode sombre"
 
 #: ../qml/panels/SettingsPanel.qml:64
 msgid "Color"
-msgstr "Kleur"
+msgstr "Couleur"
 
 #: ../qml/panels/SettingsUnitsPanel.qml:6
 msgid "Units"
-msgstr "Units"
+msgstr "Unités"
 
 #: ../qml/panels/SettingsUnitsPanel.qml:28
 msgid "symbol"
-msgstr "afkorting"
+msgstr "abréviation"
 
 #: ../qml/panels/SettingsUnitsPanel.qml:34
 #, fuzzy
 #| msgid "new category ..."
 msgid "enter name ..."
-msgstr "categorie toevoegen..."
+msgstr "nouvelle catégorie..."

@@ -1,26 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the einkaufszettel.matdahl package.
+# This file is distributed under the same license as the einkaufszettel.mdahl package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: einkaufszettel.matdahl\n"
+"Project-Id-Version: einkaufszettel.mdahl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-12-30 18:41+0100\n"
-"PO-Revision-Date: 2020-12-30 18:51+0100\n"
-"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
+"PO-Revision-Date: 2020-12-30 18:43+0100\n"
+"Last-Translator: \n"
 "Language-Team: \n"
-"Language: nl\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../qml/Main.qml:92 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
-msgstr "Boodschappenlijst"
+msgstr "Einkaufszettel"
 
 #: ../qml/components/QuantitySelect.qml:68
 msgid "OK"
@@ -28,15 +28,15 @@ msgstr "OK"
 
 #: ../qml/db/Dimensions.qml:57
 msgid "Piece"
-msgstr "Stuk"
+msgstr "Stück"
 
 #: ../qml/db/Dimensions.qml:58
 msgid "Gram"
-msgstr "Gram"
+msgstr "Gramm"
 
 #: ../qml/db/Dimensions.qml:59
 msgid "Kilogram"
-msgstr "Kilogram"
+msgstr "Kilogramm"
 
 #: ../qml/db/Dimensions.qml:60
 msgid "Liter"
@@ -50,87 +50,90 @@ msgstr "alle"
 #: ../qml/panels/ListPanel.qml:83 ../qml/panels/ListPanel.qml:113
 #: ../qml/panels/ListPanel.qml:115
 msgid "other"
-msgstr "overige"
+msgstr "sonstige"
 
 #: ../qml/panels/ListPanel.qml:124
 #: ../qml/panels/SettingsCategoriesPanel.qml:142
 #: ../qml/panels/SettingsHistoryPanel.qml:132
 #: ../qml/panels/SettingsUnitsPanel.qml:157
 msgid "No entries"
-msgstr "Geen items"
+msgstr "Keine Einträge"
 
 #: ../qml/panels/ListPanel.qml:244
 msgid "new entry ..."
-msgstr "item toevoegen..."
+msgstr "neuer Eintrag ..."
 
 #: ../qml/panels/ListPanel.qml:307
 msgid "clear list"
-msgstr "lijst wissen"
+msgstr "Liste leeren"
 
 #: ../qml/panels/SettingsCategoriesPanel.qml:6
 msgid "Categories"
-msgstr "Categorieën"
+msgstr "Kategorien"
 
 #: ../qml/panels/SettingsCategoriesPanel.qml:28
 msgid "new category ..."
-msgstr "categorie toevoegen..."
+msgstr "neue Kategorie ..."
 
 #: ../qml/panels/SettingsHistoryPanel.qml:10
 msgid "History"
-msgstr "Geschiedenis"
+msgstr "Verlauf"
 
 #: ../qml/panels/SettingsHistoryPanel.qml:103
 msgid "delete history"
-msgstr "geschiedenis wissen"
+msgstr "Verlauf löschen"
 
 #: ../qml/panels/SettingsPanel.qml:15
 msgid "Settings"
-msgstr "Instellingen"
+msgstr "Einstellungen"
 
 #: ../qml/panels/SettingsPanel.qml:30
 msgid "Edit categories"
-msgstr "Categorieën aanpassen"
+msgstr "Kategorien bearbeiten"
 
 #: ../qml/panels/SettingsPanel.qml:36
 #, fuzzy
 #| msgid "Edit history"
 msgid "Edit units"
-msgstr "Geschiedenis bewerken"
+msgstr "Verlauf bearbeiten"
 
 #: ../qml/panels/SettingsPanel.qml:41
 msgid "Suggestions"
-msgstr "Suggesties"
+msgstr "Vorschläge"
 
 #: ../qml/panels/SettingsPanel.qml:44
 msgid "Show suggestions"
-msgstr "Suggesties tonen"
+msgstr "Vorschläge anzeigen"
 
 #: ../qml/panels/SettingsPanel.qml:50
 msgid "Edit history"
-msgstr "Geschiedenis bewerken"
+msgstr "Verlauf bearbeiten"
 
 #: ../qml/panels/SettingsPanel.qml:55
 msgid "Appearance"
-msgstr "Uiterlijk"
+msgstr "Erscheinungsbild"
 
 #: ../qml/panels/SettingsPanel.qml:58
 msgid "Dark Mode"
-msgstr "Donker thema"
+msgstr "Dunkler Modus"
 
 #: ../qml/panels/SettingsPanel.qml:64
 msgid "Color"
-msgstr "Kleur"
+msgstr "Farbe"
 
 #: ../qml/panels/SettingsUnitsPanel.qml:6
 msgid "Units"
-msgstr "Units"
+msgstr "Einheiten"
 
 #: ../qml/panels/SettingsUnitsPanel.qml:28
 msgid "symbol"
-msgstr "afkorting"
+msgstr "Abkürzung"
 
 #: ../qml/panels/SettingsUnitsPanel.qml:34
 #, fuzzy
 #| msgid "new category ..."
 msgid "enter name ..."
-msgstr "categorie toevoegen..."
+msgstr "neue Kategorie ..."
+
+#~ msgid "edit categories:"
+#~ msgstr "Kategorien bearbeiten:"
