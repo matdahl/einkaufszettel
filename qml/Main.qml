@@ -47,6 +47,11 @@ MainView {
         initialIndex: 1
     }
 
+    // the units to measure quantities of entries
+    Dimensions{
+        id: dimensions
+    }
+
     // set the theme and background color
     theme.name: colors.darkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
 
@@ -99,8 +104,9 @@ MainView {
             visible: false
             dbcon:    root.dbcon
             db_histo: db_histo
-            stack: stack
+            stack:  stack
             colors: colors
+            dimensions:  dimensions
             onCategoriesChanged: listPanel.refresh()
         }
     }

@@ -10,6 +10,7 @@ Item {
     property var db_histo
     property var stack
     property var colors
+    property var dimensions
 
     property string headerSuffix: i18n.tr("Settings")
 
@@ -23,11 +24,17 @@ Item {
         id: col
         width: root.width
 
-        SettingsCaption{title: i18n.tr("Categories")}
+        //SettingsCaption{title: i18n.tr("General")}
         SettingsMenuItem{
             id: stCategories
             text: i18n.tr("Edit categories")
             subpage: categoriesPanel
+            stack: root.stack
+        }
+        SettingsMenuItem{
+            id: stUnits
+            text: i18n.tr("Edit units")
+            subpage: unitsPanel
             stack: root.stack
         }
 
@@ -72,5 +79,11 @@ Item {
         id: historyPanel
         visible: false
         db_histo: root.db_histo
+    }
+
+    SettingsUnitsPanel{
+        id: unitsPanel
+        visible: false
+        dimensions: root.dimensions
     }
 }

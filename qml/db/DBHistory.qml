@@ -39,9 +39,6 @@ Item {
                                                db_test_callback(db))
         // Create key table if needed
         try{
-            /*db.transaction(function(tx){
-                tx.executeSql("DROP TABLE "+db_table_keys)
-            })*/
             db.transaction(function(tx){
                 tx.executeSql("CREATE TABLE IF NOT EXISTS "+db_table_keys+" "
                               +"(key TEXT,count INTEGER DEFAULT 1,UNIQUE(key))")

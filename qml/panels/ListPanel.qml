@@ -119,6 +119,12 @@ Item {
         }
     }
 
+    Label{
+        anchors.centerIn: parent
+        text: "("+i18n.tr("No entries") +")"
+        visible: listView.model.count===0
+    }
+
     UbuntuListView{
         id: listView
         anchors{
@@ -145,8 +151,17 @@ Item {
             }
 
             Label{
-                anchors.centerIn: parent
+                id: lbName
+                anchors.verticalCenter: parent.verticalCenter
+                x: 0.4*parent.width
                 text: name
+            }
+            Label{
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: lbName.left
+                anchors.margins: units.gu(2)
+                text: "<b>"+quantity+" "+dimension+"</b>"
+                horizontalAlignment: Label.AlignRight
             }
             Label{
                 anchors.bottom: parent.bottom
@@ -237,7 +252,7 @@ Item {
             dbcon.removeDeleted()
             if (text !== ""){
                 // insert new entry to database
-                dbcon.insertItem(text,root.categories[sections.selectedIndex])
+                dbcon.insertItem(text.trim(),root.categories[sections.selectedIndex],inputRow.quantity,inputRow.dimension)
                 // insert new entry to history
                 db_histo.addKey(text)
                 // refresh

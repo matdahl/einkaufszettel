@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-16 21:45+0000\n"
+"POT-Creation-Date: 2020-12-30 18:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,8 +17,28 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/Main.qml:87 einkaufszettel.desktop.in.h:1
+#: ../qml/Main.qml:92 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
+msgstr ""
+
+#: ../qml/components/QuantitySelect.qml:68
+msgid "OK"
+msgstr ""
+
+#: ../qml/db/Dimensions.qml:57
+msgid "Piece"
+msgstr ""
+
+#: ../qml/db/Dimensions.qml:58
+msgid "Gram"
+msgstr ""
+
+#: ../qml/db/Dimensions.qml:59
+msgid "Kilogram"
+msgstr ""
+
+#: ../qml/db/Dimensions.qml:60
+msgid "Liter"
 msgstr ""
 
 #: ../qml/panels/ListPanel.qml:83 ../qml/panels/ListPanel.qml:100
@@ -31,26 +51,27 @@ msgstr ""
 msgid "other"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:229
+#: ../qml/panels/ListPanel.qml:124
+#: ../qml/panels/SettingsCategoriesPanel.qml:142
+#: ../qml/panels/SettingsHistoryPanel.qml:132
+#: ../qml/panels/SettingsUnitsPanel.qml:157
+msgid "No entries"
+msgstr ""
+
+#: ../qml/panels/ListPanel.qml:244
 msgid "new entry ..."
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:292
+#: ../qml/panels/ListPanel.qml:307
 msgid "clear list"
 msgstr ""
 
 #: ../qml/panels/SettingsCategoriesPanel.qml:6
-#: ../qml/panels/SettingsPanel.qml:26
 msgid "Categories"
 msgstr ""
 
 #: ../qml/panels/SettingsCategoriesPanel.qml:28
 msgid "new category ..."
-msgstr ""
-
-#: ../qml/panels/SettingsCategoriesPanel.qml:142
-#: ../qml/panels/SettingsHistoryPanel.qml:132
-msgid "No entries"
 msgstr ""
 
 #: ../qml/panels/SettingsHistoryPanel.qml:10
@@ -61,34 +82,50 @@ msgstr ""
 msgid "delete history"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:14
+#: ../qml/panels/SettingsPanel.qml:15
 msgid "Settings"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:29
+#: ../qml/panels/SettingsPanel.qml:30
 msgid "Edit categories"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:34
+#: ../qml/panels/SettingsPanel.qml:36
+msgid "Edit units"
+msgstr ""
+
+#: ../qml/panels/SettingsPanel.qml:41
 msgid "Suggestions"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:37
+#: ../qml/panels/SettingsPanel.qml:44
 msgid "Show suggestions"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:43
+#: ../qml/panels/SettingsPanel.qml:50
 msgid "Edit history"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:48
+#: ../qml/panels/SettingsPanel.qml:55
 msgid "Appearance"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:51
+#: ../qml/panels/SettingsPanel.qml:58
 msgid "Dark Mode"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:57
+#: ../qml/panels/SettingsPanel.qml:64
 msgid "Color"
+msgstr ""
+
+#: ../qml/panels/SettingsUnitsPanel.qml:6
+msgid "Units"
+msgstr ""
+
+#: ../qml/panels/SettingsUnitsPanel.qml:28
+msgid "symbol"
+msgstr ""
+
+#: ../qml/panels/SettingsUnitsPanel.qml:34
+msgid "enter name ..."
 msgstr ""

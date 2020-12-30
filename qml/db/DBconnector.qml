@@ -58,6 +58,18 @@ Item {
                     tx.executeSql("ALTER TABLE "+db_table_items+" ADD deleteFlag INTEGER DEFAULT 0")
                 })
             }
+            // since v1.3.0: require dimension column
+            if (colnames.indexOf("dimension")<0){
+                db.transaction(function(tx){
+                    tx.executeSql("ALTER TABLE "+db_table_items+" ADD dimension TEXT DEFAULT 'x'")
+                })
+            }
+            // since v1.3.0: require quantity column
+            if (colnames.indexOf("quantity")<0){
+                db.transaction(function(tx){
+                    tx.executeSql("ALTER TABLE "+db_table_items+" ADD quantity INT DEFAULT 1")
+                })
+            }
         } catch (err){
             console.error("Error when checking columns of table '"+db_table_items+"': " + err)
         }
@@ -116,13 +128,29 @@ Item {
         }
     }
 
-    function insertItem(name,category){
+    function insertItem(name,category,quantity,dimension){
         if (!db) init()
         try{
+            // check if an item with the same name,category and dimension exists already
+            var rows
             db.transaction(function(tx){
-                tx.executeSql("INSERT INTO "+db_table_items+" VALUES"
-                              +"(NULL,'"+name+"','"+category+"',0)")
+                rows = tx.executeSql("SELECT uid FROM "+db_table_items+" WHERE name=? AND category=? AND dimension=?"
+                                    ,[name,category,dimension]).rows
             })
+            // if there is a match, add quantity to this entry
+            if (rows.length>0){
+                db.transaction(function(tx){
+                    tx.executeSql("UPDATE "+db_table_items+" SET quantity = quantity + ? WHERE uid=?"
+                                 ,[quantity,rows[0].uid])
+                })
+            } else { // create a new entry
+                db.transaction(function(tx){
+                    tx.executeSql("INSERT INTO "+db_table_items+" (name,category,quantity,dimension) VALUES (?,?,?,?)"
+                                 ,[name,category,quantity,dimension])
+                })
+            }
+
+
         } catch (err){
             console.error("Error when insert into table '"+db_table_items+"': " + err)
         }
