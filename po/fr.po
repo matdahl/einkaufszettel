@@ -2,13 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2020-12-16 21:45+0000\n"
-"PO-Revision-Date: 2020-12-16 23:02+0100\n"
-=======
 "POT-Creation-Date: 2020-12-30 18:41+0100\n"
 "PO-Revision-Date: 2020-12-30 18:47+0100\n"
->>>>>>> devel
 "Last-Translator: Anne017\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -18,12 +13,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.3\n"
 
-<<<<<<< HEAD
-#: ../qml/Main.qml:87 einkaufszettel.desktop.in.h:1
-msgid "Shopping List"
-msgstr "Liste de courses"
-
-=======
 #: ../qml/Main.qml:92 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
 msgstr "Liste de courses"
@@ -48,7 +37,6 @@ msgstr "Kilogramme"
 msgid "Liter"
 msgstr "Litre"
 
->>>>>>> devel
 #: ../qml/panels/ListPanel.qml:83 ../qml/panels/ListPanel.qml:100
 #: ../qml/panels/ListPanel.qml:102
 msgid "all"
@@ -58,14 +46,6 @@ msgstr "tout"
 #: ../qml/panels/ListPanel.qml:115
 msgid "other"
 msgstr "autre"
-<<<<<<< HEAD
-
-#: ../qml/panels/ListPanel.qml:229
-msgid "new entry ..."
-msgstr "nouvelle entrée..."
-
-#: ../qml/panels/ListPanel.qml:292
-=======
 
 #: ../qml/panels/ListPanel.qml:124
 #: ../qml/panels/SettingsCategoriesPanel.qml:142
@@ -79,15 +59,10 @@ msgid "new entry ..."
 msgstr "nouvelle entrée..."
 
 #: ../qml/panels/ListPanel.qml:307
->>>>>>> devel
 msgid "clear list"
 msgstr "vider la liste"
 
 #: ../qml/panels/SettingsCategoriesPanel.qml:6
-<<<<<<< HEAD
-#: ../qml/panels/SettingsPanel.qml:26
-=======
->>>>>>> devel
 msgid "Categories"
 msgstr "Catégories"
 
@@ -95,50 +70,6 @@ msgstr "Catégories"
 msgid "new category ..."
 msgstr "nouvelle catégorie..."
 
-<<<<<<< HEAD
-#: ../qml/panels/SettingsCategoriesPanel.qml:142
-#: ../qml/panels/SettingsHistoryPanel.qml:132
-msgid "No entries"
-msgstr "Pas d'entrée"
-
-#: ../qml/panels/SettingsHistoryPanel.qml:10
-msgid "History"
-msgstr "Historique"
-
-#: ../qml/panels/SettingsHistoryPanel.qml:103
-msgid "delete history"
-msgstr "vider l'historique"
-
-#: ../qml/panels/SettingsPanel.qml:14
-msgid "Settings"
-msgstr "Paramètres"
-
-#: ../qml/panels/SettingsPanel.qml:29
-msgid "Edit categories"
-msgstr "Modifier les catégories"
-
-#: ../qml/panels/SettingsPanel.qml:34
-msgid "Suggestions"
-msgstr "Suggestions"
-
-#: ../qml/panels/SettingsPanel.qml:37
-msgid "Show suggestions"
-msgstr "Faire des suggestions"
-
-#: ../qml/panels/SettingsPanel.qml:43
-msgid "Edit history"
-msgstr "Modifier l'historique"
-
-#: ../qml/panels/SettingsPanel.qml:48
-msgid "Appearance"
-msgstr "Apparence"
-
-#: ../qml/panels/SettingsPanel.qml:51
-msgid "Dark Mode"
-msgstr "Mode sombre"
-
-#: ../qml/panels/SettingsPanel.qml:57
-=======
 #: ../qml/panels/SettingsHistoryPanel.qml:10
 msgid "History"
 msgstr "Historique"
@@ -182,7 +113,6 @@ msgid "Dark Mode"
 msgstr "Mode sombre"
 
 #: ../qml/panels/SettingsPanel.qml:64
->>>>>>> devel
 msgid "Color"
 msgstr "Couleur"
 
