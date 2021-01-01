@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-30 22:09+0000\n"
+"POT-Creation-Date: 2021-01-01 11:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/Main.qml:92 einkaufszettel.desktop.in.h:1
+#: ../qml/Main.qml:101 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
 msgstr ""
 
@@ -57,11 +57,11 @@ msgstr ""
 msgid "No entries"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:219
+#: ../qml/panels/ListPanel.qml:245
 msgid "new entry ..."
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:276
+#: ../qml/panels/ListPanel.qml:300
 msgid "clear list"
 msgstr ""
 
