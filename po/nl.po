@@ -7,24 +7,34 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-30 19:48+0100\n"
-"PO-Revision-Date: 2020-12-30 19:52+0100\n"
+"POT-Creation-Date: 2020-12-30 22:09+0000\n"
+"PO-Revision-Date: 2020-12-31 14:19+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../qml/Main.qml:92 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
 msgstr "Boodschappenlijst"
 
-#: ../qml/components/QuantitySelect.qml:68
+#: ../qml/components/QuantitySelect.qml:69
 msgid "OK"
-msgstr "OK"
+msgstr "Oké"
+
+#: ../qml/db/DBconnector.qml:16 ../qml/db/DBconnector.qml:17
+#: ../qml/panels/ListPanel.qml:51 ../qml/panels/ListPanel.qml:52
+msgid "all"
+msgstr "alle"
+
+#: ../qml/db/DBconnector.qml:23 ../qml/db/DBconnector.qml:24
+#: ../qml/panels/ListPanel.qml:58 ../qml/panels/ListPanel.qml:59
+msgid "other"
+msgstr "overige"
 
 #: ../qml/db/Dimensions.qml:57
 msgid "Piece"
@@ -42,28 +52,17 @@ msgstr "Kilogram"
 msgid "Liter"
 msgstr "Liter"
 
-#: ../qml/panels/ListPanel.qml:83 ../qml/panels/ListPanel.qml:100
-#: ../qml/panels/ListPanel.qml:102
-msgid "all"
-msgstr "alle"
-
-#: ../qml/panels/ListPanel.qml:83 ../qml/panels/ListPanel.qml:113
-#: ../qml/panels/ListPanel.qml:115
-msgid "other"
-msgstr "overige"
-
-#: ../qml/panels/ListPanel.qml:124
-#: ../qml/panels/SettingsCategoriesPanel.qml:142
+#: ../qml/panels/ListPanel.qml:69 ../qml/panels/SettingsCategoriesPanel.qml:142
 #: ../qml/panels/SettingsHistoryPanel.qml:132
 #: ../qml/panels/SettingsUnitsPanel.qml:157
 msgid "No entries"
 msgstr "Geen items"
 
-#: ../qml/panels/ListPanel.qml:244
+#: ../qml/panels/ListPanel.qml:219
 msgid "new entry ..."
 msgstr "item toevoegen..."
 
-#: ../qml/panels/ListPanel.qml:307
+#: ../qml/panels/ListPanel.qml:276
 msgid "clear list"
 msgstr "lijst wissen"
 
@@ -93,7 +92,7 @@ msgstr "Categorieën aanpassen"
 
 #: ../qml/panels/SettingsPanel.qml:36
 msgid "Edit units"
-msgstr "Units aanpassen"
+msgstr "Eenheden aanpassen"
 
 #: ../qml/panels/SettingsPanel.qml:41
 msgid "Suggestions"
@@ -129,7 +128,7 @@ msgstr "afk."
 
 #: ../qml/panels/SettingsUnitsPanel.qml:34
 msgid "new unit ..."
-msgstr "unit toevoegen..."
+msgstr "eenheid toevoegen..."
 
 #~ msgid "symbol"
 #~ msgstr "afkorting"
