@@ -52,6 +52,9 @@ MainView {
         id: dimensions
     }
 
+    // the flag if check boxes in list view are shown
+    property bool checkMode: false
+
     // set the theme and background color
     theme.name: colors.darkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
 
@@ -79,7 +82,13 @@ MainView {
                             stack.push(settingsPanel)
                         }
                     }
+                },
+                Action{
+                    iconName: "select"
+                    visible: stack.currentItem===listPanel
+                    onTriggered: checkMode = !checkMode
                 }
+
             ]
         }
         Rectangle{

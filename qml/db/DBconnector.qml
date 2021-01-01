@@ -90,6 +90,12 @@ Item {
                     tx.executeSql("ALTER TABLE "+db_table_items+" ADD quantity INT DEFAULT 1")
                 })
             }
+            // since v1.3.1: require selected column
+            if (colnames.indexOf("marked")<0){
+                db.transaction(function(tx){
+                    tx.executeSql("ALTER TABLE "+db_table_items+" ADD marked INT DEFAULT 0")
+                })
+            }
         } catch (err){
             console.error("Error when checking columns of table '"+db_table_items+"': " + err)
         }
@@ -216,10 +222,24 @@ Item {
                 tx.executeSql("UPDATE "+db_table_items+" SET uid="+uid1+" WHERE uid="+uid2)
                 tx.executeSql("UPDATE "+db_table_items+" SET uid="+uid2+" WHERE uid="+tempID)
             })
-            itemsChanged()
+            //itemsChanged()
         } catch (err){
             console.error("Error when swaping items in table '"+db_table_items+"': " + err)
         }
+    }
+
+    /* toggles the selected property of item with given uid */
+    function toggleItemMarked(uid){
+        if (!db) init()
+        try{
+            db.transaction(function(tx){
+                tx.executeSql("UPDATE "+db_table_items+" SET marked=1-marked WHERE uid='"+uid+"'")
+            })
+            //itemsChanged()
+        } catch (err){
+            console.error("Error when toggle marked property of uid="+uid+" in table '"+db_table_items+"': " + err)
+        }
+        //printAllItems()
     }
 
     /* marks an entry as deleted such that it is not listed anymore but still can be restored */
@@ -234,7 +254,6 @@ Item {
         } catch (err){
             console.error("Error when marking entry as deleted in table '"+db_table_items+"': " + err)
         }
-
     }
 
     /* finally remove all entries which are labeled as deleted from database */
@@ -297,7 +316,7 @@ Item {
     }
 
     /* prints all items from the database to the terminal - for debugging purposes only */
-    /*function printAllItems(){
+    function printAllItems(){
         if (!db) init()
         try{
             var rows
@@ -305,12 +324,12 @@ Item {
                 rows = tx.executeSql("SELECT * FROM "+db_table_items).rows
             })
             for (var i=0;i<rows.length;i++){
-                print(rows[i].uid,rows[i].name,rows[i].category,rows[i].deleteFlag)
+                print(rows[i].uid,rows[i].name,rows[i].category,rows[i].deleteFlag,rows[i].selected)
             }
         } catch (err){
             console.error("Error when selecting all from table '"+db_table_items+"': " + err)
         }
-    }*/
+    }
 }
 
 

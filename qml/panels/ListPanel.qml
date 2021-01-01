@@ -74,11 +74,12 @@ Item {
         id: listView
         anchors{
             top:    inputRow.bottom
-            bottom: btClear.top
+            bottom: root.bottom
             left:   root.left
             right:  root.right
-            bottomMargin: units.gu(4)
+            bottomMargin: units.gu(6)
         }
+        clip: true
         currentIndex: -1
         model: ListModel{}
 
@@ -97,15 +98,15 @@ Item {
                 }
             } else {
                 var category = dbcon.categoriesModel.get(sections.selectedIndex).name
-                if (category==="sonstige") category = ""
+                if (category===i18n.tr("other")) category = ""
                 var rows = dbcon.selectItems(category)
                 if (rows){
                     for (var i= rows.length-1;i>-1;i--){
-                        // if category=sonstige, then check whether category exists
+                        // if category=other, then check whether category exists
                         if (category===""){
                             var found = false
-                            for (var j=1; j<categories.length-1; j++){
-                                if (categories[j]===rows[i].category) found = true
+                            for (var j=1; j<dbcon.categoriesList.length-1; j++){
+                                if (dbcon.categoriesList[j]===rows[i].category) found = true
                             }
                             if (found) continue
                         }
@@ -124,17 +125,46 @@ Item {
                     }
                 ]
             }
+            Rectangle{
+                anchors.fill: parent
+                color: theme.palette.normal.positive
+                opacity: 0.2
+                visible: marked
+            }
 
-            Label{
+            CheckBox{
+                id: checkBox
+                anchors{
+                    right: mouseUp.left
+                    verticalCenter: parent.verticalCenter
+                    margins: units.gu(2)
+                }
+                visible: checkMode
+                checked: marked
+                onTriggered: {
+                    dbcon.toggleItemMarked(uid)
+                    marked = 1-marked
+                }
+            }
+
+            TextArea{
                 id: lbName
-                anchors.verticalCenter: parent.verticalCenter
-                x: 0.4*parent.width
+                anchors{
+                    left: mouseDown.right
+                    right: checkBox.visible ? checkBox.left : mouseUp.left
+                    top: parent.top
+                    bottom: parent.bottom
+                    leftMargin: units.gu(6)
+                }
+                x: 0.35*parent.width
                 text: name
+                verticalAlignment: Qt.AlignVCenter
+                readOnly: true
             }
             Label{
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: lbName.left
-                anchors.margins: units.gu(2)
+                anchors.margins: units.gu(1)
                 text: "<b>"+quantity+" "+dimension+"</b>"
                 horizontalAlignment: Label.AlignRight
             }
@@ -152,7 +182,7 @@ Item {
                     left: parent.left
                     bottom: parent.bottom
                 }
-                width: 1.5*height
+                width: height
                 Icon{
                     name: "down"
                     height: units.gu(3)
@@ -160,7 +190,11 @@ Item {
                 }
                 onClicked:{
                     dbcon.swapItems(listView.model.get(index).uid,listView.model.get(index+1).uid)
-                    root.refreshListView()
+                    // swap items in view
+                    var tempUID = uid
+                    uid = listView.model.get(index+1).uid
+                    listView.model.setProperty(index+1,"uid",tempUID)
+                    listView.model.move(index+1,index,1)
                 }
             }
             MouseArea{
@@ -171,7 +205,7 @@ Item {
                     right:  parent.right
                     bottom: parent.bottom
                 }
-                width: 1.5*height
+                width: 1.2*height
                 Icon{
                     name: "up"
                     height: units.gu(3)
@@ -179,7 +213,11 @@ Item {
                 }
                 onClicked: {
                     dbcon.swapItems(listView.model.get(index).uid,listView.model.get(index-1).uid)
-                    root.refreshListView()
+                    // swap items in view
+                    var tempUID = uid
+                    uid = listView.model.get(index-1).uid
+                    listView.model.setProperty(index-1,"uid",tempUID)
+                    listView.model.move(index-1,index,1)
                 }
             }
             Rectangle{
@@ -223,8 +261,6 @@ Item {
             updateModel(db_histo)
         }
         onAccepted: {
-            // remove deleted entries from DB
-            dbcon.removeDeleted()
             if (text !== ""){
                 // insert new entry to database
                 dbcon.insertItem(text.trim(),dbcon.categoriesList[sections.selectedIndex],inputRow.quantity,inputRow.dimension)
@@ -324,12 +360,16 @@ Item {
             left: parent.left
             margins: units.gu(2)
         }
-        height: units.gu(6)
-        width:  height
-        iconName: "previous"
+        height: units.gu(4)
+        width:  units.gu(6)
         visible: sections.selectedIndex>0
         onClicked: sections.selectedIndex -= 1
-        strokeColor: theme.palette.normal.base
+        Icon{
+            anchors.centerIn: parent
+            height: 0.7*parent.height
+            name: "previous"
+            color: theme.palette.normal.baseText
+        }
     }
     Button{
         id: btNext
@@ -338,11 +378,15 @@ Item {
             right: parent.right
             margins: units.gu(2)
         }
-        height: units.gu(6)
-        width:  height
-        iconName: "next"
+        height: units.gu(4)
+        width:  units.gu(6)
         visible: sections.selectedIndex <sections.model.length-1
         onClicked: sections.selectedIndex += 1
-        strokeColor: theme.palette.normal.base
+        Icon{
+            anchors.centerIn: parent
+            height: 0.7*parent.height
+            name: "next"
+            color: theme.palette.normal.baseText
+        }
     }
 }

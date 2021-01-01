@@ -111,7 +111,13 @@ Row{
         id: button
         color: theme.palette.normal.positive
         width: 1.6*height
-        iconName: "add"
+        Icon{
+            anchors.centerIn: parent
+            height: 0.7*button.height
+            name: "add"
+            color: theme.palette.normal.positiveText
+        }
+
         enabled: root.enabled
         onClicked: {
             quantitySelect.expanded = false
