@@ -98,15 +98,15 @@ Item {
                 }
             } else {
                 var category = dbcon.categoriesModel.get(sections.selectedIndex).name
-                if (category==="sonstige") category = ""
+                if (category===i18n.tr("other")) category = ""
                 var rows = dbcon.selectItems(category)
                 if (rows){
                     for (var i= rows.length-1;i>-1;i--){
-                        // if category=sonstige, then check whether category exists
+                        // if category=other, then check whether category exists
                         if (category===""){
                             var found = false
-                            for (var j=1; j<categories.length-1; j++){
-                                if (categories[j]===rows[i].category) found = true
+                            for (var j=1; j<dbcon.categoriesList.length-1; j++){
+                                if (dbcon.categoriesList[j]===rows[i].category) found = true
                             }
                             if (found) continue
                         }
@@ -137,11 +137,13 @@ Item {
                 anchors{
                     right: mouseUp.left
                     verticalCenter: parent.verticalCenter
+                    margins: units.gu(2)
                 }
                 visible: checkMode
                 checked: marked
                 onTriggered: {
                     dbcon.toggleItemMarked(uid)
+                    marked = 1-marked
                 }
             }
 
@@ -180,7 +182,7 @@ Item {
                     left: parent.left
                     bottom: parent.bottom
                 }
-                width: 1.2*height
+                width: height
                 Icon{
                     name: "down"
                     height: units.gu(3)
@@ -188,6 +190,11 @@ Item {
                 }
                 onClicked:{
                     dbcon.swapItems(listView.model.get(index).uid,listView.model.get(index+1).uid)
+                    // swap items in view
+                    var tempUID = uid
+                    uid = listView.model.get(index+1).uid
+                    listView.model.setProperty(index+1,"uid",tempUID)
+                    listView.model.move(index+1,index,1)
                 }
             }
             MouseArea{
@@ -206,6 +213,11 @@ Item {
                 }
                 onClicked: {
                     dbcon.swapItems(listView.model.get(index).uid,listView.model.get(index-1).uid)
+                    // swap items in view
+                    var tempUID = uid
+                    uid = listView.model.get(index-1).uid
+                    listView.model.setProperty(index-1,"uid",tempUID)
+                    listView.model.move(index-1,index,1)
                 }
             }
             Rectangle{

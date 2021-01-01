@@ -222,7 +222,7 @@ Item {
                 tx.executeSql("UPDATE "+db_table_items+" SET uid="+uid1+" WHERE uid="+uid2)
                 tx.executeSql("UPDATE "+db_table_items+" SET uid="+uid2+" WHERE uid="+tempID)
             })
-            itemsChanged()
+            //itemsChanged()
         } catch (err){
             console.error("Error when swaping items in table '"+db_table_items+"': " + err)
         }
@@ -235,7 +235,7 @@ Item {
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_items+" SET marked=1-marked WHERE uid='"+uid+"'")
             })
-            itemsChanged()
+            //itemsChanged()
         } catch (err){
             console.error("Error when toggle marked property of uid="+uid+" in table '"+db_table_items+"': " + err)
         }

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-01 11:58+0100\n"
+"POT-Creation-Date: 2021-01-01 11:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,6 +32,7 @@ msgstr ""
 
 #: ../qml/db/DBconnector.qml:23 ../qml/db/DBconnector.qml:24
 #: ../qml/panels/ListPanel.qml:58 ../qml/panels/ListPanel.qml:59
+#: ../qml/panels/ListPanel.qml:101
 msgid "other"
 msgstr ""
 
@@ -57,11 +58,11 @@ msgstr ""
 msgid "No entries"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:245
+#: ../qml/panels/ListPanel.qml:257
 msgid "new entry ..."
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:300
+#: ../qml/panels/ListPanel.qml:312
 msgid "clear list"
 msgstr ""
 
