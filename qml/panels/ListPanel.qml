@@ -15,6 +15,9 @@ Item {
     // the connector to interact with the history database
     property var db_histo
 
+    // the flag if check boxes are shown
+    property bool checkMode: false
+
     Sections{
         id: sections
         anchors{
@@ -139,7 +142,7 @@ Item {
                     verticalCenter: parent.verticalCenter
                     margins: units.gu(2)
                 }
-                visible: checkMode
+                visible: root.checkMode
                 checked: marked
                 onTriggered: {
                     dbcon.toggleItemMarked(uid)

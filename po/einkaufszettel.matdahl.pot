@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-01 11:54+0000\n"
+"POT-Creation-Date: 2021-01-12 23:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,60 +17,64 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/Main.qml:101 einkaufszettel.desktop.in.h:1
+#: ../qml/Main.qml:98 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
+msgstr ""
+
+#: ../qml/components/ClearListButtons.qml:84 ../qml/panels/ListPanel.qml:315
+msgid "clear list"
+msgstr ""
+
+#: ../qml/components/ClearListButtons.qml:84
+msgid "delete selected"
 msgstr ""
 
 #: ../qml/components/QuantitySelect.qml:69
 msgid "OK"
 msgstr ""
 
-#: ../qml/db/DBconnector.qml:16 ../qml/db/DBconnector.qml:17
-#: ../qml/panels/ListPanel.qml:51 ../qml/panels/ListPanel.qml:52
+#: ../qml/db/DBconnector.qml:18 ../qml/db/DBconnector.qml:19
+#: ../qml/panels/ListPanel.qml:54 ../qml/panels/ListPanel.qml:55
 msgid "all"
 msgstr ""
 
-#: ../qml/db/DBconnector.qml:23 ../qml/db/DBconnector.qml:24
-#: ../qml/panels/ListPanel.qml:58 ../qml/panels/ListPanel.qml:59
-#: ../qml/panels/ListPanel.qml:101
+#: ../qml/db/DBconnector.qml:26 ../qml/db/DBconnector.qml:27
+#: ../qml/panels/ListPanel.qml:61 ../qml/panels/ListPanel.qml:62
+#: ../qml/panels/ListPanel.qml:104
 msgid "other"
 msgstr ""
 
-#: ../qml/db/Dimensions.qml:57
+#: ../qml/db/Dimensions.qml:75
 msgid "Piece"
 msgstr ""
 
-#: ../qml/db/Dimensions.qml:58
+#: ../qml/db/Dimensions.qml:76
 msgid "Gram"
 msgstr ""
 
-#: ../qml/db/Dimensions.qml:59
+#: ../qml/db/Dimensions.qml:77
 msgid "Kilogram"
 msgstr ""
 
-#: ../qml/db/Dimensions.qml:60
+#: ../qml/db/Dimensions.qml:78
 msgid "Liter"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:69 ../qml/panels/SettingsCategoriesPanel.qml:142
-#: ../qml/panels/SettingsHistoryPanel.qml:132
-#: ../qml/panels/SettingsUnitsPanel.qml:157
+#: ../qml/panels/ListPanel.qml:72 ../qml/panels/SettingsCategoriesPanel.qml:89
+#: ../qml/panels/SettingsHistoryPanel.qml:135
+#: ../qml/panels/SettingsUnitsPanel.qml:189
 msgid "No entries"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:257
+#: ../qml/panels/ListPanel.qml:260
 msgid "new entry ..."
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:312
-msgid "clear list"
-msgstr ""
-
-#: ../qml/panels/SettingsCategoriesPanel.qml:6
+#: ../qml/panels/SettingsCategoriesPanel.qml:9
 msgid "Categories"
 msgstr ""
 
-#: ../qml/panels/SettingsCategoriesPanel.qml:28
+#: ../qml/panels/SettingsCategoriesPanel.qml:37
 msgid "new category ..."
 msgstr ""
 
@@ -78,7 +82,7 @@ msgstr ""
 msgid "History"
 msgstr ""
 
-#: ../qml/panels/SettingsHistoryPanel.qml:103
+#: ../qml/panels/SettingsHistoryPanel.qml:106
 msgid "delete history"
 msgstr ""
 
@@ -86,35 +90,35 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:30
+#: ../qml/panels/SettingsPanel.qml:24
 msgid "Edit categories"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:36
+#: ../qml/panels/SettingsPanel.qml:30
 msgid "Edit units"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:41
+#: ../qml/panels/SettingsPanel.qml:35
 msgid "Suggestions"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:44
+#: ../qml/panels/SettingsPanel.qml:38
 msgid "Show suggestions"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:50
+#: ../qml/panels/SettingsPanel.qml:44
 msgid "Edit history"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:55
+#: ../qml/panels/SettingsPanel.qml:49
 msgid "Appearance"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:58
+#: ../qml/panels/SettingsPanel.qml:52
 msgid "Dark Mode"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:64
+#: ../qml/panels/SettingsPanel.qml:58
 msgid "Color"
 msgstr ""
 
@@ -122,10 +126,10 @@ msgstr ""
 msgid "Units"
 msgstr ""
 
-#: ../qml/panels/SettingsUnitsPanel.qml:28
+#: ../qml/panels/SettingsUnitsPanel.qml:31
 msgid "abbr."
 msgstr ""
 
-#: ../qml/panels/SettingsUnitsPanel.qml:34
+#: ../qml/panels/SettingsUnitsPanel.qml:37
 msgid "new unit ..."
 msgstr ""

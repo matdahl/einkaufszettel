@@ -14,12 +14,6 @@ Item {
 
     property string headerSuffix: i18n.tr("Settings")
 
-    function refresh(){
-        categoriesPanel.refresh()
-    }
-
-    signal categoriesChanged()
-
     Column{
         id: col
         width: root.width
@@ -72,7 +66,6 @@ Item {
         id: categoriesPanel
         visible: false
         dbcon: root.dbcon
-        onCategoriesChanged: root.categoriesChanged()
     }
 
     SettingsHistoryPanel{

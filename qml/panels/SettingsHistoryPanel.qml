@@ -25,6 +25,9 @@ Item {
         }
     }
 
+    // the flag if check boxes are shown
+    property bool checkMode: false
+
     property var model: ListModel{}
     SortFilterModel{
         id: filterModel

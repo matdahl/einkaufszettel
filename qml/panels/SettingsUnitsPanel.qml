@@ -18,6 +18,9 @@ Item {
         }
     }
 
+    // the flag if check boxes are shown
+    property bool checkMode: false
+
     Row{
         id: inputRow
         padding: units.gu(2)
@@ -36,9 +39,15 @@ Item {
         }
         Button{
             id: btNewUnit
-            color: UbuntuColors.green
+            color: theme.palette.normal.positive
             width: 1.6*height
-            iconName: "add"
+            Icon{
+                anchors.centerIn: parent
+                height: 0.7*parent.height
+                width:  height
+                name:   "add"
+                color: theme.palette.normal.positiveText
+            }
             onClicked: {
                 if (inputSymbol.text !== "" && inputName.text !== ""){
                     dimensions.add(inputSymbol.text,inputName.text)
@@ -72,6 +81,29 @@ Item {
                     visible: symbol !=="x"
                 }
             ]}
+
+            Rectangle{
+                anchors.fill: parent
+                color: theme.palette.normal.positive
+                opacity: 0.2
+                visible: marked && symbol !=="x"
+            }
+
+            CheckBox{
+                id: checkBox
+                anchors{
+                    right: mouseUp.left
+                    verticalCenter: parent.verticalCenter
+                    margins: units.gu(2)
+                }
+                visible: root.checkMode && symbol !=="x"
+                checked: marked
+                onTriggered: {
+                    dimensions.toggleMarked(uid)
+                    marked = 1-marked
+                }
+            }
+
             Label{
                 id: lbName
                 anchors.verticalCenter: parent.verticalCenter

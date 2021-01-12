@@ -52,6 +52,24 @@ Item {
             } catch (err){
                 console.error("Error when creating table '"+db_table_units+"': " + err)
             }
+            // check if all necessary columns are in table
+            try{
+                var colnames = []
+                db.transaction(function(tx){
+                    var rt = tx.executeSql("PRAGMA table_info("+db_table_units+")")
+                    for(var i=0;i<rt.rows.length;i++){
+                        colnames.push(rt.rows[i].name)
+                    }
+                })
+                // since v1.3.2: require marked column
+                if (colnames.indexOf("marked")<0){
+                    db.transaction(function(tx){
+                        tx.executeSql("ALTER TABLE "+db_table_units+" ADD marked INT DEFAULT 0")
+                    })
+                }
+            } catch (err){
+                console.error("Error when checking columns of table '"+db_table_units+"': " + err)
+            }
             // insert standard units
             if (select().length===0){
                 add("x",i18n.tr("Piece"))
@@ -113,4 +131,15 @@ Item {
             console.error("Error when swaping units in table '"+db_table_units+"': " + err)
         }
     }
+    function toggleMarked(uid){
+        if (!db) init()
+        try{
+            db.transaction(function(tx){
+                tx.executeSql("UPDATE "+db_table_units+" SET marked=1-marked WHERE uid='"+uid+"'")
+            })
+        } catch (err){
+            console.error("Error when toggle marked property of uid="+uid+" in table '"+db_table_units+"': " + err)
+        }
+    }
+
 }

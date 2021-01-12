@@ -52,8 +52,6 @@ MainView {
         id: dimensions
     }
 
-    // the flag if check boxes in list view are shown
-    property bool checkMode: false
 
     // set the theme and background color
     theme.name: colors.darkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
@@ -78,15 +76,14 @@ MainView {
                     onTriggered: {
                         while (stack.depth>1 && stack.currentItem!==settingsPanel) stack.pop()
                         if (stack.currentItem!==settingsPanel) {
-                            settingsPanel.refresh()
                             stack.push(settingsPanel)
                         }
                     }
                 },
                 Action{
                     iconName: "select"
-                    visible: stack.currentItem===listPanel
-                    onTriggered: checkMode = !checkMode
+                    visible: typeof stack.currentItem.checkMode !== "undefined"
+                    onTriggered: stack.currentItem.checkMode = !stack.currentItem.checkMode
                 }
 
             ]
@@ -116,7 +113,6 @@ MainView {
             stack:  stack
             colors: colors
             dimensions:  dimensions
-            onCategoriesChanged: listPanel.refresh()
         }
     }
 }
