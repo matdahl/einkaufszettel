@@ -178,12 +178,17 @@ Item {
         try{
             db.transaction(function(tx){
                 var dummy = "TEMPSWAPCATNAME"
-                // override cat2 by dummy name (to ensure uniqueness)
-                tx.executeSql("UPDATE "+db_table_categories+" SET name='"+dummy+"' WHERE name='"+cat2+"'")
-                // set cat1=cat2
-                tx.executeSql("UPDATE "+db_table_categories+" SET name='"+cat2+"' WHERE name='"+cat1+"'")
-                // set cat2=cat1
-                tx.executeSql("UPDATE "+db_table_categories+" SET name='"+cat1+"' WHERE name='"+dummy+"'")
+                // get marked properties of both categories
+                var rt1 = tx.executeSql("SELECT marked FROM "+db_table_categories+" WHERE name=?",[cat1])
+                var rt2 = tx.executeSql("SELECT marked FROM "+db_table_categories+" WHERE name=?",[cat2])
+                // check if both entries exists, otherwise skip swapping
+                if (rt1.rows.length===1 && rt2.rows.length===1){
+                    var marked1 = rt1.rows[0].marked
+                    var marked2 = rt2.rows[0].marked
+                    tx.executeSql("UPDATE "+db_table_categories+" SET name='"+dummy+"' WHERE name='"+cat2+"'")
+                    tx.executeSql("UPDATE "+db_table_categories+" SET name='"+cat2+"',marked="+marked2+" WHERE name='"+cat1+"'")
+                    tx.executeSql("UPDATE "+db_table_categories+" SET name='"+cat1+"',marked="+marked1+" WHERE name='"+dummy+"'")
+                }
             })
             categoriesChanged()
         } catch (err){
