@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-13 18:47+0100\n"
+"POT-Creation-Date: 2021-01-13 19:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "Shopping List"
 msgstr ""
 
-#: ../qml/components/ClearListButtons.qml:84 ../qml/panels/ListPanel.qml:315
+#: ../qml/components/ClearListButtons.qml:84 ../qml/panels/ListPanel.qml:311
 msgid "clear list"
 msgstr ""
 
@@ -60,8 +60,8 @@ msgstr ""
 msgid "Liter"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:72 ../qml/panels/SettingsCategoriesPanel.qml:89
-#: ../qml/panels/SettingsHistoryPanel.qml:135
+#: ../qml/panels/ListPanel.qml:72 ../qml/panels/SettingsCategoriesPanel.qml:90
+#: ../qml/panels/SettingsHistoryPanel.qml:27
 #: ../qml/panels/SettingsUnitsPanel.qml:189
 msgid "No entries"
 msgstr ""
@@ -74,16 +74,12 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: ../qml/panels/SettingsCategoriesPanel.qml:37
+#: ../qml/panels/SettingsCategoriesPanel.qml:38
 msgid "new category ..."
 msgstr ""
 
-#: ../qml/panels/SettingsHistoryPanel.qml:10
+#: ../qml/panels/SettingsHistoryPanel.qml:9
 msgid "History"
-msgstr ""
-
-#: ../qml/panels/SettingsHistoryPanel.qml:106
-msgid "delete history"
 msgstr ""
 
 #: ../qml/panels/SettingsPanel.qml:15

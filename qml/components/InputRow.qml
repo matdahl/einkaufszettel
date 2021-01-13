@@ -14,19 +14,11 @@ Row{
     property string dimension: quantitySelect.dimension ? quantitySelect.dimension.symbol : 'x'
 
     property var db_histo
-    property var model: ListModel{}
 
-    function updateModel(){
-        model.clear()
-        var rows = db_histo.selectKeys()
-        if (rows)
-            for (var i=0;i<rows.length;i++)
-                model.append(rows[i])
-    }
 
     SortFilterModel{
         id: filterModel
-        model: root.model
+        model: db_histo.keyModel
         sort.property: "key"
         sort.order: Qt.AscendingOrder
         sortCaseSensitivity: Qt.CaseInsensitive
@@ -57,9 +49,7 @@ Row{
         width: root.width - button.width - 2*inputRow.padding - units.gu(2) - quantitySelect.width
         placeholderText: root.placeholderText
         enabled: root.enabled
-        onAccepted: {
-            root.accepted()
-        }
+        onAccepted: root.accepted()
 
         onFocusChanged: {
             if (focus){

@@ -127,6 +127,7 @@ Item {
                     tx.executeSql("ALTER TABLE "+db_table_categories+" ADD marked INT DEFAULT 0")
                 })
             }
+            // since v1.3.2: require deleteFlag column
             if (colnames.indexOf("deleteFlag")<0){
                 db.transaction(function(tx){
                     tx.executeSql("ALTER TABLE "+db_table_categories+" ADD deleteFlag INT DEFAULT 0")

@@ -260,9 +260,6 @@ Item {
         placeholderText: i18n.tr("new entry ...")
         enabled: sections.selectedIndex>0
         db_histo: root.db_histo
-        Component.onCompleted: {
-            updateModel(db_histo)
-        }
         onAccepted: {
             if (text !== ""){
                 // insert new entry to database
@@ -270,7 +267,6 @@ Item {
                 // insert new entry to history
                 db_histo.addKey(text.trim())
                 reset()
-                updateModel(db_histo)
             }
         }
     }
