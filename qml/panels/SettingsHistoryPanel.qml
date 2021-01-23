@@ -14,6 +14,21 @@ Item {
     // the flag if check boxes are shown
     property bool checkMode: true
 
+    property bool hasCheckedEntries: db_histo.hasMarkedKeys
+    function deselectAll(){
+        db_histo.deselectAll()
+    }
+
+    onVisibleChanged: {
+        if (!visible && db_histo) db_histo.deselectAll()
+    }
+
+
+
+    /* ------------------------------------
+     *               Components
+     * ------------------------------------ */
+
     SortFilterModel{
         id: sortedModel
         model: db_histo.keyModel

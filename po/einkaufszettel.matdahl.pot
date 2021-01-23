@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-13 19:40+0100\n"
+"POT-Creation-Date: 2021-01-23 19:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/Main.qml:98 einkaufszettel.desktop.in.h:1
+#: ../qml/Main.qml:86 ../qml/panels/SettingsUnitsPanel.qml:10
+msgid "Units"
+msgstr ""
+
+#: ../qml/Main.qml:109 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
 msgstr ""
 
-#: ../qml/components/ClearListButtons.qml:84 ../qml/panels/ListPanel.qml:311
+#: ../qml/components/ClearListButtons.qml:84
 msgid "clear list"
 msgstr ""
 
@@ -34,39 +38,39 @@ msgid "OK"
 msgstr ""
 
 #: ../qml/db/DBconnector.qml:18 ../qml/db/DBconnector.qml:19
-#: ../qml/panels/ListPanel.qml:54 ../qml/panels/ListPanel.qml:55
+#: ../qml/panels/ListPanel.qml:78 ../qml/panels/ListPanel.qml:79
 msgid "all"
 msgstr ""
 
 #: ../qml/db/DBconnector.qml:26 ../qml/db/DBconnector.qml:27
-#: ../qml/panels/ListPanel.qml:61 ../qml/panels/ListPanel.qml:62
-#: ../qml/panels/ListPanel.qml:104
+#: ../qml/panels/ListPanel.qml:85 ../qml/panels/ListPanel.qml:86
+#: ../qml/panels/ListPanel.qml:136 ../qml/panels/ListPanel.qml:140
 msgid "other"
 msgstr ""
 
-#: ../qml/db/Dimensions.qml:75
+#: ../qml/db/Dimensions.qml:118
 msgid "Piece"
 msgstr ""
 
-#: ../qml/db/Dimensions.qml:76
+#: ../qml/db/Dimensions.qml:120
 msgid "Gram"
 msgstr ""
 
-#: ../qml/db/Dimensions.qml:77
+#: ../qml/db/Dimensions.qml:121
 msgid "Kilogram"
 msgstr ""
 
-#: ../qml/db/Dimensions.qml:78
+#: ../qml/db/Dimensions.qml:122
 msgid "Liter"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:72 ../qml/panels/SettingsCategoriesPanel.qml:90
-#: ../qml/panels/SettingsHistoryPanel.qml:27
-#: ../qml/panels/SettingsUnitsPanel.qml:189
+#: ../qml/panels/ListPanel.qml:96 ../qml/panels/SettingsCategoriesPanel.qml:104
+#: ../qml/panels/SettingsHistoryPanel.qml:42
+#: ../qml/panels/SettingsUnitsPanel.qml:74
 msgid "No entries"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:260
+#: ../qml/panels/ListPanel.qml:190
 msgid "new entry ..."
 msgstr ""
 
@@ -74,7 +78,7 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: ../qml/panels/SettingsCategoriesPanel.qml:38
+#: ../qml/panels/SettingsCategoriesPanel.qml:52
 msgid "new category ..."
 msgstr ""
 
@@ -86,46 +90,58 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:24
+#: ../qml/panels/SettingsPanel.qml:25
 msgid "Edit categories"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:30
+#: ../qml/panels/SettingsPanel.qml:31
 msgid "Edit units"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:35
+#: ../qml/panels/SettingsPanel.qml:36
 msgid "Suggestions"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:38
+#: ../qml/panels/SettingsPanel.qml:39
 msgid "Show suggestions"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:44
+#: ../qml/panels/SettingsPanel.qml:45
 msgid "Edit history"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:49
+#: ../qml/panels/SettingsPanel.qml:50
 msgid "Appearance"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:52
+#: ../qml/panels/SettingsPanel.qml:53
 msgid "Dark Mode"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:58
+#: ../qml/panels/SettingsPanel.qml:59
 msgid "Color"
 msgstr ""
 
-#: ../qml/panels/SettingsUnitsPanel.qml:6
-msgid "Units"
-msgstr ""
-
-#: ../qml/panels/SettingsUnitsPanel.qml:31
+#: ../qml/panels/SettingsUnitsPanel.qml:42
 msgid "abbr."
 msgstr ""
 
-#: ../qml/panels/SettingsUnitsPanel.qml:37
+#: ../qml/panels/SettingsUnitsPanel.qml:48
 msgid "new unit ..."
+msgstr ""
+
+#: ../qml/panels/SettingsUnitsPanel.qml:128
+msgid "Reset units"
+msgstr ""
+
+#: ../qml/panels/SettingsUnitsPanel.qml:129
+msgid "Are you sure that you want to reset to default units?"
+msgstr ""
+
+#: ../qml/panels/SettingsUnitsPanel.qml:131
+msgid "cancel"
+msgstr ""
+
+#: ../qml/panels/SettingsUnitsPanel.qml:135
+msgid "reset units"
 msgstr ""

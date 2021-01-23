@@ -79,11 +79,22 @@ MainView {
                             stack.push(settingsPanel)
                         }
                     }
+                    visible: stack.currentItem === listPanel
+                },
+                Action{
+                    iconName: "reset"
+                    visible: stack.currentItem.headerSuffix === i18n.tr("Units")
+                    onTriggered: stack.currentItem.reset()
                 },
                 Action{
                     iconName: "select"
                     visible: typeof stack.currentItem.checkMode !== "undefined"
                     onTriggered: stack.currentItem.checkMode = !stack.currentItem.checkMode
+                },
+                Action{
+                    iconName: "select-none"
+                    visible: stack.currentItem.hasCheckedEntries
+                    onTriggered: stack.currentItem.deselectAll()
                 }
 
             ]

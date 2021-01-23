@@ -4,10 +4,27 @@ import QtQuick.Controls 2.2
 import Ubuntu.Components 1.3
 
 import "../components"
+import "../components/listitems"
 
 Item {
     id: root
     property string headerSuffix: ""
+    property bool hasCheckedEntries: checkedEntries>0
+
+    // the number of checked entries in the current list
+    property int checkedEntries: 0
+
+    // deselect all entries in current list
+    function deselectAll(){
+        for (var i=0;i<listView.model.count;i++){
+            if (listView.model.get(i).marked===1){
+                dbcon.toggleItemMarked(listView.model.get(i).uid)
+                listView.model.get(i).marked = 0
+            }
+        }
+        checkedEntries = 0
+        listView.refresh()
+    }
 
     // the connector to interact with the entries and categories database
     property var dbcon
@@ -17,6 +34,14 @@ Item {
 
     // the flag if check boxes are shown
     property bool checkMode: false
+
+
+
+    /* ------------------------------------
+     *               Components
+     * ------------------------------------ */
+
+
 
     Sections{
         id: sections
@@ -32,7 +57,6 @@ Item {
         Component.onCompleted: {
             dbcon.itemsChanged.connect(recount)
             dbcon.categoriesChanged.connect(refresh)
-            // refresh to initialise the model
             refresh()
         }
         onSelectedIndexChanged: listView.refresh()
@@ -91,6 +115,14 @@ Item {
             refresh()
         }
 
+        function recountChecked(){
+            var count = 0
+            for (var i=0;i<model.count;i++){
+                if (model.get(i).marked===1) count += 1
+            }
+            checkedEntries = count
+        }
+
         function refresh(){
             model.clear()
             // check if all entries should be displayed
@@ -101,15 +133,17 @@ Item {
                 }
             } else {
                 var category = dbcon.categoriesModel.get(sections.selectedIndex).name
-                if (category===i18n.tr("other")) category = ""
-                var rows = dbcon.selectItems(category)
+                var rows = dbcon.selectItems((category===i18n.tr("other")) ? "" : category)
                 if (rows){
                     for (var i= rows.length-1;i>-1;i--){
                         // if category=other, then check whether category exists
-                        if (category===""){
+                        if (category===i18n.tr("other")){
                             var found = false
                             for (var j=1; j<dbcon.categoriesList.length-1; j++){
-                                if (dbcon.categoriesList[j]===rows[i].category) found = true
+                                if (dbcon.categoriesList[j]===rows[i].category) {
+                                    found = true
+                                    break
+                                }
                             }
                             if (found) continue
                         }
@@ -117,141 +151,37 @@ Item {
                     }
                 }
             }
+            recountChecked()
         }
 
-        delegate: ListItem{
-            leadingActions: ListItemActions{
-                actions: [
-                    Action{
-                        iconName: "delete"
-                        onTriggered: dbcon.deleteItem(listView.model.get(index).uid)
-                    }
-                ]
-            }
-            Rectangle{
-                anchors.fill: parent
-                color: theme.palette.normal.positive
-                opacity: 0.2
-                visible: marked
-            }
-
-            CheckBox{
-                id: checkBox
-                anchors{
-                    right: mouseUp.left
-                    verticalCenter: parent.verticalCenter
-                    margins: units.gu(2)
-                }
-                visible: root.checkMode
-                checked: marked
-                onTriggered: {
-                    dbcon.toggleItemMarked(uid)
-                    marked = 1-marked
+        delegate: EntryListItem{
+            onRemove: dbcon.deleteItem(uid)
+            onToggleMarked: {
+                dbcon.toggleItemMarked(uid)
+                if (marked===1) {
+                    checkedEntries -= 1
+                } else{
+                    checkedEntries += 1
                 }
             }
-
-            TextArea{
-                id: lbName
-                anchors{
-                    left: mouseDown.right
-                    right: checkBox.visible ? checkBox.left : mouseUp.left
-                    top: parent.top
-                    bottom: parent.bottom
-                    leftMargin: units.gu(6)
-                }
-                x: 0.35*parent.width
-                text: name
-                verticalAlignment: Qt.AlignVCenter
-                readOnly: true
+            onMoveDown: {
+                dbcon.swapItems(uid,listView.model.get(index+1).uid)
+                // swap items in view
+                var tempUID = uid
+                uid = listView.model.get(index+1).uid
+                listView.model.setProperty(index+1,"uid",tempUID)
+                listView.model.move(index+1,index,1)
             }
-            Label{
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: lbName.left
-                anchors.margins: units.gu(1)
-                text: "<b>"+quantity+" "+dimension+"</b>"
-                horizontalAlignment: Label.AlignRight
-            }
-            Label{
-                anchors.bottom: parent.bottom
-                anchors.left:   parent.left
-                textSize: Label.Small
-                text: category
-            }
-            MouseArea{
-                id: mouseDown
-                visible: index<listView.model.count-1
-                anchors{
-                    top: parent.top
-                    left: parent.left
-                    bottom: parent.bottom
-                }
-                width: height
-                Icon{
-                    name: "down"
-                    height: units.gu(3)
-                    anchors.centerIn: parent
-                }
-                onClicked:{
-                    dbcon.swapItems(listView.model.get(index).uid,listView.model.get(index+1).uid)
-                    // swap items in view
-                    var tempUID = uid
-                    uid = listView.model.get(index+1).uid
-                    listView.model.setProperty(index+1,"uid",tempUID)
-                    listView.model.move(index+1,index,1)
-                }
-            }
-            MouseArea{
-                id: mouseUp
-                visible: index>0
-                anchors{
-                    top:    parent.top
-                    right:  parent.right
-                    bottom: parent.bottom
-                }
-                width: 1.2*height
-                Icon{
-                    name: "up"
-                    height: units.gu(3)
-                    anchors.centerIn: parent
-                }
-                onClicked: {
-                    dbcon.swapItems(listView.model.get(index).uid,listView.model.get(index-1).uid)
-                    // swap items in view
-                    var tempUID = uid
-                    uid = listView.model.get(index-1).uid
-                    listView.model.setProperty(index-1,"uid",tempUID)
-                    listView.model.move(index-1,index,1)
-                }
-            }
-            Rectangle{
-                id: downGradient
-                width: 0.5*parent.width
-                height: width
-                x: 0
-                y: 0.5*(parent.height-height)
-                rotation: 90
-                gradient: Gradient {
-                        GradientStop { position: 1.0; color: "#88aa8888"}
-                        GradientStop { position: 0.0; color: "#00aa8888"}
-                    }
-                visible: mouseDown.pressed
-            }
-            Rectangle{
-                id: upGradient
-                width: 0.5*parent.width
-                height: width
-                x: 0.5*parent.width
-                y: 0.5*(parent.height-height)
-                rotation: 90
-                gradient: Gradient {
-                        GradientStop { position: 0.0; color: "#8888aa88"}
-                        GradientStop { position: 1.0; color: "#0088aa88"}
-                    }
-                visible: mouseUp.pressed
+            onMoveUp: {
+                dbcon.swapItems(uid,listView.model.get(index-1).uid)
+                // swap items in view
+                var tempUID = uid
+                uid = listView.model.get(index-1).uid
+                listView.model.setProperty(index-1,"uid",tempUID)
+                listView.model.move(index-1,index,1)
             }
         }
     }
-
 
     InputRow{
         id: inputRow
@@ -270,84 +200,25 @@ Item {
             }
         }
     }
-    // button to restore entries which where previously deleted
-    Button{
-        id: btRestore
-        width: 0.4*root.width
-        x:     0.3*root.width
 
-        iconName: "undo"
-        color: theme.palette.normal.base
-
-        state: (dbcon.hasDeletedEntries) ? "on" : "off"
-        states: [
-            State{
-                name: "off"
-                PropertyChanges {target: btRestore; y: root.parent.height}
-            },
-            State{
-                name: "on"
-                PropertyChanges {target: btRestore; y: root.parent.height - height - units.gu(2)}
-            }
-        ]
-        transitions: Transition {
-            reversible: true
-            from: "off"
-            to: "on"
-            PropertyAnimation{
-                property: "y"
-                duration: 400
-            }
-        }
-        onClicked: dbcon.restoreDeleted()
-    }
-
-    // button to delete all currently displayed entries
-    Button{
-        id: btClear
-        width: root.width/2
-        x:     root.width/4
-
-        text: i18n.tr("clear list")
-        color: UbuntuColors.orange
-        state: (listView.model.count>0) ? "on" : "off"
-        states: [
-            State{
-                name: "off"
-                PropertyChanges {target: btClear; y:root.parent.height}
-            },
-            State{
-                name: "on"
-                PropertyChanges {target: btClear; y:root.parent.height - height - units.gu(2)}
-            }
-        ]
-        transitions: Transition {
-            reversible: true
-            from: "off"
-            to: "on"
-            PropertyAnimation{
-                property: "y"
-                duration: 400
-            }
-        }
-        onClicked: {
-            // remove all entries that were deleted last time
-            dbcon.removeDeleted()
-            // mark all entries which are currently in listView as deleted
+    ClearListButtons{
+        id: clearList
+        hasItems:        listView.model.count>0
+        hasDeletedItems: dbcon.hasDeletedEntries
+        hasCheckedItems: checkedEntries>0
+        onRemoveDeleted:  dbcon.removeDeleted()
+        onRestoreDeleted: dbcon.restoreDeleted()
+        onRemoveAll:{
             for (var i=listView.model.count-1;i>-1;i--){
                 dbcon.markAsDeleted(listView.model.get(i).uid)
             }
-            // (re)start timer to automatically delete items from database
-            deleteTimer.restart()
         }
-    }
-
-    // a timer to finally delete list entries 10s after they have been marked as deledeletedEntries:
-    Timer{
-        id: deleteTimer
-        interval: 10000
-        onTriggered:{
-            dbcon.removeDeleted()
+        onRemoveSelected: {
+            for (var i=listView.model.count-1;i>-1;i--){
+                if (listView.model.get(i).marked===1){
+                    dbcon.markAsDeleted(listView.model.get(i).uid)
+                }
+            }
         }
     }
 

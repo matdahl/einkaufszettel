@@ -13,19 +13,33 @@ Item {
     // the flag if check boxes are shown
     property bool checkMode: false
 
-    property bool hasCheckedCategories: false
-    function countCheckedCategories(){
+    property bool hasCheckedEntries: false
+    function countCheckedEntries(){
         for (var i=0;i<dbcon.categoriesRawModel.count;i++){
             if (dbcon.categoriesRawModel.get(i).marked===1){
-                hasCheckedCategories = true
+                hasCheckedEntries = true
                 return
             }
         }
-        hasCheckedCategories = false
+        hasCheckedEntries = false
+    }
+
+    // deselect all entries in current list
+    function deselectAll(){
+        if (!dbcon) return
+        for (var i=0;i<dbcon.categoriesModel.count;i++){
+            if (dbcon.categoriesModel.get(i).marked===1){
+                dbcon.toggleCategoryMarked(dbcon.categoriesModel.get(i).name)
+            }
+        }
     }
 
     Component.onCompleted: {
-        dbcon.categoriesChanged.connect(countCheckedCategories)
+        dbcon.categoriesChanged.connect(countCheckedEntries)
+    }
+
+    onVisibleChanged: {
+        if (!visible) deselectAll()
     }
 
     Row{
@@ -94,7 +108,7 @@ Item {
     ClearListButtons{
         id: clearButtons
         hasItems: listView.model.count>0
-        hasCheckedItems: root.hasCheckedCategories
+        hasCheckedItems: hasCheckedEntries
         hasDeletedItems: dbcon.hasDeletedCategories
 
         onRemoveAll:      dbcon.markCategoriesAsDeleted(false)

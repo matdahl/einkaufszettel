@@ -1,25 +1,36 @@
 import QtQuick 2.7
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
+
+import "../components"
+import "../components/listitems"
 
 Item {
     id: root
     property string headerSuffix: i18n.tr("Units")
+
     property var dimensions
-
-    Component.onCompleted: refresh()
-
-    function refresh(){
-        listView.model.clear()
-        var rows = dimensions.select()
-        if (rows){
-            for (var i=0;i<rows.length;i++){
-                listView.model.append(rows[i])
-            }
-        }
-    }
 
     // the flag if check boxes are shown
     property bool checkMode: false
+
+    property bool hasCheckedEntries: dimensions.hasMarkedUnits
+
+    function deselectAll(){
+        dimensions.deselectAll()
+    }
+
+    function reset(){
+        PopupUtils.open(dialog)
+    }
+
+
+
+    /* ------------------------------------
+     *               Components
+     * ------------------------------------ */
+
+
 
     Row{
         id: inputRow
@@ -53,11 +64,17 @@ Item {
                     dimensions.add(inputSymbol.text,inputName.text)
                     inputName.text = ""
                     inputSymbol.text = ""
-                    root.refresh()
                 }
             }
         }
     }
+
+    Label{
+        anchors.centerIn: parent
+        text: "("+i18n.tr("No entries") +")"
+        visible: listView.model.count===0
+    }
+
     UbuntuListView{
         id: listView
         clip: true
@@ -68,125 +85,60 @@ Item {
             right:  root.right
         }
         currentIndex: -1
-        model: ListModel{}
-        delegate: ListItem{
-            leadingActions: ListItemActions{ actions: [
-                Action{
-                    iconName: "delete"
-                    onTriggered: {
-                        dimensions.remove(uid)
-                        root.refresh()
-                    }
-                    // the unit "piece" is not deletable
-                    visible: symbol !=="x"
-                }
-            ]}
-
-            Rectangle{
-                anchors.fill: parent
-                color: theme.palette.normal.positive
-                opacity: 0.2
-                visible: marked && symbol !=="x"
+        model: dimensions.unitsModel
+        delegate: UnitListItem{
+            onRemove: dimensions.remove(uid)
+            onMoveUp: {
+                dimensions.swap(uid,listView.model.get(index-1).uid)
+                // swap items in view
+                var tempUID = uid
+                uid = listView.model.get(index-1).uid
+                listView.model.setProperty(index-1,"uid",tempUID)
+                listView.model.move(index-1,index,1)
             }
-
-            CheckBox{
-                id: checkBox
-                anchors{
-                    right: mouseUp.left
-                    verticalCenter: parent.verticalCenter
-                    margins: units.gu(2)
-                }
-                visible: root.checkMode && symbol !=="x"
-                checked: marked
-                onTriggered: {
-                    dimensions.toggleMarked(uid)
-                    marked = 1-marked
-                }
+            onMoveDown: {
+                dimensions.swap(uid,listView.model.get(index+1).uid)
+                // swap items in view
+                var tempUID = uid
+                uid = listView.model.get(index+1).uid
+                listView.model.setProperty(index+1,"uid",tempUID)
+                listView.model.move(index+1,index,1)
             }
-
-            Label{
-                id: lbName
-                anchors.verticalCenter: parent.verticalCenter
-                x: 0.4*parent.width
-                text: name
-            }
-            Label{
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: lbName.left
-                anchors.margins: units.gu(2)
-                text: "<b>"+symbol+"</b>"
-                horizontalAlignment: Label.AlignRight
-            }
-            MouseArea{
-                id: mouseDown
-                // the unit "piece" is not movable
-                visible: index<listView.model.count-1 && symbol !== "x"
-                anchors{
-                    top: parent.top
-                    left: parent.left
-                    bottom: parent.bottom
-                }
-                width: 1.5*height
-                Icon{
-                    name: "down"
-                    height: units.gu(3)
-                    anchors.centerIn: parent
-                }
-                onClicked:  {
-                    dimensions.swapCategories(uid,listView.model.get(index+1).uid)
-                    root.refresh()
-                }
-            }
-            MouseArea{
-                id: mouseUp
-                visible: index>1
-                anchors{
-                    top:    parent.top
-                    right:  parent.right
-                    bottom: parent.bottom
-                }
-                width: 1.5*height
-                Icon{
-                    name: "up"
-                    height: units.gu(3)
-                    anchors.centerIn: parent
-                }
-                onClicked: {
-                    dimensions.swap(uid,listView.model.get(index-1).uid)
-                    root.refresh()
-                }
-            }
-            Rectangle{
-                id: downGradient
-                width: 0.5*parent.width
-                height: width
-                x: 0
-                y: 0.5*(parent.height-height)
-                rotation: 90
-                gradient: Gradient {
-                        GradientStop { position: 1.0; color: "#88aa8888"}
-                        GradientStop { position: 0.0; color: "#00aa8888"}
-                    }
-                visible: mouseDown.pressed
-            }
-            Rectangle{
-                id: upGradient
-                width: 0.5*parent.width
-                height: width
-                x: 0.5*parent.width
-                y: 0.5*(parent.height-height)
-                rotation: 90
-                gradient: Gradient {
-                        GradientStop { position: 0.0; color: "#8888aa88"}
-                        GradientStop { position: 1.0; color: "#0088aa88"}
-                    }
-                visible: mouseUp.pressed
+            onToggleMarked: {
+                dimensions.toggleMarked(uid)
             }
         }
     }
-    Label{
-        anchors.centerIn: parent
-        text: "("+i18n.tr("No entries") +")"
-        visible: listView.model.count===0
+
+    ClearListButtons{
+        id: clearList
+        hasCheckedItems: dimensions.hasMarkedUnits
+        hasDeletedItems: dimensions.hasDeletedUnits
+        hasItems:        listView.model.count > 1
+        onRemoveAll:      dimensions.removeAll()
+        onRemoveSelected: dimensions.removeSelected()
+        onRemoveDeleted:  dimensions.removeDeleted()
+        onRestoreDeleted: dimensions.restoreDeleted()
+    }
+
+    Component {
+         id: dialog
+         Dialog {
+             id: dialogue
+             title: i18n.tr("Reset units")
+             text: i18n.tr("Are you sure that you want to reset to default units?")
+             Button {
+                 text: i18n.tr("cancel")
+                 onClicked: PopupUtils.close(dialogue)
+             }
+             Button {
+                 text: i18n.tr("reset units")
+                 color: UbuntuColors.orange
+                 onClicked: {
+                     dimensions.resetUnits()
+                     PopupUtils.close(dialogue)
+                 }
+             }
+         }
     }
 }

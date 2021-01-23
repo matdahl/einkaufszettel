@@ -13,6 +13,7 @@ Item {
     property var dimensions
 
     property string headerSuffix: i18n.tr("Settings")
+    property bool hasCheckedEntries: false
 
     Column{
         id: col

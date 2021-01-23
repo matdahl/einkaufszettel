@@ -139,6 +139,16 @@ Item {
             console.error("Error when toggleing marked flag of key '"+key+"' in table '"+db_table_keys+"': " + err)
         }
     }
+    function deselectAll(){
+        try{
+            db.transaction(function(tx){
+                tx.executeSql("UPDATE "+db_table_keys+" SET marked=0")
+            })
+            historyChanged()
+        } catch (err){
+            console.error("Error when deselect all keys in table '"+db_table_keys+"': " + err)
+        }
+    }
 
     function markSelectedForDelete(){
         try{
