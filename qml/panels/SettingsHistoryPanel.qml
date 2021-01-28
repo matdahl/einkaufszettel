@@ -8,13 +8,9 @@ Item {
     id: root
     property string headerSuffix: i18n.tr("History")
 
-    // the flag if check boxes are shown
-    property bool checkMode: true
-
     property bool hasCheckedEntries: db_history.hasMarkedKeys
-    function deselectAll(){
-        db_history.deselectAll()
-    }
+    signal deselectAll()
+    onDeselectAll: db_history.deselectAll()
 
     onVisibleChanged: {
         if (!visible && db_history) db_history.deselectAll()
@@ -25,14 +21,6 @@ Item {
     /* ------------------------------------
      *               Components
      * ------------------------------------ */
-
-    SortFilterModel{
-        id: sortedModel
-        model: db_history.sortedKeyModel
-        sort.property: "key"
-        sort.order: Qt.AscendingOrder
-        sortCaseSensitivity: Qt.CaseInsensitive
-    }
 
     Label{
         anchors.centerIn: parent
@@ -47,8 +35,9 @@ Item {
             bottomMargin: units.gu(4)
         }
         currentIndex: -1
-        model: sortedModel
+        model: db_history.presortedKeyModel
         delegate: HistoryListItem{
+            Component.onCompleted: root.deselectAll.connect(uncheck)
             onRemove: db_history.deleteKey(key)
             onToggleMarked: {
                 db_history.toggleMarked(key)

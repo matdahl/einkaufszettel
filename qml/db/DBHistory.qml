@@ -6,42 +6,131 @@ import Ubuntu.Components 1.3
 Item {
     id: root
 
-    // this signal is emitted when a key or the count of a key was changed and all models are refreshed
-    signal historyChanged()
+    // models containing all keys
+    property var unsortedKeyModel: ListModel{}
+    property var presortedKeyModel: ListModel{}
+    property var sortedKeyModel: ListModel{}
 
-    function refreshHistory(){
-        rawModel.clear()
-        var rows = selectKeys()
+    // this function refreshs all models
+    function refresh(){
+        unsortedKeyModel.clear()
+        presortedKeyModel.clear()
+        sortedKeyModel.clear()
 
-        // read all keys into unsorted rawModel
-        for (var i=0;i<rows.length;i++){
-            rawModel.append(rows[i])
+        var i
+        // build unsortedKeyModel
+        var keys = selectKeys()
+        for (i=0;i<keys.length;i++){
+            unsortedKeyModel.append(keys[i])
         }
-        sortedKeyModel.model = rawModel
+        // build presortedKeyModel
+        for (i=0;i<unsortedKeyModel.count;i++){
+            var entry = unsortedKeyModel.get(i)
+            var j=0
+            while (j<presortedKeyModel.count && entry.key>presortedKeyModel.get(j).key) j++
+            presortedKeyModel.insert(j,entry)
+        }
+        // build sortedKeyModel
+        for (i=0;i<presortedKeyModel.count;i++){
+            var entry = presortedKeyModel.get(i)
+            var j = sortedKeyModel.count-1
+//            if (j<0) j = 0
+            while (j>0 && entry.count>sortedKeyModel.get(j).count) j--
+            sortedKeyModel.insert(j+1,entry)
+        }
         checkForMarkedEntries()
-        historyChanged()
     }
 
-    function checkForMarkedEntries(){
-        hasMarkedKeys = false
-        for (var i=0; i<sortedKeyModel.count;i++){
-            if (sortedKeyModel.get(i).marked===1) {
-                hasMarkedKeys = true
+    // removes the key 'key' from all models
+    function models_deleteKey(key){
+        var i
+        for (i=0; i<unsortedKeyModel.count; i++){
+            if (unsortedKeyModel.get(i).key===key){
+                unsortedKeyModel.remove(i,1)
+                break
+            }
+        }
+        for (i=0; i<presortedKeyModel.count; i++){
+            if (presortedKeyModel.get(i).key===key){
+                presortedKeyModel.remove(i,1)
+                break
+            }
+        }
+        for (i=0; i<sortedKeyModel.count; i++){
+            if (sortedKeyModel.get(i).key===key){
+                sortedKeyModel.remove(i,1)
                 break
             }
         }
     }
 
-    ListModel{
-        id: rawModel
+    // this function updates all models if the count of an key is incremented
+    function models_incCount(key){
+        var i
+        for (i=0; i<unsortedKeyModel.count; i++){
+            if (unsortedKeyModel.get(i).key===key){
+                unsortedKeyModel.get(i).count += 1
+                break
+            }
+        }
+        for (i=0; i<presortedKeyModel.count; i++){
+            if (presortedKeyModel.get(i).key===key){
+                presortedKeyModel.get(i).count += 1
+                break
+            }
+        }
+        for (i=0; i<sortedKeyModel.count; i++){
+            if (sortedKeyModel.get(i).key===key){
+                var count = sortedKeyModel.get(i).count += 1
+                //resort if needed
+                var j=i
+                while (j>0 && (sortedKeyModel.get(i-1).count< count || sortedKeyModel.get(i-1).key>key)) j--
+                if (j<i) sortedKeyModel.move(i,j,1)
+                break
+            }
+        }
     }
 
-    property var sortedKeyModel: SortFilterModel{
-                                    model: rawModel
-                                    sort.property: "key"
-                                    sort.order: Qt.AscendingOrder
+    function models_toggleMarked(key){
+        var i
+        for (i=0; i<unsortedKeyModel.count; i++){
+            if (unsortedKeyModel.get(i).key===key){
+                unsortedKeyModel.get(i).marked = 1 - unsortedKeyModel.get(i).marked
+                break
+            }
+        }
+        for (i=0; i<presortedKeyModel.count; i++){
+            if (presortedKeyModel.get(i).key===key){
+                presortedKeyModel.get(i).marked = 1 - presortedKeyModel.get(i).marked
+                break
+            }
+        }
+        for (i=0; i<sortedKeyModel.count; i++){
+            if (sortedKeyModel.get(i).key===key){
+                sortedKeyModel.get(i).marked = 1 - sortedKeyModel.get(i).marked
+                break
+            }
+        }
+        checkForMarkedEntries()
     }
 
+    function models_deselect_all(){
+        for (var i=0; i<unsortedKeyModel.count; i++){
+            unsortedKeyModel.get(i).marked  = 0
+            presortedKeyModel.get(i).marked = 0
+            sortedKeyModel.get(i).marked    = 0
+        }
+    }
+
+    function checkForMarkedEntries(){
+        hasMarkedKeys = false
+        for (var i=0; i<unsortedKeyModel.count;i++){
+            if (unsortedKeyModel.get(i).marked===1) {
+                hasMarkedKeys = true
+                break
+            }
+        }
+    }
 
     Component.onCompleted: init()
 
@@ -113,7 +202,7 @@ Item {
         } catch (err){
             console.error("Error when checking columns of table '"+db_table_keys+"': " + err)
         }
-        refreshHistory()
+        refresh()
     }
 
     function addKey(key){
@@ -125,11 +214,12 @@ Item {
                     var rt = tx.executeSql("SELECT * FROM "+db_table_keys+" WHERE key=?",[key])
                     if (rt.rows.length===0){
                         tx.executeSql("INSERT INTO "+db_table_keys+"(key) VALUES (?)",[key])
+                        refresh()
                     } else {
                         tx.executeSql("UPDATE "+db_table_keys+" SET count=count+1 WHERE key=?",[key])
+                        models_incCount(key)
                     }
                 })
-                refreshHistory()
             } catch (err){
                 console.error("Error when insert key '"+key+"' into table '"+db_table_keys+"': " + err)
             }
@@ -140,7 +230,7 @@ Item {
         try{
             db.transaction(function(tx){
                 tx.executeSql("DELETE FROM "+db_table_keys+" WHERE key='"+key+"'")
-                refreshHistory()
+                models_deleteKey(key)
             })
         } catch (err){
             console.error("Error when delete from table '"+db_table_keys+"': " + err)
@@ -161,19 +251,10 @@ Item {
     function toggleMarked(key){
         if (!db) init()
         try{
-            // toggle in DB
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_keys+" SET marked=1-marked WHERE key=?",[key])
             })
-            // toggle in model
-            for (var i=0;i<rawModel.count;i++){
-                if (rawModel.get(i).key===key){
-                    rawModel.get(i).marked = 1 - rawModel.get(i).marked
-                    break
-                }
-            }
-            checkForMarkedEntries()
-            historyChanged()
+            models_toggleMarked(key)
         } catch (err){
             console.error("Error when toggleing marked flag of key '"+key+"' in table '"+db_table_keys+"': " + err)
         }
@@ -184,7 +265,8 @@ Item {
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_keys+" SET marked=0")
             })
-            refreshHistory()
+            models_deselect_all()
+            hasMarkedKeys = false
         } catch (err){
             console.error("Error when deselect all keys in table '"+db_table_keys+"': " + err)
         }
@@ -197,7 +279,7 @@ Item {
                 tx.executeSql("UPDATE "+db_table_keys+" SET deleteFlag=1,marked=0 WHERE marked=1")
             })
             hasDeletedKeys = true
-            refreshHistory()
+            refresh()
         } catch (err){
             console.error("Error when marking selected keys for delete in table '"+db_table_keys+"': " + err)
         }
@@ -209,7 +291,7 @@ Item {
                 tx.executeSql("UPDATE "+db_table_keys+" SET deleteFlag=1")
             })
             hasDeletedKeys = true
-            refreshHistory()
+            refresh()
         } catch (err){
             console.error("Error when marking all keys for delete in table '"+db_table_keys+"': " + err)
         }
@@ -232,7 +314,7 @@ Item {
                 tx.executeSql("UPDATE "+db_table_keys+" SET deleteFlag=0")
             })
             hasDeletedKeys = false
-            refreshHistory()
+            refresh()
         } catch (err){
             console.error("Error when restoring all keys in table '"+db_table_keys+"': " + err)
         }

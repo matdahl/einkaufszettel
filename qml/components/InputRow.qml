@@ -17,9 +17,6 @@ Row{
     SortFilterModel{
         id: filterModel
         model: db_history.sortedKeyModel
-        sort.property: "key"
-        sort.order: Qt.AscendingOrder
-        sortCaseSensitivity: Qt.CaseInsensitive
         filter.property: "key"
         filter.pattern: new RegExp(input.text)
         filterCaseSensitivity: Qt.CaseInsensitive
@@ -52,6 +49,7 @@ Row{
         onFocusChanged: {
             if (focus){
                 quantitySelect.expanded = false
+                if (text.length>0) dropDown.visible = true
             } else {
                 dropDown.visible = false
             }

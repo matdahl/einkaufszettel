@@ -5,6 +5,10 @@ ListItem{
     signal remove()
     signal toggleMarked()
 
+    function uncheck(){
+        if (checkBox) checkBox.checked = false
+    }
+
     leadingActions: ListItemActions{ actions: [
         Action{
             iconName: "delete"
@@ -19,49 +23,37 @@ ListItem{
         visible: marked
     }
 
-    Label{
+    Label {
+        id: lbCount
         anchors{
             left: parent.left
-            right: parent.right // lbCount.left
             verticalCenter: parent.verticalCenter
+        }
+        width: units.gu(6)
+        horizontalAlignment: Label.AlignHCenter
+        text: "("+count+")"
+    }
+
+    Label{
+        id: lbKey
+        anchors{
+            left:  parent.left
+            right: parent.right
+            verticalCenter: parent.verticalCenter
+            margins: units.gu(6)
         }
         horizontalAlignment: Label.AlignHCenter
         text: key
         elide: Qt.ElideRight
     }
 
-    /*
-    Label {
-        id: lbCount
-        anchors{
-            right: parent.right
-            verticalCenter: parent.verticalCenter
-        }
-        width: units.gu(8)
-        horizontalAlignment: Label.AlignHCenter
-        font.bold: true
-        text: count
-    }
-
-    Rectangle{
-        anchors{
-            left: lbCount.left
-            verticalCenter: parent.verticalCenter
-        }
-        width: 1
-        height: parent.height - units.gu(2)
-        color: theme.palette.normal.base
-    }
-    */
-
     CheckBox{
         id: checkBox
         anchors{
-            right: parent.right // lbCount.left
+            right: parent.right
             verticalCenter: parent.verticalCenter
             margins: units.gu(2)
         }
-        visible: root.checkMode
         checked: marked
         onTriggered: toggleMarked()
     }
