@@ -29,9 +29,6 @@ Item {
     // the connector to interact with the entries and categories database
     property var dbcon
 
-    // the connector to interact with the history database
-    property var db_histo
-
     // the flag if check boxes are shown
     property bool checkMode: false
 
@@ -189,13 +186,12 @@ Item {
         anchors.top: sections.bottom
         placeholderText: i18n.tr("new entry ...")
         enabled: sections.selectedIndex>0
-        db_histo: root.db_histo
         onAccepted: {
             if (text !== ""){
                 // insert new entry to database
                 dbcon.insertItem(text.trim(),dbcon.categoriesList[sections.selectedIndex],inputRow.quantity,inputRow.dimension)
                 // insert new entry to history
-                db_histo.addKey(text.trim())
+                db_history.addKey(text.trim())
                 reset()
             }
         }

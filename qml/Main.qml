@@ -37,9 +37,8 @@ MainView {
 
     // the database connector to store the history of entries if wanted
     DBHistory{
-        id: db_histo
+        id: db_history
     }
-
 
     // the colors object which stores all informations about current color theme settings
     Colors{
@@ -47,14 +46,15 @@ MainView {
         initialIndex: 1
     }
 
+    // set the theme and background color
+    theme.name: colors.darkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
+
     // the units to measure quantities of entries
     Dimensions{
         id: dimensions
     }
 
 
-    // set the theme and background color
-    theme.name: colors.darkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
 
     Page {
         anchors.fill: parent
@@ -113,14 +113,12 @@ MainView {
             id: listPanel
             Component.onCompleted: stack.push(listPanel)
             dbcon:    root.dbcon
-            db_histo: db_histo
         }
 
         SettingsPanel{
             id: settingsPanel
             visible: false
             dbcon:    root.dbcon
-            db_histo: db_histo
             stack:  stack
             colors: colors
             dimensions:  dimensions

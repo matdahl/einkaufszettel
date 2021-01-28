@@ -8,19 +8,16 @@ Item {
     id: root
     property string headerSuffix: i18n.tr("History")
 
-    // the database connector
-    property var db_histo
-
     // the flag if check boxes are shown
     property bool checkMode: true
 
-    property bool hasCheckedEntries: db_histo.hasMarkedKeys
+    property bool hasCheckedEntries: db_history.hasMarkedKeys
     function deselectAll(){
-        db_histo.deselectAll()
+        db_history.deselectAll()
     }
 
     onVisibleChanged: {
-        if (!visible && db_histo) db_histo.deselectAll()
+        if (!visible && db_history) db_history.deselectAll()
     }
 
 
@@ -31,7 +28,7 @@ Item {
 
     SortFilterModel{
         id: sortedModel
-        model: db_histo.keyModel
+        model: db_history.sortedKeyModel
         sort.property: "key"
         sort.order: Qt.AscendingOrder
         sortCaseSensitivity: Qt.CaseInsensitive
@@ -52,18 +49,20 @@ Item {
         currentIndex: -1
         model: sortedModel
         delegate: HistoryListItem{
-            onRemove: db_histo.deleteKey(key)
-            onToggleMarked: db_histo.toggleMarked(key)
+            onRemove: db_history.deleteKey(key)
+            onToggleMarked: {
+                db_history.toggleMarked(key)
+            }
         }
     }
 
     ClearListButtons{
-        hasItems: listView.model.count>0
-        hasCheckedItems: db_histo.hasMarkedKeys
-        hasDeletedItems: db_histo.hasDeletedKeys
-        onRemoveAll:      db_histo.markAllForDelete()
-        onRemoveSelected: db_histo.markSelectedForDelete()
-        onRemoveDeleted:  db_histo.removeDeleted()
-        onRestoreDeleted: db_histo.restore()
+        hasItems:        listView.model.count>0
+        hasCheckedItems: db_history.hasMarkedKeys
+        hasDeletedItems: db_history.hasDeletedKeys
+        onRemoveAll:      db_history.markAllForDelete()
+        onRemoveSelected: db_history.markSelectedForDelete()
+        onRemoveDeleted:  db_history.removeDeleted()
+        onRestoreDeleted: db_history.restore()
     }
 }

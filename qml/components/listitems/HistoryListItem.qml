@@ -22,7 +22,7 @@ ListItem{
     Label{
         anchors{
             left: parent.left
-            right: lbCount.left
+            right: parent.right // lbCount.left
             verticalCenter: parent.verticalCenter
         }
         horizontalAlignment: Label.AlignHCenter
@@ -30,6 +30,7 @@ ListItem{
         elide: Qt.ElideRight
     }
 
+    /*
     Label {
         id: lbCount
         anchors{
@@ -51,11 +52,12 @@ ListItem{
         height: parent.height - units.gu(2)
         color: theme.palette.normal.base
     }
+    */
 
     CheckBox{
         id: checkBox
         anchors{
-            right: lbCount.left
+            right: parent.right // lbCount.left
             verticalCenter: parent.verticalCenter
             margins: units.gu(2)
         }

@@ -13,12 +13,10 @@ Row{
     property alias  quantity: quantitySelect.quantity
     property string dimension: quantitySelect.dimension ? quantitySelect.dimension.symbol : 'x'
 
-    property var db_histo
-
 
     SortFilterModel{
         id: filterModel
-        model: db_histo.keyModel
+        model: db_history.sortedKeyModel
         sort.property: "key"
         sort.order: Qt.AscendingOrder
         sortCaseSensitivity: Qt.CaseInsensitive
@@ -58,7 +56,7 @@ Row{
                 dropDown.visible = false
             }
         }
-        onTextChanged:  dropDown.visible = (db_histo.active && text.length>0)
+        onTextChanged:  dropDown.visible = (db_history.active && text.length>0)
         inputMethodHints: Qt.ImhNoPredictiveText
         Rectangle{
             id: dropDown
@@ -90,7 +88,7 @@ Row{
                     onClicked: {
                         input.text = key
                         dropDown.visible = false
-                        //root.accepted()
+                        if (db_history.acceptOnClick) root.accepted()
                     }
                 }
             }

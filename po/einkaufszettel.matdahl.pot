@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-23 19:01+0000\n"
+"POT-Creation-Date: 2021-01-28 16:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,13 +38,13 @@ msgid "OK"
 msgstr ""
 
 #: ../qml/db/DBconnector.qml:18 ../qml/db/DBconnector.qml:19
-#: ../qml/panels/ListPanel.qml:78 ../qml/panels/ListPanel.qml:79
+#: ../qml/panels/ListPanel.qml:75 ../qml/panels/ListPanel.qml:76
 msgid "all"
 msgstr ""
 
 #: ../qml/db/DBconnector.qml:26 ../qml/db/DBconnector.qml:27
-#: ../qml/panels/ListPanel.qml:85 ../qml/panels/ListPanel.qml:86
-#: ../qml/panels/ListPanel.qml:136 ../qml/panels/ListPanel.qml:140
+#: ../qml/panels/ListPanel.qml:82 ../qml/panels/ListPanel.qml:83
+#: ../qml/panels/ListPanel.qml:133 ../qml/panels/ListPanel.qml:137
 msgid "other"
 msgstr ""
 
@@ -64,13 +64,13 @@ msgstr ""
 msgid "Liter"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:96 ../qml/panels/SettingsCategoriesPanel.qml:104
-#: ../qml/panels/SettingsHistoryPanel.qml:42
+#: ../qml/panels/ListPanel.qml:93 ../qml/panels/SettingsCategoriesPanel.qml:104
+#: ../qml/panels/SettingsHistoryPanel.qml:39
 #: ../qml/panels/SettingsUnitsPanel.qml:74
 msgid "No entries"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:190
+#: ../qml/panels/ListPanel.qml:187
 msgid "new entry ..."
 msgstr ""
 
@@ -86,39 +86,43 @@ msgstr ""
 msgid "History"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:15
+#: ../qml/panels/SettingsPanel.qml:14
 msgid "Settings"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:25
+#: ../qml/panels/SettingsPanel.qml:24
 msgid "Edit categories"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:31
+#: ../qml/panels/SettingsPanel.qml:30
 msgid "Edit units"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:36
+#: ../qml/panels/SettingsPanel.qml:35
 msgid "Suggestions"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:39
+#: ../qml/panels/SettingsPanel.qml:38
 msgid "Show suggestions"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:45
-msgid "Edit history"
+#: ../qml/panels/SettingsPanel.qml:44
+msgid "Insert suggestion on click"
 msgstr ""
 
 #: ../qml/panels/SettingsPanel.qml:50
+msgid "Edit history"
+msgstr ""
+
+#: ../qml/panels/SettingsPanel.qml:55
 msgid "Appearance"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:53
+#: ../qml/panels/SettingsPanel.qml:58
 msgid "Dark Mode"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:59
+#: ../qml/panels/SettingsPanel.qml:64
 msgid "Color"
 msgstr ""
 

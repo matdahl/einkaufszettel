@@ -1,31 +1,54 @@
 import QtQuick 2.7
 import QtQuick.LocalStorage 2.0 as Sql
 import Qt.labs.settings 1.0
+import Ubuntu.Components 1.3
 
 Item {
     id: root
 
+    // this signal is emitted when a key or the count of a key was changed and all models are refreshed
     signal historyChanged()
 
-    property var keyModel: ListModel{}
-    property bool hasMarkedKeys:  false
-    property bool hasDeletedKeys: false
-
-    onHistoryChanged: {
-        keyModel.clear()
+    function refreshHistory(){
+        rawModel.clear()
         var rows = selectKeys()
-        hasMarkedKeys = false
+
+        // read all keys into unsorted rawModel
         for (var i=0;i<rows.length;i++){
-            keyModel.append(rows[i])
-            if (rows[i].marked===1) hasMarkedKeys = true
+            rawModel.append(rows[i])
+        }
+        sortedKeyModel.model = rawModel
+        checkForMarkedEntries()
+        historyChanged()
+    }
+
+    function checkForMarkedEntries(){
+        hasMarkedKeys = false
+        for (var i=0; i<sortedKeyModel.count;i++){
+            if (sortedKeyModel.get(i).marked===1) {
+                hasMarkedKeys = true
+                break
+            }
         }
     }
+
+    ListModel{
+        id: rawModel
+    }
+
+    property var sortedKeyModel: SortFilterModel{
+                                    model: rawModel
+                                    sort.property: "key"
+                                    sort.order: Qt.AscendingOrder
+    }
+
 
     Component.onCompleted: init()
 
     Settings{
         id: settings
         property alias active: root.active
+        property alias acceptOnClick: root.acceptOnClick
         property alias hasMarkedKeys: root.hasMarkedKeys
         property alias hasDeletedKeys: root.hasDeletedKeys
     }
@@ -33,9 +56,15 @@ Item {
     // flag that states whether history is enabled or not
     property bool active: true
 
-    property var db
+    // flag whether entries are created when clicking on suggestion
+    property bool acceptOnClick: false
+
+    property bool hasMarkedKeys:  false
+    property bool hasDeletedKeys: false
+
 
     // connection details
+    property var db
     property string db_name: "history"
     property string db_version: "1.0"
     property string db_description: "database to store entry names of Einkaufszettel app"
@@ -84,7 +113,7 @@ Item {
         } catch (err){
             console.error("Error when checking columns of table '"+db_table_keys+"': " + err)
         }
-        historyChanged()
+        refreshHistory()
     }
 
     function addKey(key){
@@ -100,7 +129,7 @@ Item {
                         tx.executeSql("UPDATE "+db_table_keys+" SET count=count+1 WHERE key=?",[key])
                     }
                 })
-                historyChanged()
+                refreshHistory()
             } catch (err){
                 console.error("Error when insert key '"+key+"' into table '"+db_table_keys+"': " + err)
             }
@@ -111,7 +140,7 @@ Item {
         try{
             db.transaction(function(tx){
                 tx.executeSql("DELETE FROM "+db_table_keys+" WHERE key='"+key+"'")
-                historyChanged()
+                refreshHistory()
             })
         } catch (err){
             console.error("Error when delete from table '"+db_table_keys+"': " + err)
@@ -130,49 +159,63 @@ Item {
         }
     }
     function toggleMarked(key){
+        if (!db) init()
         try{
+            // toggle in DB
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_keys+" SET marked=1-marked WHERE key=?",[key])
             })
+            // toggle in model
+            for (var i=0;i<rawModel.count;i++){
+                if (rawModel.get(i).key===key){
+                    rawModel.get(i).marked = 1 - rawModel.get(i).marked
+                    break
+                }
+            }
+            checkForMarkedEntries()
             historyChanged()
         } catch (err){
             console.error("Error when toggleing marked flag of key '"+key+"' in table '"+db_table_keys+"': " + err)
         }
     }
     function deselectAll(){
+        if (!db) init()
         try{
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_keys+" SET marked=0")
             })
-            historyChanged()
+            refreshHistory()
         } catch (err){
             console.error("Error when deselect all keys in table '"+db_table_keys+"': " + err)
         }
     }
 
     function markSelectedForDelete(){
+        if (!db) init()
         try{
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_keys+" SET deleteFlag=1,marked=0 WHERE marked=1")
             })
             hasDeletedKeys = true
-            historyChanged()
+            refreshHistory()
         } catch (err){
             console.error("Error when marking selected keys for delete in table '"+db_table_keys+"': " + err)
         }
     }
     function markAllForDelete(){
+        if (!db) init()
         try{
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_keys+" SET deleteFlag=1")
             })
             hasDeletedKeys = true
-            historyChanged()
+            refreshHistory()
         } catch (err){
             console.error("Error when marking all keys for delete in table '"+db_table_keys+"': " + err)
         }
     }
     function removeDeleted(){
+        if (!db) init()
         try{
             db.transaction(function(tx){
                 tx.executeSql("DELETE FROM "+db_table_keys+" WHERE deleteFlag=1")
@@ -182,14 +225,14 @@ Item {
             console.error("Error when removing deleted keys in table '"+db_table_keys+"': " + err)
         }
     }
-
     function restore(){
+        if (!db) init()
         try{
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_keys+" SET deleteFlag=0")
             })
             hasDeletedKeys = false
-            historyChanged()
+            refreshHistory()
         } catch (err){
             console.error("Error when restoring all keys in table '"+db_table_keys+"': " + err)
         }
