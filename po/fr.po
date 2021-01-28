@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-30 19:48+0100\n"
-"PO-Revision-Date: 2020-12-30 19:51+0100\n"
+"POT-Creation-Date: 2021-01-28 18:20+0100\n"
+"PO-Revision-Date: 2021-01-28 18:29+0100\n"
 "Last-Translator: Anne017\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -13,90 +13,98 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.3\n"
 
-#: ../qml/Main.qml:92 einkaufszettel.desktop.in.h:1
+#: ../qml/Main.qml:86 ../qml/panels/SettingsUnitsPanel.qml:10
+msgid "Units"
+msgstr "Unités"
+
+#: ../qml/Main.qml:109 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
 msgstr "Liste de courses"
 
-#: ../qml/components/QuantitySelect.qml:68
-msgid "OK"
-msgstr "OK"
-
-#: ../qml/db/Dimensions.qml:57
-msgid "Piece"
-msgstr "Pièce"
-
-#: ../qml/db/Dimensions.qml:58
-msgid "Gram"
-msgstr "Gramme"
-
-#: ../qml/db/Dimensions.qml:59
-msgid "Kilogram"
-msgstr "Kilogramme"
-
-#: ../qml/db/Dimensions.qml:60
-msgid "Liter"
-msgstr "Litre"
-
-#: ../qml/panels/ListPanel.qml:83 ../qml/panels/ListPanel.qml:100
-#: ../qml/panels/ListPanel.qml:102
-msgid "all"
-msgstr "tout"
-
-#: ../qml/panels/ListPanel.qml:83 ../qml/panels/ListPanel.qml:113
-#: ../qml/panels/ListPanel.qml:115
-msgid "other"
-msgstr "autre"
-
-#: ../qml/panels/ListPanel.qml:124
-#: ../qml/panels/SettingsCategoriesPanel.qml:142
-#: ../qml/panels/SettingsHistoryPanel.qml:132
-#: ../qml/panels/SettingsUnitsPanel.qml:157
-msgid "No entries"
-msgstr "Pas d'entrée"
-
-#: ../qml/panels/ListPanel.qml:244
-msgid "new entry ..."
-msgstr "nouvelle entrée..."
-
-#: ../qml/panels/ListPanel.qml:307
+#: ../qml/components/ClearListButtons.qml:84
 msgid "clear list"
 msgstr "vider la liste"
 
-#: ../qml/panels/SettingsCategoriesPanel.qml:6
+#: ../qml/components/ClearListButtons.qml:84
+msgid "delete selected"
+msgstr "supprimer la sélection"
+
+#: ../qml/components/QuantitySelect.qml:69
+msgid "OK"
+msgstr "OK"
+
+#: ../qml/db/DBconnector.qml:18 ../qml/db/DBconnector.qml:19
+#: ../qml/panels/ListPanel.qml:75 ../qml/panels/ListPanel.qml:76
+msgid "all"
+msgstr "tout"
+
+#: ../qml/db/DBconnector.qml:26 ../qml/db/DBconnector.qml:27
+#: ../qml/panels/ListPanel.qml:82 ../qml/panels/ListPanel.qml:83
+#: ../qml/panels/ListPanel.qml:133 ../qml/panels/ListPanel.qml:137
+msgid "other"
+msgstr "autre"
+
+#: ../qml/db/Dimensions.qml:118
+msgid "Piece"
+msgstr "Pièce"
+
+#: ../qml/db/Dimensions.qml:120
+msgid "Gram"
+msgstr "Gramme"
+
+#: ../qml/db/Dimensions.qml:121
+msgid "Kilogram"
+msgstr "Kilogramme"
+
+#: ../qml/db/Dimensions.qml:122
+msgid "Liter"
+msgstr "Litre"
+
+#: ../qml/panels/ListPanel.qml:93 ../qml/panels/SettingsCategoriesPanel.qml:104
+#: ../qml/panels/SettingsHistoryPanel.qml:27
+#: ../qml/panels/SettingsUnitsPanel.qml:74
+msgid "No entries"
+msgstr "Pas d'entrée"
+
+#: ../qml/panels/ListPanel.qml:187
+msgid "new entry ..."
+msgstr "nouvelle entrée..."
+
+#: ../qml/panels/SettingsCategoriesPanel.qml:9
 msgid "Categories"
 msgstr "Catégories"
 
-#: ../qml/panels/SettingsCategoriesPanel.qml:28
+#: ../qml/panels/SettingsCategoriesPanel.qml:52
 msgid "new category ..."
 msgstr "nouvelle catégorie..."
 
-#: ../qml/panels/SettingsHistoryPanel.qml:10
+#: ../qml/panels/SettingsHistoryPanel.qml:9
 msgid "History"
 msgstr "Historique"
 
-#: ../qml/panels/SettingsHistoryPanel.qml:103
-msgid "delete history"
-msgstr "vider l'historique"
-
-#: ../qml/panels/SettingsPanel.qml:15
+#: ../qml/panels/SettingsPanel.qml:14
 msgid "Settings"
 msgstr "Paramètres"
 
-#: ../qml/panels/SettingsPanel.qml:30
+#: ../qml/panels/SettingsPanel.qml:24
 msgid "Edit categories"
 msgstr "Modifier les catégories"
 
-#: ../qml/panels/SettingsPanel.qml:36
+#: ../qml/panels/SettingsPanel.qml:30
 msgid "Edit units"
 msgstr "Modifier les unités"
 
-#: ../qml/panels/SettingsPanel.qml:41
+#: ../qml/panels/SettingsPanel.qml:35
 msgid "Suggestions"
 msgstr "Suggestions"
 
-#: ../qml/panels/SettingsPanel.qml:44
+#: ../qml/panels/SettingsPanel.qml:38
 msgid "Show suggestions"
 msgstr "Faire des suggestions"
+
+#: ../qml/panels/SettingsPanel.qml:44
+msgid "Insert suggestion on click"
+msgstr "Insérer suggestion en clickant"
 
 #: ../qml/panels/SettingsPanel.qml:50
 msgid "Edit history"
@@ -114,17 +122,29 @@ msgstr "Mode sombre"
 msgid "Color"
 msgstr "Couleur"
 
-#: ../qml/panels/SettingsUnitsPanel.qml:6
-msgid "Units"
-msgstr "Unités"
-
-#: ../qml/panels/SettingsUnitsPanel.qml:28
+#: ../qml/panels/SettingsUnitsPanel.qml:42
 msgid "abbr."
 msgstr "abr."
 
-#: ../qml/panels/SettingsUnitsPanel.qml:34
+#: ../qml/panels/SettingsUnitsPanel.qml:48
 msgid "new unit ..."
 msgstr "nouvelle unité..."
+
+#: ../qml/panels/SettingsUnitsPanel.qml:128
+msgid "Reset units"
+msgstr "Réinitialiser les unités"
+
+#: ../qml/panels/SettingsUnitsPanel.qml:129
+msgid "Are you sure that you want to reset to default units?"
+msgstr "Réinitialiser les unités?"
+
+#: ../qml/panels/SettingsUnitsPanel.qml:131
+msgid "cancel"
+msgstr "annuler"
+
+#: ../qml/panels/SettingsUnitsPanel.qml:135
+msgid "reset units"
+msgstr "réinitialiser les unités"
 
 #~ msgid "symbol"
 #~ msgstr "abréviation"
