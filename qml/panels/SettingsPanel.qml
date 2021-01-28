@@ -7,18 +7,12 @@ import "../components"
 Item {
     id: root
     property var dbcon
-    property var db_histo
     property var stack
     property var colors
     property var dimensions
 
     property string headerSuffix: i18n.tr("Settings")
-
-    function refresh(){
-        categoriesPanel.refresh()
-    }
-
-    signal categoriesChanged()
+    property bool hasCheckedEntries: false
 
     Column{
         id: col
@@ -42,8 +36,14 @@ Item {
         SettingsMenuSwitch{
             id: stHistoryEnabled
             text: i18n.tr("Show suggestions")
-            Component.onCompleted: checked = db_histo.active
-            onCheckedChanged: db_histo.active = checked
+            Component.onCompleted: checked = db_history.active
+            onCheckedChanged: db_history.active = checked
+        }
+        SettingsMenuSwitch{
+            id: stAcceptOnClicked
+            text: i18n.tr("Insert suggestion on click")
+            Component.onCompleted: checked = db_history.acceptOnClick
+            onCheckedChanged: db_history.acceptOnClick = checked
         }
         SettingsMenuItem{
             id: stHistory
@@ -72,13 +72,11 @@ Item {
         id: categoriesPanel
         visible: false
         dbcon: root.dbcon
-        onCategoriesChanged: root.categoriesChanged()
     }
 
     SettingsHistoryPanel{
         id: historyPanel
         visible: false
-        db_histo: root.db_histo
     }
 
     SettingsUnitsPanel{

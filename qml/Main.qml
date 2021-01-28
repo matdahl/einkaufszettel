@@ -37,9 +37,8 @@ MainView {
 
     // the database connector to store the history of entries if wanted
     DBHistory{
-        id: db_histo
+        id: db_history
     }
-
 
     // the colors object which stores all informations about current color theme settings
     Colors{
@@ -47,16 +46,15 @@ MainView {
         initialIndex: 1
     }
 
+    // set the theme and background color
+    theme.name: colors.darkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
+
     // the units to measure quantities of entries
     Dimensions{
         id: dimensions
     }
 
-    // the flag if check boxes in list view are shown
-    property bool checkMode: false
 
-    // set the theme and background color
-    theme.name: colors.darkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
 
     Page {
         anchors.fill: parent
@@ -78,15 +76,25 @@ MainView {
                     onTriggered: {
                         while (stack.depth>1 && stack.currentItem!==settingsPanel) stack.pop()
                         if (stack.currentItem!==settingsPanel) {
-                            settingsPanel.refresh()
                             stack.push(settingsPanel)
                         }
                     }
+                    visible: stack.currentItem === listPanel
+                },
+                Action{
+                    iconName: "reset"
+                    visible: stack.currentItem.headerSuffix === i18n.tr("Units")
+                    onTriggered: stack.currentItem.reset()
                 },
                 Action{
                     iconName: "select"
-                    visible: stack.currentItem===listPanel
-                    onTriggered: checkMode = !checkMode
+                    visible: typeof stack.currentItem.checkMode !== "undefined"
+                    onTriggered: stack.currentItem.checkMode = !stack.currentItem.checkMode
+                },
+                Action{
+                    iconName: "select-none"
+                    visible: stack.currentItem.hasCheckedEntries
+                    onTriggered: stack.currentItem.deselectAll()
                 }
 
             ]
@@ -105,18 +113,15 @@ MainView {
             id: listPanel
             Component.onCompleted: stack.push(listPanel)
             dbcon:    root.dbcon
-            db_histo: db_histo
         }
 
         SettingsPanel{
             id: settingsPanel
             visible: false
             dbcon:    root.dbcon
-            db_histo: db_histo
             stack:  stack
             colors: colors
             dimensions:  dimensions
-            onCategoriesChanged: listPanel.refresh()
         }
     }
 }

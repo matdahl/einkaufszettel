@@ -5,6 +5,7 @@ Item {
     id: root
 
     property var categoriesModel: ListModel{}
+    property var categoriesRawModel: ListModel{}
     property var categoriesList: []
 
     signal categoriesChanged()
@@ -13,11 +14,13 @@ Item {
     onCategoriesChanged: {
         // refresh categoriesModel
         categoriesModel.clear()
+        categoriesRawModel.clear()
         categoriesList = [i18n.tr("all")]
         categoriesModel.append({name:i18n.tr("all")})
         var cats = selectCategories()
         for (var i=0;i<cats.length;i++){
             categoriesModel.append(cats[i])
+            categoriesRawModel.append(cats[i])
             categoriesList.push(cats[i].name)
         }
         categoriesModel.append({name:i18n.tr("other")})
@@ -28,6 +31,9 @@ Item {
 
     // flag to state whether there are restorable deleted items
     property bool hasDeletedEntries: false
+
+    // flag to state whether there are restorable deleted categories
+    property bool hasDeletedCategories: false
 
     // connection details
     property string db_name: "einkauf"
@@ -45,15 +51,7 @@ Item {
                                                db_description,
                                                db_size,
                                                db_test_callback(db))
-// Create categories table if needed
-        try{
-            db.transaction(function(tx){
-                tx.executeSql("CREATE TABLE IF NOT EXISTS "+db_table_categories+" "
-                              +"(name TEXT,UNIQUE(name))")
-            })
-        } catch (err){
-            console.error("Error when creating table '"+db_table_categories+"': " + err)
-        }
+        init_categories()
 // Create items table if needed
         try{
             db.transaction(function(tx){
@@ -101,6 +99,43 @@ Item {
         }
         // if there are still deleted items left, remove them form DB for a clean start
         removeDeleted()
+    }
+
+
+    function init_categories(){
+        // Create categories table if needed
+        try{
+            db.transaction(function(tx){
+                tx.executeSql("CREATE TABLE IF NOT EXISTS "+db_table_categories+" "
+                              +"(name TEXT, marked INT DEFAULT 0, deleteFlag INT DEFAULT 0, UNIQUE(name))")
+            })
+        } catch (err){
+            console.error("Error when creating table '"+db_table_categories+"': " + err)
+        }
+        // check if all necessary columns are in table
+        try{
+            var colnames = []
+            db.transaction(function(tx){
+                var rt = tx.executeSql("PRAGMA table_info("+db_table_categories+")")
+                for(var i=0;i<rt.rows.length;i++){
+                    colnames.push(rt.rows[i].name)
+                }
+            })
+            // since v1.3.2: require marked column
+            if (colnames.indexOf("marked")<0){
+                db.transaction(function(tx){
+                    tx.executeSql("ALTER TABLE "+db_table_categories+" ADD marked INT DEFAULT 0")
+                })
+            }
+            // since v1.3.2: require deleteFlag column
+            if (colnames.indexOf("deleteFlag")<0){
+                db.transaction(function(tx){
+                    tx.executeSql("ALTER TABLE "+db_table_categories+" ADD deleteFlag INT DEFAULT 0")
+                })
+            }
+        } catch (err){
+            console.error("Error when checking columns of table '"+db_table_categories+"': " + err)
+        }
         categoriesChanged()
     }
 
@@ -108,7 +143,7 @@ Item {
         if (!db) init()
         try{
             db.transaction(function(tx){
-                tx.executeSql("INSERT OR IGNORE INTO "+db_table_categories+" VALUES"
+                tx.executeSql("INSERT OR IGNORE INTO "+db_table_categories+"(name) VALUES"
                               +"('"+name+"')")
             })
             categoriesChanged()
@@ -132,31 +167,85 @@ Item {
         try{
             var rt
             db.transaction(function(tx){
-                rt = tx.executeSql("SELECT * FROM "+db_table_categories)
+                rt = tx.executeSql("SELECT * FROM "+db_table_categories+" WHERE deleteFlag=0")
             })
             return rt.rows
         } catch (err){
             console.error("Error when select from table '"+db_table_categories+"': " + err)
         }
     }
-
     function swapCategories(cat1,cat2){
         if (!db) init()
         try{
             db.transaction(function(tx){
                 var dummy = "TEMPSWAPCATNAME"
-                // override cat2 by dummy name (to ensure uniqueness)
-                tx.executeSql("UPDATE "+db_table_categories+" SET name='"+dummy+"' WHERE name='"+cat2+"'")
-                // set cat1=cat2
-                tx.executeSql("UPDATE "+db_table_categories+" SET name='"+cat2+"' WHERE name='"+cat1+"'")
-                // set cat2=cat1
-                tx.executeSql("UPDATE "+db_table_categories+" SET name='"+cat1+"' WHERE name='"+dummy+"'")
+                // get marked properties of both categories
+                var rt1 = tx.executeSql("SELECT marked FROM "+db_table_categories+" WHERE name=?",[cat1])
+                var rt2 = tx.executeSql("SELECT marked FROM "+db_table_categories+" WHERE name=?",[cat2])
+                // check if both entries exists, otherwise skip swapping
+                if (rt1.rows.length===1 && rt2.rows.length===1){
+                    var marked1 = rt1.rows[0].marked
+                    var marked2 = rt2.rows[0].marked
+                    tx.executeSql("UPDATE "+db_table_categories+" SET name='"+dummy+"' WHERE name='"+cat2+"'")
+                    tx.executeSql("UPDATE "+db_table_categories+" SET name='"+cat2+"',marked="+marked2+" WHERE name='"+cat1+"'")
+                    tx.executeSql("UPDATE "+db_table_categories+" SET name='"+cat1+"',marked="+marked1+" WHERE name='"+dummy+"'")
+                }
             })
             categoriesChanged()
         } catch (err){
             console.error("Error when swaping categories in table '"+db_table_categories+"': " + err)
         }
     }
+    function toggleCategoryMarked(cat){
+        if (!db) init()
+        try{
+            db.transaction(function(tx){
+                tx.executeSql("UPDATE "+db_table_categories+" SET marked=1-marked WHERE name='"+cat+"'")
+            })
+            categoriesChanged()
+        } catch (err){
+            console.error("Error when toggle marked property of category '"+cat+"' in table '"+db_table_categories+"': " + err)
+        }
+    }
+    function markCategoriesAsDeleted(selectedOnly){
+        if (!db) init()
+        try{
+            var cmd = "UPDATE "+db_table_categories+" SET deleteFlag=1"
+            if (selectedOnly) cmd += " WHERE marked=1"
+            db.transaction(function(tx){
+                tx.executeSql(cmd)
+            })
+            hasDeletedCategories = true
+            categoriesChanged()
+        } catch (err){
+            console.error("Error when marking category as deleted in table '"+db_table_categories+"': " + err)
+        }
+    }
+    function removeDeletedCategories(){
+        if (!db) init()
+        try{
+            db.transaction(function(tx){
+                tx.executeSql("DELETE FROM "+db_table_categories+" WHERE deleteFlag=1")
+            })
+            hasDeletedCategories = false
+        } catch (err){
+            console.error("Error when remove deleted from table '"+db_table_categories+"': " + err)
+        }
+    }
+    function restoreDeletedCategories(){
+        if (!db) init()
+        try{
+            db.transaction(function(tx){
+                tx.executeSql("UPDATE "+db_table_categories+" SET deleteFlag=0")
+            })
+            categoriesChanged()
+            hasDeletedCategories = false
+        } catch (err){
+            console.error("Error when restoring deleted categories in table '"+db_table_categories+"': " + err)
+        }
+    }
+
+
 
     function insertItem(name,category,quantity,dimension){
         if (!db) init()
