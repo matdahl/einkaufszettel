@@ -43,11 +43,10 @@ MainView {
     // the colors object which stores all informations about current color theme settings
     Colors{
         id: colors
-        initialIndex: 1
+        defaultIndex: 1
     }
+    theme.name: colors.currentThemeName
 
-    // set the theme and background color
-    theme.name: colors.darkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
 
     // the units to measure quantities of entries
     Dimensions{

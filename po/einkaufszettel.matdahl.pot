@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-28 18:20+0100\n"
+"POT-Creation-Date: 2021-05-04 16:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/Main.qml:86 ../qml/panels/SettingsUnitsPanel.qml:10
+#: ../qml/Main.qml:85 ../qml/panels/SettingsUnitsPanel.qml:10
 msgid "Units"
 msgstr ""
 
-#: ../qml/Main.qml:109 einkaufszettel.desktop.in.h:1
+#: ../qml/Main.qml:108 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
 msgstr ""
 
@@ -118,11 +118,15 @@ msgstr ""
 msgid "Appearance"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:58
-msgid "Dark Mode"
+#: ../qml/panels/SettingsPanel.qml:57
+msgid "Use default theme"
 msgstr ""
 
 #: ../qml/panels/SettingsPanel.qml:64
+msgid "Dark Mode"
+msgstr ""
+
+#: ../qml/panels/SettingsPanel.qml:70
 msgid "Color"
 msgstr ""
 

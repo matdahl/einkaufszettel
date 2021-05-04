@@ -54,13 +54,19 @@ Item {
 
         SettingsCaption{title: i18n.tr("Appearance")}
         SettingsMenuSwitch{
-            id: stDarkMode
+            text: i18n.tr("Use default theme")
+            Component.onCompleted: checked = colors.useDefaultTheme
+            onCheckedChanged: colors.useDefaultTheme = checked
+
+        }
+        SettingsMenuSwitch{
+            enabled: !colors.useDefaultTheme
             text: i18n.tr("Dark Mode")
             onCheckedChanged: colors.darkMode = checked
             Component.onCompleted: checked = colors.darkMode
         }
         SettingsMenuDoubleColorSelect{
-            id: stColor
+            enabled: !colors.useDefaultTheme
             text: i18n.tr("Color")
             model: colors.headerColors
             Component.onCompleted: currentSelectedColor =  colors.currentIndex
