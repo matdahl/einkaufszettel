@@ -14,9 +14,6 @@ ListItem{
     // the subpage which should be pushed on stack
     property var subpage
 
-    // the panel stack
-    property var stack
-
     ListItemLayout {
         id: layout
         anchors.fill: parent

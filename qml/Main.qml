@@ -33,7 +33,9 @@ MainView {
     height: units.gu(75)
 
     // the database connector which manages all DB interactions for entries and categories
-    property var dbcon: DBconnector{}
+    DBconnector{
+        id: dbcon
+    }
 
     // the database connector to store the history of entries if wanted
     DBHistory{
@@ -54,12 +56,11 @@ MainView {
     }
 
 
-
+    /* ----- components ----- */
     Page {
         anchors.fill: parent
         header: PageHeader {
             id: header
-            //title: i18n.tr("Shopping List")
             StyleHints{backgroundColor: colors.currentHeader}
 
             leadingActionBar.actions: [
@@ -111,16 +112,11 @@ MainView {
         ListPanel{
             id: listPanel
             Component.onCompleted: stack.push(listPanel)
-            dbcon:    root.dbcon
         }
 
         SettingsPanel{
             id: settingsPanel
             visible: false
-            dbcon:    root.dbcon
-            stack:  stack
-            colors: colors
-            dimensions:  dimensions
         }
     }
 }

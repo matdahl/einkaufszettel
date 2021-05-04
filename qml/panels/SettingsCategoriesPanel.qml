@@ -8,7 +8,6 @@ Item {
     id: root
     property string headerSuffix: i18n.tr("Categories")
 
-    property var dbcon
 
     // the flag if check boxes are shown
     property bool checkMode: false

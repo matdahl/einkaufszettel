@@ -26,9 +26,6 @@ Item {
         listView.refresh()
     }
 
-    // the connector to interact with the entries and categories database
-    property var dbcon
-
     // the flag if check boxes are shown
     property bool checkMode: false
 

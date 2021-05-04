@@ -6,10 +6,6 @@ import "../components"
 
 Item {
     id: root
-    property var dbcon
-    property var stack
-    property var colors
-    property var dimensions
 
     property string headerSuffix: i18n.tr("Settings")
     property bool hasCheckedEntries: false
@@ -23,13 +19,11 @@ Item {
             id: stCategories
             text: i18n.tr("Edit categories")
             subpage: categoriesPanel
-            stack: root.stack
         }
         SettingsMenuItem{
             id: stUnits
             text: i18n.tr("Edit units")
             subpage: unitsPanel
-            stack: root.stack
         }
 
         SettingsCaption{title: i18n.tr("Suggestions")}
@@ -49,7 +43,6 @@ Item {
             id: stHistory
             text: i18n.tr("Edit history")
             subpage: historyPanel
-            stack: root.stack
         }
 
         SettingsCaption{title: i18n.tr("Appearance")}
@@ -77,7 +70,6 @@ Item {
     SettingsCategoriesPanel{
         id: categoriesPanel
         visible: false
-        dbcon: root.dbcon
     }
 
     SettingsHistoryPanel{
