@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.mdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-28 18:20+0100\n"
-"PO-Revision-Date: 2021-01-28 18:23+0100\n"
+"POT-Creation-Date: 2021-05-04 16:55+0000\n"
+"PO-Revision-Date: 2021-05-04 18:57+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -39,13 +39,13 @@ msgid "OK"
 msgstr "OK"
 
 #: ../qml/db/DBconnector.qml:18 ../qml/db/DBconnector.qml:19
-#: ../qml/panels/ListPanel.qml:75 ../qml/panels/ListPanel.qml:76
+#: ../qml/panels/ListPanel.qml:72 ../qml/panels/ListPanel.qml:73
 msgid "all"
 msgstr "alle"
 
 #: ../qml/db/DBconnector.qml:26 ../qml/db/DBconnector.qml:27
-#: ../qml/panels/ListPanel.qml:82 ../qml/panels/ListPanel.qml:83
-#: ../qml/panels/ListPanel.qml:133 ../qml/panels/ListPanel.qml:137
+#: ../qml/panels/ListPanel.qml:79 ../qml/panels/ListPanel.qml:80
+#: ../qml/panels/ListPanel.qml:130 ../qml/panels/ListPanel.qml:134
 msgid "other"
 msgstr "sonstige"
 
@@ -65,13 +65,13 @@ msgstr "Kilogramm"
 msgid "Liter"
 msgstr "Liter"
 
-#: ../qml/panels/ListPanel.qml:93 ../qml/panels/SettingsCategoriesPanel.qml:104
+#: ../qml/panels/ListPanel.qml:90 ../qml/panels/SettingsCategoriesPanel.qml:103
 #: ../qml/panels/SettingsHistoryPanel.qml:27
 #: ../qml/panels/SettingsUnitsPanel.qml:74
 msgid "No entries"
 msgstr "Keine Einträge"
 
-#: ../qml/panels/ListPanel.qml:187
+#: ../qml/panels/ListPanel.qml:184
 msgid "new entry ..."
 msgstr "neuer Eintrag ..."
 
@@ -79,7 +79,7 @@ msgstr "neuer Eintrag ..."
 msgid "Categories"
 msgstr "Kategorien"
 
-#: ../qml/panels/SettingsCategoriesPanel.qml:52
+#: ../qml/panels/SettingsCategoriesPanel.qml:51
 msgid "new category ..."
 msgstr "neue Kategorie ..."
 
@@ -87,43 +87,47 @@ msgstr "neue Kategorie ..."
 msgid "History"
 msgstr "Verlauf"
 
-#: ../qml/panels/SettingsPanel.qml:14
+#: ../qml/panels/SettingsPanel.qml:10
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: ../qml/panels/SettingsPanel.qml:24
+#: ../qml/panels/SettingsPanel.qml:20
 msgid "Edit categories"
 msgstr "Kategorien bearbeiten"
 
-#: ../qml/panels/SettingsPanel.qml:30
+#: ../qml/panels/SettingsPanel.qml:25
 msgid "Edit units"
 msgstr "Einheiten bearbeiten"
 
-#: ../qml/panels/SettingsPanel.qml:35
+#: ../qml/panels/SettingsPanel.qml:29
 msgid "Suggestions"
 msgstr "Vorschläge"
 
-#: ../qml/panels/SettingsPanel.qml:38
+#: ../qml/panels/SettingsPanel.qml:32
 msgid "Show suggestions"
 msgstr "Vorschläge anzeigen"
 
-#: ../qml/panels/SettingsPanel.qml:44
+#: ../qml/panels/SettingsPanel.qml:38
 msgid "Insert suggestion on click"
 msgstr "Vorschlag durch klicken hinzufügen"
 
-#: ../qml/panels/SettingsPanel.qml:50
+#: ../qml/panels/SettingsPanel.qml:44
 msgid "Edit history"
 msgstr "Verlauf bearbeiten"
 
-#: ../qml/panels/SettingsPanel.qml:55
+#: ../qml/panels/SettingsPanel.qml:48
 msgid "Appearance"
 msgstr "Erscheinungsbild"
 
-#: ../qml/panels/SettingsPanel.qml:58
+#: ../qml/panels/SettingsPanel.qml:50
+msgid "Use default theme"
+msgstr "Standardthema verwenden"
+
+#: ../qml/panels/SettingsPanel.qml:57
 msgid "Dark Mode"
 msgstr "Dunkler Modus"
 
-#: ../qml/panels/SettingsPanel.qml:64
+#: ../qml/panels/SettingsPanel.qml:63
 msgid "Color"
 msgstr "Farbe"
 
