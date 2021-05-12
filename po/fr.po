@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-05-04 17:07+0000\n"
-"PO-Revision-Date: 2021-05-04 19:09+0200\n"
+"PO-Revision-Date: 2021-05-12 18:13+0200\n"
 "Last-Translator: Anne017\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -11,7 +11,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 2.3\n"
 
 #: ../qml/Main.qml:86 ../qml/panels/SettingsUnitsPanel.qml:10
 msgid "Units"
@@ -104,7 +103,7 @@ msgstr "Faire des suggestions"
 
 #: ../qml/panels/SettingsPanel.qml:38
 msgid "Insert suggestion on click"
-msgstr "Insérer suggestion en clickant"
+msgstr "Insérer suggestion en cliquant"
 
 #: ../qml/panels/SettingsPanel.qml:44
 msgid "Edit history"
@@ -140,7 +139,7 @@ msgstr "Réinitialiser les unités"
 
 #: ../qml/panels/SettingsUnitsPanel.qml:129
 msgid "Are you sure that you want to reset to default units?"
-msgstr "Réinitialiser les unités?"
+msgstr "Réinitialiser les unités ?"
 
 #: ../qml/panels/SettingsUnitsPanel.qml:131
 msgid "cancel"
