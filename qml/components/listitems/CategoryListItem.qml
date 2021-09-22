@@ -37,7 +37,8 @@ ListItem{
         Icon{
             id: iconDragDrop
             SlotsLayout.position: SlotsLayout.Last
-            height: units.gu(4)
+            height: units.gu(3)
+            name: "sort-listitem"
         }
     }
 }
