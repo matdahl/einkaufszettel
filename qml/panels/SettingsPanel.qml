@@ -80,6 +80,5 @@ Item {
     SettingsUnitsPanel{
         id: unitsPanel
         visible: false
-        dimensions: root.dimensions
     }
 }

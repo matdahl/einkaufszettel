@@ -9,8 +9,6 @@ Item {
     id: root
     property string headerSuffix: i18n.tr("Units")
 
-    property var dimensions
-
     property bool hasCheckedEntries: dimensions.hasMarkedUnits
 
     function deselectAll(){
