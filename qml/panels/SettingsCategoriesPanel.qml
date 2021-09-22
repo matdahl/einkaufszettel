@@ -8,10 +8,6 @@ Item {
     id: root
     property string headerSuffix: i18n.tr("Categories")
 
-
-    // the flag if check boxes are shown
-    property bool checkMode: false
-
     property bool hasCheckedEntries: false
     function countCheckedEntries(){
         for (var i=0;i<dbcon.categoriesRawModel.count;i++){

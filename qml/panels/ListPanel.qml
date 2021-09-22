@@ -26,16 +26,10 @@ Item {
         listView.refresh()
     }
 
-    // the flag if check boxes are shown
-    property bool checkMode: false
-
-
 
     /* ------------------------------------
      *               Components
      * ------------------------------------ */
-
-
 
     Sections{
         id: sections

@@ -11,9 +11,6 @@ Item {
 
     property var dimensions
 
-    // the flag if check boxes are shown
-    property bool checkMode: false
-
     property bool hasCheckedEntries: dimensions.hasMarkedUnits
 
     function deselectAll(){
