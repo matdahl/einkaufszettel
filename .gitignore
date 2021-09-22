@@ -3,3 +3,4 @@ build
 CMakeLists.txt.user
 assets/*-alt.svg
 assets/*-old.svg
+*.autosave
