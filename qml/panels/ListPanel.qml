@@ -44,7 +44,7 @@ Item {
         // connect signals from DB connector with slots
         Component.onCompleted: {
             dbcon.itemsChanged.connect(recount)
-            dbcon.categoriesChanged.connect(refresh)
+            dbcon.categoryListChanged.connect(refresh)
             refresh()
         }
         onSelectedIndexChanged: listView.refresh()

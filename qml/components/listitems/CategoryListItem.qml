@@ -25,6 +25,7 @@ ListItem{
     }
 
     ListItemLayout{
+        id: layout
         CheckBox{
             id: checkBox
             SlotsLayout.position: SlotsLayout.First
@@ -39,6 +40,48 @@ ListItem{
             SlotsLayout.position: SlotsLayout.Last
             height: units.gu(3)
             name: "sort-listitem"
+            MouseArea{
+                id: dragMouse
+                anchors{
+                    fill: parent
+                    margins: units.gu(-1)
+                }
+                drag.target: layout
+            }
+        }
+
+        property int dragItemIndex: index
+
+        states: [
+            State {
+                when: layout.Drag.active
+                ParentChange {
+                    target: layout
+                    parent: listView
+                }
+            },
+            State {
+                when: !layout.Drag.active
+                AnchorChanges {
+                    target: layout
+                    anchors.horizontalCenter: layout.parent.horizontalCenter
+                    anchors.verticalCenter: layout.parent.verticalCenter
+                }
+            }
+        ]
+        Drag.active: dragMouse.drag.active
+        Drag.hotSpot.x: layout.width / 2
+        Drag.hotSpot.y: layout.height / 2
+    }
+
+    DropArea{
+        anchors.fill: parent
+        onEntered: {
+            if (drag.source.dragItemIndex > index){
+                dbcon.swapCategories(dbcon.categoriesRawModel.get(drag.source.dragItemIndex).name,name)
+            } else if (drag.source.dragItemIndex < index){
+                dbcon.swapCategories(name,dbcon.categoriesRawModel.get(drag.source.dragItemIndex).name)
+            }
         }
     }
 }

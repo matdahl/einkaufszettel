@@ -8,6 +8,7 @@ Item {
     property var categoriesRawModel: ListModel{}
     property var categoriesList: []
 
+    signal categoryListChanged()
     signal categoriesChanged()
     signal itemsChanged()
 
@@ -18,13 +19,45 @@ Item {
         categoriesList = [i18n.tr("all")]
         categoriesModel.append({name:i18n.tr("all")})
         var cats = selectCategories()
+        var resetRanks = false
         for (var i=0;i<cats.length;i++){
-            categoriesModel.append(cats[i])
-            categoriesRawModel.append(cats[i])
-            categoriesList.push(cats[i].name)
+            // insertion sort by rank, if rank<0, then append and reset afterwards
+            if (cats[i].rank<0){
+                categoriesModel.append(cats[i])
+                categoriesRawModel.append(cats[i])
+                categoriesList.push(cats[i].name)
+                resetRanks = true
+            } else {
+                var j=0
+                while (j < categoriesRawModel.count &&
+                       categoriesRawModel.get(j).rank < cats[i].rank &&
+                       categoriesRawModel.get(j).rank > -1)
+                    j++
+                categoriesModel.insert(j+1,cats[i])
+                categoriesRawModel.insert(j,cats[i])
+                categoriesList.splice(j+1,0,cats[i])
+            }
         }
+        // reset ranks if needed
         categoriesModel.append({name:i18n.tr("other")})
         categoriesList.push(i18n.tr("other"))
+        if (resetRanks){
+            for (var k=0; k<categoriesRawModel.count; k++){
+                categoriesRawModel.get(k).rank = k
+                categoriesModel.get(k+1).rank = k
+                updateRank(categoriesRawModel.get(k).name,k)
+            }
+        }
+
+        // notify components to refresh
+        categoryListChanged()
+    }
+
+    function getCategoryIndexByName(catName){
+        for (var i=0; i<categoriesRawModel.count; i++)
+            if (categoriesRawModel.get(i).name === catName)
+                return i
+        return -1
     }
 
     property var db
@@ -107,7 +140,7 @@ Item {
         try{
             db.transaction(function(tx){
                 tx.executeSql("CREATE TABLE IF NOT EXISTS "+db_table_categories+" "
-                              +"(name TEXT, marked INT DEFAULT 0, deleteFlag INT DEFAULT 0, UNIQUE(name))")
+                              +"(name TEXT, marked INT DEFAULT 0, deleteFlag INT DEFAULT 0, rank INT DEFAULT -1, UNIQUE(name))")
             })
         } catch (err){
             console.error("Error when creating table '"+db_table_categories+"': " + err)
@@ -131,6 +164,12 @@ Item {
             if (colnames.indexOf("deleteFlag")<0){
                 db.transaction(function(tx){
                     tx.executeSql("ALTER TABLE "+db_table_categories+" ADD deleteFlag INT DEFAULT 0")
+                })
+            }
+            // since v1.4.0: require rank column
+            if (colnames.indexOf("rank")<0){
+                db.transaction(function(tx){
+                    tx.executeSql("ALTER TABLE "+db_table_categories+" ADD rank INT DEFAULT -1")
                 })
             }
         } catch (err){
@@ -174,28 +213,47 @@ Item {
             console.error("Error when select from table '"+db_table_categories+"': " + err)
         }
     }
-    function swapCategories(cat1,cat2){
+    function swapCategories(catName1,catName2){
         if (!db) init()
+
+        var idx1 = getCategoryIndexByName(catName1)
+        var idx2 = getCategoryIndexByName(catName2)
+        if (idx1 < 0 || idx2 < 0)
+            return
+
+        var rank1 = categoriesRawModel.get(idx1).rank
+        var rank2 = categoriesRawModel.get(idx2).rank
+
         try{
             db.transaction(function(tx){
-                var dummy = "TEMPSWAPCATNAME"
-                // get marked properties of both categories
-                var rt1 = tx.executeSql("SELECT marked FROM "+db_table_categories+" WHERE name=?",[cat1])
-                var rt2 = tx.executeSql("SELECT marked FROM "+db_table_categories+" WHERE name=?",[cat2])
-                // check if both entries exists, otherwise skip swapping
-                if (rt1.rows.length===1 && rt2.rows.length===1){
-                    var marked1 = rt1.rows[0].marked
-                    var marked2 = rt2.rows[0].marked
-                    tx.executeSql("UPDATE "+db_table_categories+" SET name='"+dummy+"' WHERE name='"+cat2+"'")
-                    tx.executeSql("UPDATE "+db_table_categories+" SET name='"+cat2+"',marked="+marked2+" WHERE name='"+cat1+"'")
-                    tx.executeSql("UPDATE "+db_table_categories+" SET name='"+cat1+"',marked="+marked1+" WHERE name='"+dummy+"'")
-                }
+                tx.executeSql("UPDATE "+db_table_categories+" SET rank=? WHERE name=?",[rank2,catName1])
+                tx.executeSql("UPDATE "+db_table_categories+" SET rank=? WHERE name=?",[rank1,catName2])
             })
-            categoriesChanged()
+            categoriesRawModel.get(idx1).rank = rank2
+            categoriesRawModel.get(idx2).rank = rank1
+            categoriesModel.get(idx1+1).rank = rank2
+            categoriesModel.get(idx2+1).rank = rank1
+            categoriesRawModel.move(idx1,idx2,1)
+            categoriesModel.move(idx1+1,idx2+1,1)
+            categoriesList[idx1] = catName2
+            categoriesList[idx2] = catName1
+
+            categoryListChanged()
         } catch (err){
             console.error("Error when swaping categories in table '"+db_table_categories+"': " + err)
         }
     }
+    function updateRank(catName,rank){
+        if (!db) init()
+        try{
+            db.transaction(function(tx){
+                tx.executeSql("UPDATE "+db_table_categories+" SET rank=? WHERE name=?",[rank,catName])
+            })
+        } catch (err){
+            console.error("Error when updating rank of category '"+catName+"' in table '"+db_table_categories+"': " + err)
+        }
+    }
+
     function toggleCategoryMarked(cat){
         if (!db) init()
         try{
