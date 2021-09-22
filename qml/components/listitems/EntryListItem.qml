@@ -24,104 +24,64 @@ ListItem{
         visible: marked
     }
 
-    CheckBox{
-        id: checkBox
-        anchors{
-            right: mouseUp.left
-            verticalCenter: parent.verticalCenter
-            margins: units.gu(2)
+
+    ListItemLayout{
+        CheckBox{
+            id: checkBox
+            SlotsLayout.position: SlotsLayout.First
+            checked: marked
+            onTriggered: {
+                toggleMarked(uid)
+                marked = 1-marked
+            }
         }
-        visible: checkMode
-        checked: marked
-        onTriggered: {
-            toggleMarked(uid)
-            marked = 1-marked
+
+        title.text: ""
+
+        Item {
+            id: textItem
+            anchors{
+                left: checkBox.right
+                right: iconDrapDrop.left
+                verticalCenter: parent.verticalCenter
+            }
+            Label{
+                id: lbQuantity
+                anchors{
+                    left: parent.left
+                    verticalCenter: parent.verticalCenter
+                }
+                width: 0.25*parent.width
+                horizontalAlignment: Label.AlignRight
+                font.bold: true
+                text: quantity + " " + dimension
+            }
+            TextArea{
+                id: lbName
+                anchors{
+                    right: parent.right
+                    verticalCenter: parent.verticalCenter
+                }
+                width: 0.75*parent.width - units.gu(2)
+                text: name
+                readOnly: true
+                height: ( (lineCount<3) ? lineCount : 3 ) * units.gu(2) + units.gu(2)
+            }
+        }
+
+        Icon{
+            id: iconDrapDrop
+            height: units.gu(4)
+            SlotsLayout.position: SlotsLayout.Last
+            name: "sort-listitem"
         }
     }
 
-    TextArea{
-        id: lbName
-        anchors{
-            left: mouseDown.right
-            right: checkBox.visible ? checkBox.left : mouseUp.left
-            top: parent.top
-            bottom: parent.bottom
-            leftMargin: units.gu(6)
-        }
-        x: 0.35*parent.width
-        text: name
-        verticalAlignment: Qt.AlignVCenter
-        readOnly: true
-    }
-    Label{
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.right: lbName.left
-        anchors.margins: units.gu(1)
-        text: "<b>"+quantity+" "+dimension+"</b>"
-        horizontalAlignment: Label.AlignRight
-    }
     Label{
         anchors.bottom: parent.bottom
         anchors.left:   parent.left
         textSize: Label.Small
         text: category
     }
-    MouseArea{
-        id: mouseDown
-        visible: index<listView.model.count-1
-        anchors{
-            top: parent.top
-            left: parent.left
-            bottom: parent.bottom
-        }
-        width: height
-        Icon{
-            name: "down"
-            height: units.gu(3)
-            anchors.centerIn: parent
-        }
-        onClicked: moveDown()
-    }
-    MouseArea{
-        id: mouseUp
-        visible: index>0
-        anchors{
-            top:    parent.top
-            right:  parent.right
-            bottom: parent.bottom
-        }
-        width: 1.2*height
-        Icon{
-            name: "up"
-            height: units.gu(3)
-            anchors.centerIn: parent
-        }
-        onClicked: moveUp()
-    }
-    Rectangle{
-        id: downGradient
-        width: 0.5*parent.width
-        height: width
-        x: 0
-        y: 0.5*(parent.height-height)
-        rotation: 90
-        gradient: Gradient {
-                GradientStop { position: 1.0; color: "#88aa8888"}
-                GradientStop { position: 0.0; color: "#00aa8888"}
-            }
-        visible: mouseDown.pressed
-    }
-    Rectangle{
-        id: upGradient
-        width: 0.5*parent.width
-        height: width
-        x: 0.5*parent.width
-        y: 0.5*(parent.height-height)
-        rotation: 90
-        gradient: Gradient {
-                GradientStop { position: 0.0; color: "#8888aa88"}
-                GradientStop { position: 1.0; color: "#0088aa88"}
-            }
-        visible: mouseUp.pressed
-    }
+
 }
