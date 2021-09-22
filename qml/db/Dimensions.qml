@@ -33,6 +33,13 @@ Item {
         }
     }
 
+    function getIndexById(uid){
+        for (var i=0; i<unitsModel.count; i++)
+            if (unitsModel.get(i).uid===uid)
+                return i
+        return -1
+    }
+
     // the connector with the database
     property var db
 
@@ -214,6 +221,12 @@ Item {
     }
     function swap(uid1,uid2){
         if (!db) init()
+
+        var idx1 = getIndexById(uid1)
+        var idx2 = getIndexById(uid2)
+        if (idx1<0 || idx2<0)
+            return
+
         try{
             db.transaction(function(tx){
                 var tempuid = -1
@@ -221,6 +234,9 @@ Item {
                 tx.executeSql("UPDATE "+db_table_units+" SET uid=? WHERE uid=?",[uid1,uid2])
                 tx.executeSql("UPDATE "+db_table_units+" SET uid=? WHERE uid=?",[uid2,tempuid])
             })
+            unitsModel.move(idx1,idx2,1)
+            unitsModel.get(idx1).uid = uid1
+            unitsModel.get(idx2).uid = uid2
         } catch (err){
             console.error("Error when swaping units in table '"+db_table_units+"': " + err)
         }

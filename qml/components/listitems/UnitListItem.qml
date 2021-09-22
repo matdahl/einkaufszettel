@@ -13,7 +13,6 @@ ListItem{
         Action{
             iconName: "delete"
             onTriggered: remove()
-            // the unit "piece" is not deletable
             visible: symbol !=="x"
         }
     ]}
@@ -26,6 +25,8 @@ ListItem{
     }
 
     ListItemLayout{
+        id: layout
+
         CheckBox{
             id: checkBox
             SlotsLayout.position: SlotsLayout.First
@@ -70,6 +71,50 @@ ListItem{
             opacity: symbol !=="x" ? 1 : 0
             enabled: symbol !=="x"
             name: "sort-listitem"
+            MouseArea{
+                id: dragMouse
+                anchors{
+                    fill: parent
+                    margins: units.gu(-1)
+                }
+                drag.target: layout
+            }
+        }
+
+        property int dragItemIndex: index
+
+        states: [
+            State {
+                when: layout.Drag.active
+                ParentChange {
+                    target: layout
+                    parent: listView
+                }
+            },
+            State {
+                when: !layout.Drag.active
+                AnchorChanges {
+                    target: layout
+                    anchors.horizontalCenter: layout.parent.horizontalCenter
+                    anchors.verticalCenter: layout.parent.verticalCenter
+                }
+            }
+        ]
+        Drag.active: dragMouse.drag.active
+        Drag.hotSpot.x: layout.width / 2
+        Drag.hotSpot.y: layout.height / 2
+    }
+
+    DropArea{
+        anchors.fill: parent
+        onEntered: {
+            if (symbol !== "x"){
+                if (drag.source.dragItemIndex > index){
+                    dimensions.swap(dimensions.unitsModel.get(drag.source.dragItemIndex).uid,uid)
+                } else if (drag.source.dragItemIndex < index){
+                    dimensions.swap(uid,dimensions.unitsModel.get(drag.source.dragItemIndex).uid)
+                }
+            }
         }
     }
 }
