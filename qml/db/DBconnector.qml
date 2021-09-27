@@ -462,21 +462,6 @@ Item {
         }
     }
 
-    /* prints all items from the database to the terminal - for debugging purposes only */
-    function printAllItems(){
-        if (!db) init()
-        try{
-            var rows
-            db.transaction(function(tx){
-                rows = tx.executeSql("SELECT * FROM "+db_table_items).rows
-            })
-            for (var i=0;i<rows.length;i++){
-                print(rows[i].uid,rows[i].name,rows[i].category,rows[i].deleteFlag,rows[i].selected)
-            }
-        } catch (err){
-            console.error("Error when selecting all from table '"+db_table_items+"': " + err)
-        }
-    }
 }
 
 
