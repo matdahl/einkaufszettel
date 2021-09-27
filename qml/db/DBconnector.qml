@@ -60,6 +60,16 @@ Item {
         return -1
     }
 
+    /* entry model */
+    property alias entryModel: dbEntries.entryModel
+
+    /* subclass to handle everything concerning entries */
+    DBEntries{
+        id: dbEntries
+    }
+
+
+
     property var db
 
     // flag to state whether there are restorable deleted items
