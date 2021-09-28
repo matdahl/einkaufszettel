@@ -37,6 +37,11 @@ MainView {
         id: dbcon
     }
 
+    // the database connector which manage all interactions for entries
+    DBEntries{
+        id: db_entries
+    }
+
     // the database connector to store the history of entries if wanted
     DBHistory{
         id: db_history

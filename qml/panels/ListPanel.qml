@@ -96,12 +96,8 @@ Item {
         }
         clip: true
         currentIndex: -1
-        model: ListModel{}
+        model: db_entries.entryModel
 
-        Component.onCompleted: {
-            dbcon.itemsChanged.connect(refresh)
-            refresh()
-        }
 
         function recountChecked(){
             var count = 0
@@ -112,6 +108,7 @@ Item {
         }
 
         function refresh(){
+            return; // deactivate refresh function
             model.clear()
             // check if all entries should be displayed
             if (sections.selectedIndex==0){
