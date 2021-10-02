@@ -5,7 +5,7 @@ Item {
     id: root
 
     // list model with all
-    property var categoriesModel: ListModel{}
+    //property var categoriesModel: ListModel{}
     property var categoriesRawModel: ListModel{}
     property var categoriesList: []
 
@@ -66,10 +66,10 @@ Item {
         }
 
         // read all categories from database
-        categoriesModel.clear()
+        //categoriesModel.clear()
         categoriesRawModel.clear()
         categoriesList = [i18n.tr("all")]
-        categoriesModel.append({name:i18n.tr("all")})
+        //categoriesModel.append({name:i18n.tr("all")})
         try{
             var rows
             db.transaction(function(tx){
@@ -79,7 +79,7 @@ Item {
             for (var i=0;i<rows.length;i++){
                 // insertion sort by rank, if rank<0, then append and reset afterwards
                 if (rows[i].rank<0){
-                    categoriesModel.append(rows[i])
+                    //categoriesModel.append(rows[i])
                     categoriesRawModel.append(rows[i])
                     categoriesList.push(rows[i].name)
                     resetRanks = true
@@ -89,18 +89,18 @@ Item {
                            categoriesRawModel.get(j).rank < rows[i].rank &&
                            categoriesRawModel.get(j).rank > -1)
                         j++
-                    categoriesModel.insert(j+1,rows[i])
+                    //categoriesModel.insert(j+1,rows[i])
                     categoriesRawModel.insert(j,rows[i])
                     categoriesList.splice(j+1,0,rows[i].name)
                 }
             }
             // reset ranks if needed
-            categoriesModel.append({name:i18n.tr("other")})
+            //categoriesModel.append({name:i18n.tr("other")})
             categoriesList.push(i18n.tr("other"))
             if (resetRanks){
                 for (var k=0; k<categoriesRawModel.count; k++){
                     categoriesRawModel.get(k).rank = k
-                    categoriesModel.get(k+1).rank = k
+                    //categoriesModel.get(k+1).rank = k
                     updateRank(categoriesRawModel.get(k).name,k)
                 }
             }
