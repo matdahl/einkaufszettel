@@ -29,6 +29,15 @@ Item {
         hasChecked = false
     }
 
+    function insertToList(index,name){
+        if (index > -1){
+            list.splice(index,0,name)
+        } else if (index === -1){
+            list = [i18n.tr("all")]
+        } else if (index === -2){
+            list.push(i18n.tr("other"))
+        }
+    }
 
     function insertByRank(cat){
         var j=0
@@ -37,7 +46,7 @@ Item {
                rawModel.get(j).rank > -1)
             j++
         rawModel.insert(j,cat)
-        list.splice(j+1,0,cat.name)
+        insertToList(j+1,cat.name)
     }
 
     function db_test_callback(db){/* do nothing */}
@@ -88,7 +97,7 @@ Item {
 
         // read all categories from database
         rawModel.clear()
-        list = [i18n.tr("all")]
+        insertToList(-1,"all")
         try{
             var rows
             db.transaction(function(tx){
@@ -98,13 +107,13 @@ Item {
             for (var i=0;i<rows.length;i++){
                 if (rows[i].rank<0){
                     rawModel.append(rows[i])
-                    list.push(rows[i].name)
+                    insertToList(list.length,rows[i].name)
                     resetRanks = true
                 } else {
                     insertByRank(rows[i])
                 }
             }
-            list.push(i18n.tr("other"))
+            insertToList(-2,"other")
 
             if (resetRanks){
                 for (var k=0; k<rawModel.count; k++){
@@ -142,8 +151,7 @@ Item {
                 rank: rank
             }
             rawModel.append(newCategory)
-            var nCategories = rawModel.count
-            list.splice(nCategories,0,name)
+            insertToList(rawModel.count,name)
             listChanged()
         } catch (err){
             console.error("Error when insert category into table '"+db_table_name+"': " + err)
@@ -264,11 +272,24 @@ Item {
                               [cat1.rank,cat2.name])
             })
             rawModel.move(index1,index2,1)
-            list[index1+1] = cat2.name
-            list[index2+1] = cat1.name
+            var name1 = list[index1+1]
+            list[index1+1] = list[index2+1]
+            list[index2+1] = name1
             listChanged()
         } catch (err){
             console.error("Error when swap categories: " + err)
+        }
+    }
+
+    function updateRank(name,rank){
+        if (!db) init()
+        try{
+            db.transaction(function(tx){
+                tx.executeSql("UPDATE "+db_table_name+" SET rank=? WHERE name=?",
+                              [rank,name])
+            })
+        } catch (err){
+            console.error("Error when updating rank of category '"+name+": " + err)
         }
     }
 }
