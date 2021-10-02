@@ -11,9 +11,7 @@ ListItem{
     leadingActions: ListItemActions{ actions: [
         Action{
             iconName: "delete"
-            onTriggered: {
-                remove()
-            }
+            onTriggered: db_categories.remove(index)
         }
     ]}
 

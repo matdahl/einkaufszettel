@@ -139,4 +139,18 @@ Item {
         }
     }
 
+    function remove(index){
+        if (!db) init()
+        try{
+            var name = categoriesList[index+1]
+            db.transaction(function(tx){
+                tx.executeSql("DELETE FROM "+db_table_name+" WHERE name='"+name+"'")
+            })
+            categoriesRawModel.remove(index)
+            categoriesList.splice(index+1,1)
+            categoriesListChanged()
+        } catch (err){
+            console.error("Error when delete category: " + err)
+        }
+    }
 }

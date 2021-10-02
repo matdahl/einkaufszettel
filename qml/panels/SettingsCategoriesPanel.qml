@@ -77,7 +77,6 @@ Item {
         currentIndex: -1
         model: db_categories.categoriesRawModel
         delegate: CategoryListItem{
-            onRemove: dbcon.deleteCategory(listView.model.get(index).name)
             onMoveDown: {
                 var name1 = listView.model.get(index).name
                 var name2 = listView.model.get(index+1).name
