@@ -105,7 +105,7 @@ Item {
 
         onRemoveAll:      dbcon.markCategoriesAsDeleted(false)
         onRemoveSelected: dbcon.markCategoriesAsDeleted(true)
-        onRemoveDeleted:  dbcon.removeDeletedCategories()
+        onRemoveDeleted:  db_categories.deleteAllRemoved()
         onRestoreDeleted: dbcon.restoreDeletedCategories()
     }
 }
