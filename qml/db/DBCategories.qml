@@ -10,6 +10,8 @@ Item {
     property bool hasChecked: false
     property bool hasDeletedCategories: false
 
+    property var entriesPerCategory: [[],[]]
+
     // connection details
     property var    db
     property string db_name: "einkauf"
@@ -18,7 +20,81 @@ Item {
     property int    db_size: 1024
     property string db_table_name: "categories"
 
-    Component.onCompleted: init()
+    Component.onCompleted: {
+        db_entries.fullEntryModelChanged.connect(recountEntries)
+        init()
+    }
+
+    function recountEntries(){
+        var newEntriesPerCategory = [[],[]]
+        for (var i=0; i<db_entries.fullEntryModel.count; i++){
+            var catName = db_entries.fullEntryModel.get(i).category
+            var index = newEntriesPerCategory[0].indexOf(catName)
+            if (index<0){
+                newEntriesPerCategory[0].push(catName)
+                newEntriesPerCategory[1].push(1)
+            } else{
+                newEntriesPerCategory[1][index] += 1
+            }
+        }
+        // check if something has changed
+        var updateNeeded = false
+        if (newEntriesPerCategory[0].length !== entriesPerCategory[0].length){
+            updateNeeded =true
+        } else {
+            for (var j=0; j<entriesPerCategory[0].length; j++){
+                var k = newEntriesPerCategory[0].indexOf(entriesPerCategory[0][j])
+                if (k<0 || newEntriesPerCategory[1][k] !== entriesPerCategory[1][j]){
+                    updateNeeded = true
+                    break
+                }
+            }
+        }
+
+        if (updateNeeded){
+            entriesPerCategory[0] = newEntriesPerCategory[0]
+            entriesPerCategory[1] = newEntriesPerCategory[1]
+            updateListCounts()
+        }
+    }
+
+    function updateListCounts(){
+        list = []
+
+        var sumAll   = 0
+        var sumOther = 0
+        print(entriesPerCategory[0].length,rawModel.count)
+        for (var j=0; j<entriesPerCategory[0].length; j++){
+            sumAll += entriesPerCategory[1][j]
+            var other = true
+            for (var k=0; k<rawModel.count; k++){
+                if (rawModel.get(k).name===entriesPerCategory[0][j]){
+                    other = false
+                    break
+                }
+            }
+            if (other)
+                sumOther += entriesPerCategory[1][j]
+        }
+        if (sumAll>0)
+            list.push("<b>"+i18n.tr("all")+" ("+sumAll+")</b>")
+        else
+            list.push(i18n.tr("all")+" (0)")
+
+        for (var i=0; i<rawModel.count; i++){
+            var index = entriesPerCategory[0].indexOf(rawModel.get(i).name)
+            if (index<0)
+                list.push(rawModel.get(i).name + " (0)")
+            else
+                list.push("<b>"+rawModel.get(i).name + " ("+entriesPerCategory[1][index]+")</b>")
+        }
+        if (sumOther>0)
+            list.push("<b>"+i18n.tr("other")+" ("+sumOther+")</b>")
+        else
+            list.push(i18n.tr("other")+" (0)")
+
+        listChanged()
+    }
 
     function checkForMarkedCategories(){
         for (var i=0; i<rawModel.count; i++)

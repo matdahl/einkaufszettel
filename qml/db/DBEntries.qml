@@ -17,6 +17,7 @@ Item {
     property bool showCategoryOther: false
 
     property var entryModel: ListModel{}
+    property var fullEntryModel: ListModel{}
 
     Component.onCompleted: refresh()
     onSelectedCategoryChanged: refresh()
@@ -44,8 +45,8 @@ Item {
                 tx.executeSql("CREATE TABLE IF NOT EXISTS "+db_table_name+" "
                               +"(uid INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, category TEXT, deleteFlag INTEGER DEFAULT 0)")
             })
-        } catch (err){
-            console.error("Error when creating table '"+db_table_name+"': " + err)
+        } catch (e1){
+            console.error("Error when creating table '"+db_table_name+"': " + e1)
         }
         // check if all required colunms are in table and create missing ones
         try{
@@ -80,9 +81,24 @@ Item {
                     tx.executeSql("ALTER TABLE "+db_table_name+" ADD marked INT DEFAULT 0")
                 })
             }
-        } catch (err){
-            console.error("Error when checking columns of table '"+db_table_name+"': " + err)
+        } catch (e2){
+            console.error("Error when checking columns of table '"+db_table_name+"': " + e2)
         }
+
+        // init full entryModel
+        try{
+            var rows
+            db.transaction(function(tx){
+                rows = tx.executeSql("SELECT * FROM "+db_table_name+" WHERE deleteFlag=0").rows
+            })
+            for (var i=0; i<rows.length; i++){
+                fullEntryModel.append(rows[i])
+            }
+            fullEntryModelChanged()
+        } catch (e3){
+            console.error("Error when selecting all entries: " + e3)
+        }
+
         // if there are still deleted items left, remove them from DB for a clean start
         removeDeleted()
     }
