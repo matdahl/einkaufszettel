@@ -3,10 +3,8 @@ import Ubuntu.Components 1.3
 
 ListItem{
 
-    signal remove  ()
     signal moveUp  (int index)
     signal moveDown(int index)
-    signal toggleMarked(string name)
 
     leadingActions: ListItemActions{ actions: [
         Action{
@@ -28,7 +26,7 @@ ListItem{
             id: checkBox
             SlotsLayout.position: SlotsLayout.First
             checked: marked
-            onTriggered: toggleMarked(name)
+            onTriggered: db_categories.toggleMarked(index)
         }
 
         title.text: name

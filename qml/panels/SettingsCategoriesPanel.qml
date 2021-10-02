@@ -89,7 +89,6 @@ Item {
                 listView.model.move(index-1,index,1)
                 dbcon.swapCategories(name1,name2)
             }
-            onToggleMarked: dbcon.toggleCategoryMarked(name)
         }
     }
     Label{

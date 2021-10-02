@@ -144,13 +144,28 @@ Item {
         try{
             var name = list[index+1]
             db.transaction(function(tx){
-                tx.executeSql("DELETE FROM "+db_table_name+" WHERE name='"+name+"'")
+                tx.executeSql("DELETE FROM "+db_table_name+" WHERE name=?",
+                              [name])
             })
             rawModel.remove(index)
             list.splice(index+1,1)
             listChanged()
         } catch (err){
             console.error("Error when delete category: " + err)
+        }
+    }
+
+    function toggleMarked(index){
+        if (!db) init()
+        try{
+            var name = list[index+1]
+            db.transaction(function(tx){
+                tx.executeSql("UPDATE "+db_table_name+" SET marked=1-marked WHERE name=?",
+                              [name])
+            })
+            rawModel.get(index).marked = 1-rawModel.get(index).marked
+        } catch (err){
+            console.error("Error when toggle marked property of category '"+name+"': " + err)
         }
     }
 }
