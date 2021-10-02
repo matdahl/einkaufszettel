@@ -73,7 +73,7 @@ Item {
         try{
             var rows
             db.transaction(function(tx){
-                rows = tx.executeSql("SELECT * FROM "+db_table_name).rows
+                rows = tx.executeSql("SELECT * FROM "+db_table_name+" WHERE deleteFlag=0").rows
             })
             var resetRanks = false
             for (var i=0;i<rows.length;i++){
@@ -144,7 +144,7 @@ Item {
         try{
             var name = list[index+1]
             db.transaction(function(tx){
-                tx.executeSql("DELETE FROM "+db_table_name+" WHERE name=?",
+                tx.executeSql("UPDATE "+db_table_name+" SET deleteFlag=1 WHERE name=?",
                               [name])
             })
             rawModel.remove(index)
