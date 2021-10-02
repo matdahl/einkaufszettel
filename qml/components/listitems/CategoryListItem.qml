@@ -3,6 +3,9 @@ import Ubuntu.Components 1.3
 
 ListItem{
 
+    property bool isChecked: marked
+    onIsCheckedChanged: checkBox.checked = marked
+
     leadingActions: ListItemActions{ actions: [
         Action{
             iconName: "delete"
