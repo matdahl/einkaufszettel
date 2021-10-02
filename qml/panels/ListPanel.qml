@@ -39,13 +39,10 @@ Item {
             right: parent.right
         }
         height: units.gu(6)
-        model: db_categories.categoriesList
+        model: db_categories.list
 
         // connect signals from DB connector with slots
         Component.onCompleted: {
-            dbcon.itemsChanged.connect(recount)
-            dbcon.categoryListChanged.connect(refresh)
-            //model = Qt.binding(function() { return db_categories.categoriesList })
             refresh()
         }
         onSelectedIndexChanged: listView.refresh()

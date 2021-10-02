@@ -6,8 +6,8 @@ Item {
 
     // list model with all
     //property var categoriesModel: ListModel{}
-    property var categoriesRawModel: ListModel{}
-    property var categoriesList: []
+    property var rawModel: ListModel{}
+    property var list: []
 
     // connection details
     property var    db
@@ -67,8 +67,8 @@ Item {
 
         // read all categories from database
         //categoriesModel.clear()
-        categoriesRawModel.clear()
-        categoriesList = [i18n.tr("all")]
+        rawModel.clear()
+        list = [i18n.tr("all")]
         //categoriesModel.append({name:i18n.tr("all")})
         try{
             var rows
@@ -80,31 +80,31 @@ Item {
                 // insertion sort by rank, if rank<0, then append and reset afterwards
                 if (rows[i].rank<0){
                     //categoriesModel.append(rows[i])
-                    categoriesRawModel.append(rows[i])
-                    categoriesList.push(rows[i].name)
+                    rawModel.append(rows[i])
+                    list.push(rows[i].name)
                     resetRanks = true
                 } else {
                     var j=0
-                    while (j < categoriesRawModel.count &&
-                           categoriesRawModel.get(j).rank < rows[i].rank &&
-                           categoriesRawModel.get(j).rank > -1)
+                    while (j < rawModel.count &&
+                           rawModel.get(j).rank < rows[i].rank &&
+                           rawModel.get(j).rank > -1)
                         j++
                     //categoriesModel.insert(j+1,rows[i])
-                    categoriesRawModel.insert(j,rows[i])
-                    categoriesList.splice(j+1,0,rows[i].name)
+                    rawModel.insert(j,rows[i])
+                    list.splice(j+1,0,rows[i].name)
                 }
             }
             // reset ranks if needed
             //categoriesModel.append({name:i18n.tr("other")})
-            categoriesList.push(i18n.tr("other"))
+            list.push(i18n.tr("other"))
             if (resetRanks){
-                for (var k=0; k<categoriesRawModel.count; k++){
-                    categoriesRawModel.get(k).rank = k
+                for (var k=0; k<rawModel.count; k++){
+                    rawModel.get(k).rank = k
                     //categoriesModel.get(k+1).rank = k
-                    updateRank(categoriesRawModel.get(k).name,k)
+                    updateRank(rawModel.get(k).name,k)
                 }
             }
-            categoriesListChanged()
+            listChanged()
         } catch (e){
             console.error("Error when reading categories from database: " + e)
         }
@@ -129,11 +129,11 @@ Item {
                 deleteFlag: 0,
                 rank: rank
             }
-            categoriesRawModel.append(newCategory)
-            var nCategories = categoriesRawModel.count
+            rawModel.append(newCategory)
+            var nCategories = rawModel.count
             //categoriesModel.insert(nCategories,newCategory)
-            categoriesList.splice(nCategories,0,name)
-            categoriesListChanged()
+            list.splice(nCategories,0,name)
+            listChanged()
         } catch (err){
             console.error("Error when insert category into table '"+db_table_name+"': " + err)
         }
@@ -142,13 +142,13 @@ Item {
     function remove(index){
         if (!db) init()
         try{
-            var name = categoriesList[index+1]
+            var name = list[index+1]
             db.transaction(function(tx){
                 tx.executeSql("DELETE FROM "+db_table_name+" WHERE name='"+name+"'")
             })
-            categoriesRawModel.remove(index)
-            categoriesList.splice(index+1,1)
-            categoriesListChanged()
+            rawModel.remove(index)
+            list.splice(index+1,1)
+            listChanged()
         } catch (err){
             console.error("Error when delete category: " + err)
         }

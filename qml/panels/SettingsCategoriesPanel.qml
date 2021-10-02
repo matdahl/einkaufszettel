@@ -75,7 +75,7 @@ Item {
             right:  root.right
         }
         currentIndex: -1
-        model: db_categories.categoriesRawModel
+        model: db_categories.rawModel
         delegate: CategoryListItem{
             onMoveDown: {
                 var name1 = listView.model.get(index).name
