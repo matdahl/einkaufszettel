@@ -131,6 +131,7 @@ Item {
                 list.splice(index,0,name + "(0)")
             else
                 list.splice(index,0,"<b>" + name + "("+entriesPerCategory[1][idx]+")</b>")
+            updateOtherCount()
         } else if (index === -1){
             var countAll = countAllEntries()
             if (countAll>0)
