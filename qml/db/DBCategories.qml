@@ -7,6 +7,7 @@ Item {
     property var rawModel: ListModel{}
     property var list: []
 
+    property bool hasChecked: false
     property bool hasDeletedCategories: false
 
     // connection details
@@ -18,6 +19,16 @@ Item {
     property string db_table_name: "categories"
 
     Component.onCompleted: init()
+
+    function checkForMarkedCategories(){
+        for (var i=0; i<rawModel.count; i++)
+            if (rawModel.get(i).marked===1){
+                hasChecked = true
+                return
+            }
+        hasChecked = false
+    }
+
 
     function insertByRank(cat){
         var j=0
@@ -76,7 +87,6 @@ Item {
         }
 
         // read all categories from database
-        //categoriesModel.clear()
         rawModel.clear()
         list = [i18n.tr("all")]
         try{
@@ -103,6 +113,7 @@ Item {
                 }
             }
 
+            checkForMarkedCategories()
             deleteAllRemoved()
             listChanged()
 
@@ -150,6 +161,7 @@ Item {
             rawModel.remove(index)
             list.splice(index+1,1)
             listChanged()
+            checkForMarkedCategories()
             hasDeletedCategories = true
         } catch (err){
             console.error("Error when remove category: " + err)
@@ -182,6 +194,7 @@ Item {
             if (restored.length>0)
                 listChanged()
 
+            checkForMarkedCategories()
             hasDeletedCategories = false
 
             db.transaction(function(tx){
@@ -203,6 +216,7 @@ Item {
                               [name])
             })
             rawModel.get(index).marked = 1-rawModel.get(index).marked
+            checkForMarkedCategories()
         } catch (err){
             console.error("Error when toggle marked property of category '"+name+"': " + err)
         }
