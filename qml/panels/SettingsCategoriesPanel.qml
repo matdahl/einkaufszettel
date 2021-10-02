@@ -103,8 +103,8 @@ Item {
         hasCheckedItems: db_categories.hasChecked
         hasDeletedItems: db_categories.hasDeletedCategories
 
-        onRemoveAll:      dbcon.markCategoriesAsDeleted(false)
-        onRemoveSelected: dbcon.markCategoriesAsDeleted(true)
+        onRemoveAll:      db_categories.removeAll()
+        onRemoveSelected: db_categories.removeSelected()
         onRemoveDeleted:  db_categories.deleteAllRemoved()
         onRestoreDeleted: db_categories.restoreDeleted()
     }

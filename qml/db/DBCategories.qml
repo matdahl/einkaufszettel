@@ -149,7 +149,6 @@ Item {
             console.error("Error when insert category into table '"+db_table_name+"': " + err)
         }
     }
-
     function remove(index){
         if (!db) init()
         try{
@@ -167,7 +166,40 @@ Item {
             console.error("Error when remove category: " + err)
         }
     }
-
+    function removeSelected(){
+        if (!db) init()
+        try{
+            db.transaction(function(tx){
+                tx.executeSql("UPDATE "+db_table_name+" SET deleteFlag=1 WHERE marked=1")
+            })
+            for (var i = rawModel.count-1; i>-1; i--){
+                if (rawModel.get(i).marked===1){
+                    rawModel.remove(i)
+                    list.splice(i+1,1)
+                }
+            }
+            checkForMarkedCategories()
+            hasDeletedCategories = true
+            listChanged()
+        } catch (err){
+            console.error("Error when marking selected categories as deleted: " + err)
+        }
+    }
+    function removeAll(){
+        if (!db) init()
+        try{
+            db.transaction(function(tx){
+                tx.executeSql("UPDATE "+db_table_name+" SET deleteFlag=1")
+            })
+            rawModel.clear()
+            list = []
+            hasChecked = false
+            hasDeletedCategories = true
+            listChanged()
+        } catch (err){
+            console.error("Error when marking all categories as deleted: " + err)
+        }
+    }
     function deleteAllRemoved(){
         if (!db) init()
         try{
@@ -179,7 +211,6 @@ Item {
             console.error("Error when delete all removed categories: " + err)
         }
     }
-
     function restoreDeleted(){
         if (!db) init()
         try{
@@ -205,8 +236,6 @@ Item {
             console.error("Error when restoring deleted categories: " + err)
         }
     }
-
-
     function toggleMarked(index){
         if (!db) init()
         try{
@@ -221,4 +250,5 @@ Item {
             console.error("Error when toggle marked property of category '"+name+"': " + err)
         }
     }
+
 }
