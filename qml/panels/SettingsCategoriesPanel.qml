@@ -8,34 +8,14 @@ Item {
     id: root
     property string headerSuffix: i18n.tr("Categories")
 
-    property bool hasCheckedEntries: false
-    function countCheckedEntries(){
-        for (var i=0;i<dbcon.categoriesRawModel.count;i++){
-            if (dbcon.categoriesRawModel.get(i).marked===1){
-                hasCheckedEntries = true
-                return
-            }
-        }
-        hasCheckedEntries = false
-    }
+    readonly property bool hasCheckedEntries: db_categories.hasChecked
 
-    // deselect all entries in current list
     function deselectAll(){
-        if (!dbcon) return
-        for (var i=0;i<dbcon.categoriesModel.count;i++){
-            if (dbcon.categoriesModel.get(i).marked===1){
-                dbcon.toggleCategoryMarked(dbcon.categoriesModel.get(i).name)
-            }
-        }
+        for (var i=0;i<db_categories.rawModel.count;i++)
+            if (db_categories.rawModel.get(i).marked===1)
+                db_categories.toggleMarked(i)
     }
 
-    Component.onCompleted: {
-        dbcon.categoriesChanged.connect(countCheckedEntries)
-    }
-
-    onVisibleChanged: {
-        if (!visible) deselectAll()
-    }
 
     Row{
         id: inputRow
