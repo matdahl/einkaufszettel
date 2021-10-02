@@ -19,6 +19,16 @@ Item {
 
     Component.onCompleted: init()
 
+    function insertByRank(cat){
+        var j=0
+        while (j < rawModel.count &&
+               rawModel.get(j).rank < cat.rank &&
+               rawModel.get(j).rank > -1)
+            j++
+        rawModel.insert(j,cat)
+        list.splice(j+1,0,cat.name)
+    }
+
     function db_test_callback(db){/* do nothing */}
     function init(){
         // open database
@@ -76,31 +86,26 @@ Item {
             })
             var resetRanks = false
             for (var i=0;i<rows.length;i++){
-                // insertion sort by rank, if rank<0, then append and reset afterwards
                 if (rows[i].rank<0){
                     rawModel.append(rows[i])
                     list.push(rows[i].name)
                     resetRanks = true
                 } else {
-                    var j=0
-                    while (j < rawModel.count &&
-                           rawModel.get(j).rank < rows[i].rank &&
-                           rawModel.get(j).rank > -1)
-                        j++
-                    rawModel.insert(j,rows[i])
-                    list.splice(j+1,0,rows[i].name)
+                    insertByRank(rows[i])
                 }
             }
-            // reset ranks if needed
             list.push(i18n.tr("other"))
+
             if (resetRanks){
                 for (var k=0; k<rawModel.count; k++){
                     rawModel.get(k).rank = k
                     updateRank(rawModel.get(k).name,k)
                 }
             }
+
             deleteAllRemoved()
             listChanged()
+
         } catch (e){
             console.error("Error when reading categories from database: " + e)
         }
@@ -127,7 +132,6 @@ Item {
             }
             rawModel.append(newCategory)
             var nCategories = rawModel.count
-            //categoriesModel.insert(nCategories,newCategory)
             list.splice(nCategories,0,name)
             listChanged()
         } catch (err){
@@ -158,10 +162,37 @@ Item {
             db.transaction(function(tx){
                 tx.executeSql("DELETE FROM "+db_table_name+" WHERE deleteFlag=1")
             })
+            hasDeletedCategories = false
         } catch (err){
             console.error("Error when delete all removed categories: " + err)
         }
     }
+
+    function restoreDeleted(){
+        if (!db) init()
+        try{
+            var restored
+            db.transaction(function(tx){
+                restored = tx.executeSql("SELECT * FROM "+db_table_name+" WHERE deleteFlag>0").rows
+            })
+            for (var i=0; i<restored.length; i++){
+                restored[i].deleteFlag = 0
+                insertByRank(restored[i])
+            }
+            if (restored.length>0)
+                listChanged()
+
+            hasDeletedCategories = false
+
+            db.transaction(function(tx){
+                tx.executeSql("UPDATE "+db_table_name+" SET deleteFlag=0")
+            })
+
+        } catch (err){
+            console.error("Error when restoring deleted categories: " + err)
+        }
+    }
+
 
     function toggleMarked(index){
         if (!db) init()
