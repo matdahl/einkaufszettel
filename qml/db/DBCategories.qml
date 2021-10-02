@@ -58,24 +58,35 @@ Item {
         }
     }
 
-    function updateListCounts(){
-        list = []
+    function countAllEntries(){
+        var sum = 0
+        for (var j=0; j<entriesPerCategory[0].length; j++)
+            sum += entriesPerCategory[1][j]
+        return sum
+    }
 
-        var sumAll   = 0
-        var sumOther = 0
-        print(entriesPerCategory[0].length,rawModel.count)
+    function countOtherEntries(){
+        var sum = 0
         for (var j=0; j<entriesPerCategory[0].length; j++){
-            sumAll += entriesPerCategory[1][j]
-            var other = true
             for (var k=0; k<rawModel.count; k++){
+                var other = true
                 if (rawModel.get(k).name===entriesPerCategory[0][j]){
                     other = false
                     break
                 }
             }
             if (other)
-                sumOther += entriesPerCategory[1][j]
+                sum += entriesPerCategory[1][j]
         }
+        return sum
+    }
+
+    function updateListCounts(){
+        list = []
+
+        var sumAll   = countAllEntries()
+        var sumOther = countOtherEntries()
+
         if (sumAll>0)
             list.push("<b>"+i18n.tr("all")+" ("+sumAll+")</b>")
         else
@@ -107,11 +118,23 @@ Item {
 
     function insertToList(index,name){
         if (index > -1){
-            list.splice(index,0,name)
+            var idx = entriesPerCategory[0].indexOf(name)
+            if (idx<0 || entriesPerCategory[1][idx] === 0)
+                list.splice(index,0,name + "(0)")
+            else
+                list.splice(index,0,"<b>" + name + "("+entriesPerCategory[1][idx]+")</b>")
         } else if (index === -1){
-            list = [i18n.tr("all")]
+            var countAll = countAllEntries()
+            if (countAll>0)
+                list = ["<b>"+i18n.tr("all")+" ("+countAll+")</b>"]
+            else
+                list = [i18n.tr("all")+" (0)"]
         } else if (index === -2){
-            list.push(i18n.tr("other"))
+            var countOther = countOtherEntries()
+            if (countOther>0)
+                list = ["<b>"+i18n.tr("other")+" ("+countOther+")</b>"]
+            else
+                list = [i18n.tr("other")+" (0)"]
         }
     }
 
