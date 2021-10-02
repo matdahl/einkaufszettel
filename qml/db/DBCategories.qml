@@ -264,16 +264,21 @@ Item {
         try{
             var cat1 = rawModel.get(index1)
             var cat2 = rawModel.get(index2)
+            var rank1 = cat1.rank
+            var rank2 = cat2.rank
+            var name1 = cat1.name
+            var name2 = cat2.name
 
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_name+" SET rank=? WHERE name=?",
-                              [cat2.rank,cat1.name])
+                              [rank2,name1])
                 tx.executeSql("UPDATE "+db_table_name+" SET rank=? WHERE name=?",
-                              [cat1.rank,cat2.name])
+                              [rank1,name2])
             })
+            rawModel.get(index1).rank = rank2
+            rawModel.get(index2).rank = rank1
             rawModel.move(index1,index2,1)
-            var name1 = list[index1+1]
-            list[index1+1] = list[index2+1]
+            list[index1+1] = name2
             list[index2+1] = name1
             listChanged()
         } catch (err){
