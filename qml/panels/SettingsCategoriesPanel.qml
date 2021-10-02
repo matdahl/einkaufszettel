@@ -76,20 +76,7 @@ Item {
         }
         currentIndex: -1
         model: db_categories.rawModel
-        delegate: CategoryListItem{
-            onMoveDown: {
-                var name1 = listView.model.get(index).name
-                var name2 = listView.model.get(index+1).name
-                listView.model.move(index+1,index,1)
-                dbcon.swapCategories(name1,name2)
-            }
-            onMoveUp: {
-                var name1 = listView.model.get(index).name
-                var name2 = listView.model.get(index-1).name
-                listView.model.move(index-1,index,1)
-                dbcon.swapCategories(name1,name2)
-            }
-        }
+        delegate: CategoryListItem{}
     }
     Label{
         anchors.centerIn: parent

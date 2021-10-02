@@ -3,9 +3,6 @@ import Ubuntu.Components 1.3
 
 ListItem{
 
-    signal moveUp  (int index)
-    signal moveDown(int index)
-
     leadingActions: ListItemActions{ actions: [
         Action{
             iconName: "delete"
@@ -74,9 +71,9 @@ ListItem{
         anchors.fill: parent
         onEntered: {
             if (drag.source.dragItemIndex > index){
-                dbcon.swapCategories(dbcon.categoriesRawModel.get(drag.source.dragItemIndex).name,name)
+                db_categories.swap(drag.source.dragItemIndex,index)
             } else if (drag.source.dragItemIndex < index){
-                dbcon.swapCategories(name,dbcon.categoriesRawModel.get(drag.source.dragItemIndex).name)
+                db_categories.swap(index,drag.source.dragItemIndex)
             }
         }
     }

@@ -250,5 +250,25 @@ Item {
             console.error("Error when toggle marked property of category '"+name+"': " + err)
         }
     }
+    function swap(index1,index2){
+        if (!db) init()
 
+        try{
+            var cat1 = rawModel.get(index1)
+            var cat2 = rawModel.get(index2)
+
+            db.transaction(function(tx){
+                tx.executeSql("UPDATE "+db_table_name+" SET rank=? WHERE name=?",
+                              [cat2.rank,cat1.name])
+                tx.executeSql("UPDATE "+db_table_name+" SET rank=? WHERE name=?",
+                              [cat1.rank,cat2.name])
+            })
+            rawModel.move(index1,index2,1)
+            list[index1+1] = cat2.name
+            list[index2+1] = cat1.name
+            listChanged()
+        } catch (err){
+            console.error("Error when swap categories: " + err)
+        }
+    }
 }
