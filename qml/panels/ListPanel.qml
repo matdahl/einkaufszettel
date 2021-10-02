@@ -41,24 +41,6 @@ Item {
         height: units.gu(6)
         model: db_categories.list
 
-        // connect signals from DB connector with slots
-        Component.onCompleted: {
-            refresh()
-        }
-        onSelectedIndexChanged: listView.refresh()
-
-        /* refreshs the sections in case the categories changed */
-        function refresh(){
-            return; // deactivate refresh function
-            // empty old model
-            model.length = 0
-            for (var i=0;i<dbcon.categoriesModel.count;i++){
-                model.push(dbcon.categoriesModel.get(i).name)
-            }
-            // count entries per category
-            recount()
-        }
-
         /* update the counts of entries per category */
         function recount(){
             var counts = dbcon.countEntriesPerCategory()
