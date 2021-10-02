@@ -6,6 +6,7 @@ Item {
 
     property var db
 
+    signal itemAdded(var item)
     signal itemRemoved(var item)
 
     // connection details
@@ -122,33 +123,57 @@ Item {
     }
 
 
-    function insertItem(name,category,quantity,dimension){
+    function insert(name,quantity,dimension){
         if (!db) init()
+        var catName = showCategoryOther ? i18n.tr("other") : selectedCategory
         try{
             // check if an item with the same name,category and dimension exists already
-            var rows
-            db.transaction(function(tx){
-                rows = tx.executeSql("SELECT uid FROM "+db_table_name+" WHERE name=? AND category=? AND dimension=?"
-                                    ,[name,category,dimension]).rows
-            })
+            var index = -1
+            for (var i=0; i<entryModel.count; i++){
+                var item = entryModel.get(i)
+                if (item.name === name && item.dimension === dimension){
+                    index = i
+                    break
+                }
+            }
+
             // if there is a match, add quantity to this entry
-            var uid
-            if (rows.length>0){
+            if (index > -1){
+                var match = entryModel.get(index)
                 db.transaction(function(tx){
                     tx.executeSql("UPDATE "+db_table_name+" SET quantity = quantity + ? WHERE uid=?"
-                                 ,[quantity,rows[0].uid])
+                                 ,[quantity,match.uid])
                 })
-                uid = rows[0].uid
-            } else { // create a new entry
+                var newQuantity = match.quantity+quantity
+                entryModel.setProperty(index,"quantity",newQuantity)
+                for (var j=0; j<fullEntryModel.count; j++){
+                    if (fullEntryModel.get(j).uid===match.uid){
+                        fullEntryModel.setProperty(j,"quantity",newQuantity)
+                        break
+                    }
+                }
+            // create a new entry otherwise
+            } else {
+                var uid
                 db.transaction(function(tx){
                     uid = tx.executeSql("INSERT INTO "+db_table_name+" (name,category,quantity,dimension) VALUES (?,?,?,?)"
-                                       ,[name,category,quantity,dimension]).lastInsertId
+                                       ,[name,catName,quantity,dimension]).lastInsertId
                 })
+                var newItem = {
+                    uid: uid,
+                    name: name,
+                    category: catName,
+                    deleteFlag: 0,
+                    dimension: dimension,
+                    quantity: quantity,
+                    marked: 0
+                }
+
+                fullEntryModel.insert(0,newItem)
+                itemAdded(newItem)
             }
-            // update model if needed
-            // tbd
         } catch (err){
-            console.error("Error when insert into table '"+db_table_name+"': " + err)
+            console.error("Error when insert item: " + err)
         }
     }
     function remove(uid){
@@ -174,21 +199,6 @@ Item {
             }
         } catch (err){
             console.error("Error when delete entry: " + err)
-        }
-    }
-    function selectItems(category){
-        if (!db) init()
-        try{
-            var cmd = "SELECT * FROM "+db_table_name +" WHERE (deleteFlag<>1"
-            if (category!=="") cmd += " AND category='"+category+"'"
-            cmd += ")"
-            var rt
-            db.transaction(function(tx){
-                rt = tx.executeSql(cmd)
-            })
-            return rt.rows
-        } catch (err){
-            console.error("Error when select from table '"+db_table_name+"': " + err)
         }
     }
     function swapItems(uid1,uid2){

@@ -23,6 +23,7 @@ Item {
     Component.onCompleted: {
         db_entries.fullEntryModelChanged.connect(recountEntries)
         db_entries.itemRemoved.connect(entryRemoved)
+        db_entries.itemAdded.connect(entryAdded)
         init()
     }
 
@@ -33,16 +34,41 @@ Item {
         return false
     }
 
-    function entryRemoved(item){
+    function entryAdded(item){
+        if (!item)
+            return
+
+        var index = entriesPerCategory[0].indexOf(item.category)
+        if (index > 0){
+            entriesPerCategory[1][index] = entriesPerCategory[1][index] + 1
+        } else {
+            entriesPerCategory[0].push(item.category)
+            entriesPerCategory[1].push(1)
+        }
+
+        updateAllCount()
         if (exists(item.category)){
-            var index = entriesPerCategory[0].indexOf(item.category)
-            if (entriesPerCategory[1][index]>0){
-                entriesPerCategory[1][index] = entriesPerCategory[1][index] - 1
-            } else {
-                entriesPerCategory[0].splice(index,1)
-                entriesPerCategory[1].splice(index,1)
-            }
-            updateAllCount()
+            updateCount(item.category)
+        } else {
+            updateOtherCount()
+        }
+        listChanged()
+    }
+
+    function entryRemoved(item){
+        if (!item)
+            return
+
+        var index = entriesPerCategory[0].indexOf(item.category)
+        if (entriesPerCategory[1][index]>0){
+            entriesPerCategory[1][index] = entriesPerCategory[1][index] - 1
+        } else {
+            entriesPerCategory[0].splice(index,1)
+            entriesPerCategory[1].splice(index,1)
+        }
+
+        updateAllCount()
+        if (exists(item.category)){
             updateCount(item.category)
         } else {
             updateOtherCount()

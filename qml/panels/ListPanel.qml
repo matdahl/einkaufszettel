@@ -113,9 +113,9 @@ Item {
         placeholderText: i18n.tr("new entry ...")
         enabled: sections.selectedIndex>0
         onAccepted: {
-            if (text !== ""){
+            if (text.trim() !== ""){
                 // insert new entry to database
-                dbcon.insertItem(text.trim(),dbcon.categoriesList[sections.selectedIndex],inputRow.quantity,inputRow.dimension)
+                db_entries.insert(text.trim(),inputRow.quantity,inputRow.dimension)
                 // insert new entry to history
                 db_history.addKey(text.trim())
                 reset()
