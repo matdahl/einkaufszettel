@@ -346,7 +346,7 @@ Item {
     function toggleMarked(index){
         if (!db) init()
         try{
-            var name = list[index+1]
+            var name = rawModel.get(index).name
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_name+" SET marked=1-marked WHERE name=?",
                               [name])
