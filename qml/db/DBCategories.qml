@@ -107,6 +107,14 @@ Item {
         listChanged()
     }
 
+    function updateOtherCount(){
+        var count = countOtherEntries()
+        if (count>0)
+            list.splice(list.length-1,1,"<b>"+i18n.tr("other")+" ("+count+")</b>")
+        else
+            list.splice(list.length-1,1,i18n.tr("other")+" (0)")
+    }
+
     function checkForMarkedCategories(){
         for (var i=0; i<rawModel.count; i++)
             if (rawModel.get(i).marked===1){
@@ -266,6 +274,7 @@ Item {
             })
             rawModel.remove(index)
             list.splice(index+1,1)
+            updateOtherCount()
             listChanged()
             checkForMarkedCategories()
             hasDeletedCategories = true
@@ -287,6 +296,7 @@ Item {
             }
             checkForMarkedCategories()
             hasDeletedCategories = true
+            updateOtherCount()
             listChanged()
         } catch (err){
             console.error("Error when marking selected categories as deleted: " + err)
@@ -302,6 +312,7 @@ Item {
             list = []
             hasChecked = false
             hasDeletedCategories = true
+            updateOtherCount()
             listChanged()
         } catch (err){
             console.error("Error when marking all categories as deleted: " + err)
