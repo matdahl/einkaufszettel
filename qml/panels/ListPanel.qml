@@ -40,23 +40,13 @@ Item {
         }
         height: units.gu(6)
         model: db_categories.list
-
-        /* update the counts of entries per category */
-        function recount(){
-            var counts = dbcon.countEntriesPerCategory()
-            model[0] = (counts[0]>0) ? "<b>"+i18n.tr("all")+" ("+counts[0]+")</b>"
-                                              :       i18n.tr("all")+" (0)"
-            var j
-            for (j=1;j<model.length-1;j++){
-                model[j] = (counts[j]>0) ? "<b>"+dbcon.categoriesModel.get(j).name+" ("+counts[j]+")</b>"
-                                                  :       dbcon.categoriesModel.get(j).name+" (0)"
-            }
-            model[j] = (counts[j]>0) ? "<b>"+i18n.tr("other")+" ("+counts[j]+")</b>"
-                                              :       i18n.tr("other")+" (0)"
-            // trigger event to repaint view
-            var temp = selectedIndex
-            modelChanged()
-            selectedIndex = temp
+        onSelectedIndexChanged: {
+            if (selectedIndex === 0)
+                db_entries.updateSelectedCategory("",false)
+            else if (selectedIndex === model.length-1)
+                db_entries.updateSelectedCategory("",true)
+            else
+                db_entries.updateSelectedCategory(db_categories.rawModel.get(selectedIndex-1).name,false)
         }
     }
 
@@ -86,38 +76,6 @@ Item {
                 if (model.get(i).marked===1) count += 1
             }
             checkedEntries = count
-        }
-
-        function refresh(){
-            return; // deactivate refresh function
-            model.clear()
-            // check if all entries should be displayed
-            if (sections.selectedIndex==0){
-                var rows = dbcon.selectItems("")
-                for (var i=rows.length-1; i>-1; i--) {
-                    listView.model.append(rows[i])
-                }
-            } else {
-                var category = dbcon.categoriesModel.get(sections.selectedIndex).name
-                var rows = dbcon.selectItems((category===i18n.tr("other")) ? "" : category)
-                if (rows){
-                    for (var i= rows.length-1;i>-1;i--){
-                        // if category=other, then check whether category exists
-                        if (category===i18n.tr("other")){
-                            var found = false
-                            for (var j=1; j<dbcon.categoriesList.length-1; j++){
-                                if (dbcon.categoriesList[j]===rows[i].category) {
-                                    found = true
-                                    break
-                                }
-                            }
-                            if (found) continue
-                        }
-                        listView.model.append(rows[i])
-                    }
-                }
-            }
-            recountChecked()
         }
 
         delegate: EntryListItem{

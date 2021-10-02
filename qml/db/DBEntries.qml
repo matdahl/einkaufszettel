@@ -16,21 +16,35 @@ Item {
     property string selectedCategory: ""
     property bool showCategoryOther: false
 
+    function updateSelectedCategory(catName,isOther){
+        if (selectedCategory === catName && showCategoryOther === isOther)
+            return
+
+        selectedCategory  = catName
+        showCategoryOther = isOther
+        refresh()
+    }
+
     property var entryModel: ListModel{}
     property var fullEntryModel: ListModel{}
 
-    Component.onCompleted: refresh()
-    onSelectedCategoryChanged: refresh()
-    onShowCategoryOtherChanged: refresh()
+    Component.onCompleted: init()
 
     function refresh(){
+        var i
+        entryModel.clear()
         if (showCategoryOther){
-            // tbd
+            for (i=0; i<fullEntryModel.count; i++)
+                if (!db_categories.exists(fullEntryModel.get(i).category))
+                    entryModel.append(fullEntryModel.get(i))
         } else {
-            entryModel.clear()
-            var rows = selectItems(selectedCategory)
-            for (var i=0;i<rows.length;i++)
-                entryModel.append(rows[i])
+            if (selectedCategory === "")
+                for (i=0; i<fullEntryModel.count; i++)
+                        entryModel.append(fullEntryModel.get(i))
+            else
+                for (i=0; i<fullEntryModel.count; i++)
+                    if (fullEntryModel.get(i).category === selectedCategory)
+                        entryModel.append(fullEntryModel.get(i))
         }
     }
 
