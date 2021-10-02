@@ -4,7 +4,6 @@ import Ubuntu.Components 1.3
 ListItem{
     id: root
 
-    signal remove(int uid)
     signal toggleMarked(int uid)
     signal moveDown()
     signal moveUp()
@@ -13,7 +12,7 @@ ListItem{
         actions: [
             Action{
                 iconName: "delete"
-                onTriggered: remove(uid)
+                onTriggered: db_entries.remove(uid)
             }
         ]
     }

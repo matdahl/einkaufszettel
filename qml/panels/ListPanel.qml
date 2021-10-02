@@ -79,7 +79,6 @@ Item {
         }
 
         delegate: EntryListItem{
-            onRemove: dbcon.deleteItem(uid)
             onToggleMarked: {
                 dbcon.toggleItemMarked(uid)
                 if (marked===1) {

@@ -113,17 +113,6 @@ Item {
             console.error("Error when insert into table '"+db_table_items+"': " + err)
         }
     }
-    function deleteItem(uid){
-        if (!db) init()
-        try{
-            db.transaction(function(tx){
-                tx.executeSql("DELETE FROM "+db_table_items+" WHERE uid='"+uid+"'")
-            })
-            itemsChanged()
-        } catch (err){
-            console.error("Error when delete from table '"+db_table_items+"': " + err)
-        }
-    }
     function selectItems(category){
         if (!db) init()
         try{

@@ -22,6 +22,7 @@ Item {
 
     Component.onCompleted: {
         db_entries.fullEntryModelChanged.connect(recountEntries)
+        db_entries.itemRemoved.connect(entryRemoved)
         init()
     }
 
@@ -30,6 +31,23 @@ Item {
             if (rawModel.get(i).name===catName)
                 return true
         return false
+    }
+
+    function entryRemoved(item){
+        if (exists(item.category)){
+            var index = entriesPerCategory[0].indexOf(item.category)
+            if (entriesPerCategory[1][index]>0){
+                entriesPerCategory[1][index] = entriesPerCategory[1][index] - 1
+            } else {
+                entriesPerCategory[0].splice(index,1)
+                entriesPerCategory[1].splice(index,1)
+            }
+            updateAllCount()
+            updateCount(item.category)
+        } else {
+            updateOtherCount()
+        }
+        listChanged()
     }
 
     function recountEntries(){
@@ -112,6 +130,27 @@ Item {
             list.push(i18n.tr("other")+" (0)")
 
         listChanged()
+    }
+
+    function updateAllCount(){
+        var count = countAllEntries()
+        if (count>0)
+            list.splice(0,1,"<b>"+i18n.tr("all")+" ("+count+")</b>")
+        else
+            list.splice(0,1,i18n.tr("all")+" (0)")
+    }
+
+    function updateCount(catName){
+        var index = entriesPerCategory[0].indexOf(catName)
+        var count = index<0 ? 0 : entriesPerCategory[1][index]
+        var catIndex
+        for (catIndex=0; catIndex<rawModel.count; catIndex++)
+            if (rawModel.get(catIndex).name === catName)
+                break
+        if (count>0)
+            list.splice(catIndex+1,1,"<b>"+catName+" ("+count+")</b>")
+        else
+            list.splice(catIndex+1,1,catName+" (0)")
     }
 
     function updateOtherCount(){

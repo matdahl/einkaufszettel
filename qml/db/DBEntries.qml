@@ -6,6 +6,8 @@ Item {
 
     property var db
 
+    signal itemRemoved(var item)
+
     // connection details
     property string db_name:        "einkauf"
     property string db_version:     "1.0"
@@ -22,7 +24,7 @@ Item {
 
         selectedCategory  = catName
         showCategoryOther = isOther
-        refresh()
+        refreshEntryModel()
     }
 
     property var entryModel: ListModel{}
@@ -30,7 +32,7 @@ Item {
 
     Component.onCompleted: init()
 
-    function refresh(){
+    function refreshEntryModel(){
         var i
         entryModel.clear()
         if (showCategoryOther){
@@ -113,6 +115,8 @@ Item {
             console.error("Error when selecting all entries: " + e3)
         }
 
+        refreshEntryModel()
+
         // if there are still deleted items left, remove them from DB for a clean start
         removeDeleted()
     }
@@ -147,15 +151,29 @@ Item {
             console.error("Error when insert into table '"+db_table_name+"': " + err)
         }
     }
-    function deleteItem(uid){
+    function remove(uid){
         if (!db) init()
         try{
             db.transaction(function(tx){
                 tx.executeSql("DELETE FROM "+db_table_name+" WHERE uid='"+uid+"'")
             })
-            itemsChanged()
+            var i
+            var item
+            for (i=0; i<fullEntryModel.count; i++){
+                if (fullEntryModel.get(i).uid === uid){
+                    itemRemoved(fullEntryModel.get(i))
+                    fullEntryModel.remove(i)
+                    break
+                }
+            }
+            for (i=0; i<entryModel.count; i++){
+                if (entryModel.get(i).uid === uid){
+                    entryModel.remove(i)
+                    break
+                }
+            }
         } catch (err){
-            console.error("Error when delete from table '"+db_table_name+"': " + err)
+            console.error("Error when delete entry: " + err)
         }
     }
     function selectItems(category){
