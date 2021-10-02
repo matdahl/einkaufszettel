@@ -101,7 +101,7 @@ Item {
         id: clearButtons
         hasItems: listView.model.count>0
         hasCheckedItems: hasCheckedEntries
-        hasDeletedItems: dbcon.hasDeletedCategories
+        hasDeletedItems: db_categories.hasDeletedCategories
 
         onRemoveAll:      dbcon.markCategoriesAsDeleted(false)
         onRemoveSelected: dbcon.markCategoriesAsDeleted(true)

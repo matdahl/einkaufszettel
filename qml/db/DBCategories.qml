@@ -4,10 +4,10 @@ import QtQuick.LocalStorage 2.0 as Sql
 Item {
     id: root
 
-    // list model with all
-    //property var categoriesModel: ListModel{}
     property var rawModel: ListModel{}
     property var list: []
+
+    property bool hasDeletedCategories: false
 
     // connection details
     property var    db
@@ -69,7 +69,6 @@ Item {
         //categoriesModel.clear()
         rawModel.clear()
         list = [i18n.tr("all")]
-        //categoriesModel.append({name:i18n.tr("all")})
         try{
             var rows
             db.transaction(function(tx){
@@ -79,7 +78,6 @@ Item {
             for (var i=0;i<rows.length;i++){
                 // insertion sort by rank, if rank<0, then append and reset afterwards
                 if (rows[i].rank<0){
-                    //categoriesModel.append(rows[i])
                     rawModel.append(rows[i])
                     list.push(rows[i].name)
                     resetRanks = true
@@ -89,21 +87,19 @@ Item {
                            rawModel.get(j).rank < rows[i].rank &&
                            rawModel.get(j).rank > -1)
                         j++
-                    //categoriesModel.insert(j+1,rows[i])
                     rawModel.insert(j,rows[i])
                     list.splice(j+1,0,rows[i].name)
                 }
             }
             // reset ranks if needed
-            //categoriesModel.append({name:i18n.tr("other")})
             list.push(i18n.tr("other"))
             if (resetRanks){
                 for (var k=0; k<rawModel.count; k++){
                     rawModel.get(k).rank = k
-                    //categoriesModel.get(k+1).rank = k
                     updateRank(rawModel.get(k).name,k)
                 }
             }
+            deleteAllRemoved()
             listChanged()
         } catch (e){
             console.error("Error when reading categories from database: " + e)
@@ -150,8 +146,20 @@ Item {
             rawModel.remove(index)
             list.splice(index+1,1)
             listChanged()
+            hasDeletedCategories = true
         } catch (err){
-            console.error("Error when delete category: " + err)
+            console.error("Error when remove category: " + err)
+        }
+    }
+
+    function deleteAllRemoved(){
+        if (!db) init()
+        try{
+            db.transaction(function(tx){
+                tx.executeSql("DELETE FROM "+db_table_name+" WHERE deleteFlag=1")
+            })
+        } catch (err){
+            console.error("Error when delete all removed categories: " + err)
         }
     }
 
