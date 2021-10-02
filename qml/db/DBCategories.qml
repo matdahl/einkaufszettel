@@ -25,6 +25,13 @@ Item {
         init()
     }
 
+    function exists(catName){
+        for (var i=0; i<rawModel.count; i++)
+            if (rawModel.get(i).name===catName)
+                return true
+        return false
+    }
+
     function recountEntries(){
         var newEntriesPerCategory = [[],[]]
         for (var i=0; i<db_entries.fullEntryModel.count; i++){
