@@ -51,6 +51,7 @@ Item {
             id: btNewCategory
             color: theme.palette.normal.positive
             width: 1.6*height
+            enabled: inputCategory.text !== ""
             Icon{
                 anchors.centerIn: parent
                 height: 0.7*parent.height
@@ -59,10 +60,8 @@ Item {
                 color:  theme.palette.normal.positiveText
             }
             onClicked: {
-                if (inputCategory.text !== ""){
-                    dbcon.insertCategory(inputCategory.text)
-                    inputCategory.text = ""
-                }
+                db_categories.insertCategory(inputCategory.text)
+                inputCategory.text = ""
             }
         }
     }
@@ -76,7 +75,7 @@ Item {
             right:  root.right
         }
         currentIndex: -1
-        model: dbcon.categoriesRawModel
+        model: db_categories.categoriesRawModel
         delegate: CategoryListItem{
             onRemove: dbcon.deleteCategory(listView.model.get(index).name)
             onMoveDown: {

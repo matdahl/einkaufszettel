@@ -109,4 +109,34 @@ Item {
             console.error("Error when reading categories from database: " + e)
         }
     }
+
+    function insertCategory(name){
+        if (!db) init()
+        try{
+            var rank = 0
+            db.transaction(function(tx){
+                var ranks = tx.executeSql("SELECT rank FROM "+db_table_name).rows
+                for (var i=0; i<ranks.length; i++)
+                    if (parseInt(ranks[i].rank) >= rank)
+                        rank = parseInt(ranks[i].rank)+1
+
+                tx.executeSql("INSERT OR IGNORE INTO "+db_table_name+"(name,rank) VALUES (?,?)",
+                              [name,rank])
+            })
+            var newCategory = {
+                name: name,
+                marked: 0,
+                deleteFlag: 0,
+                rank: rank
+            }
+            categoriesRawModel.append(newCategory)
+            var nCategories = categoriesRawModel.count
+            //categoriesModel.insert(nCategories,newCategory)
+            categoriesList.splice(nCategories,0,name)
+            categoriesListChanged()
+        } catch (err){
+            console.error("Error when insert category into table '"+db_table_name+"': " + err)
+        }
+    }
+
 }
