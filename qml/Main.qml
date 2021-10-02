@@ -42,6 +42,11 @@ MainView {
         id: db_entries
     }
 
+    // the database connector which manage all interactions for categories
+    DBCategories{
+        id: db_categories
+    }
+
     // the database connector to store the history of entries if wanted
     DBHistory{
         id: db_history
