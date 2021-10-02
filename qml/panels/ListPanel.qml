@@ -8,22 +8,17 @@ import "../components/listitems"
 
 Item {
     id: root
+
     property string headerSuffix: ""
-    property bool hasCheckedEntries: checkedEntries>0
+    readonly property bool hasCheckedEntries: db_entries.hasChecked
 
-    // the number of checked entries in the current list
-    property int checkedEntries: 0
 
-    // deselect all entries in current list
     function deselectAll(){
-        for (var i=0;i<listView.model.count;i++){
-            if (listView.model.get(i).marked===1){
-                dbcon.toggleItemMarked(listView.model.get(i).uid)
-                listView.model.get(i).marked = 0
-            }
+        for (var i=0;i<db_entries.entryModel.count;i++){
+            var item = db_entries.entryModel.get(i)
+            if (item.marked===1)
+                db_entries.toggleMarked(item.uid)
         }
-        checkedEntries = 0
-        listView.refresh()
     }
 
 
@@ -68,25 +63,7 @@ Item {
         clip: true
         currentIndex: -1
         model: db_entries.entryModel
-
-
-        function recountChecked(){
-            var count = 0
-            for (var i=0;i<model.count;i++){
-                if (model.get(i).marked===1) count += 1
-            }
-            checkedEntries = count
-        }
-
         delegate: EntryListItem{
-            onToggleMarked: {
-                dbcon.toggleItemMarked(uid)
-                if (marked===1) {
-                    checkedEntries -= 1
-                } else{
-                    checkedEntries += 1
-                }
-            }
             onMoveDown: {
                 dbcon.swapItems(uid,listView.model.get(index+1).uid)
                 // swap items in view
@@ -114,9 +91,7 @@ Item {
         enabled: sections.selectedIndex>0
         onAccepted: {
             if (text.trim() !== ""){
-                // insert new entry to database
                 db_entries.insert(text.trim(),inputRow.quantity,inputRow.dimension)
-                // insert new entry to history
                 db_history.addKey(text.trim())
                 reset()
             }
@@ -127,7 +102,7 @@ Item {
         id: clearList
         hasItems:        listView.model.count>0
         hasDeletedItems: dbcon.hasDeletedEntries
-        hasCheckedItems: checkedEntries>0
+        hasCheckedItems: db_entries.hasChecked
         onRemoveDeleted:  dbcon.removeDeleted()
         onRestoreDeleted: dbcon.restoreDeleted()
         onRemoveAll:{

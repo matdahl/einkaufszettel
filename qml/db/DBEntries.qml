@@ -4,12 +4,19 @@ import QtQuick.LocalStorage 2.0 as Sql
 Item {
     id: root
 
-    property var db
+    property var entryModel: ListModel{}
+    property var fullEntryModel: ListModel{}
+
+
+    property bool hasChecked: false
+    property bool hasDeleted: false
+
 
     signal itemAdded(var item)
     signal itemRemoved(var item)
 
     // connection details
+    property var db
     property string db_name:        "einkauf"
     property string db_version:     "1.0"
     property string db_description: "DB of Einkaufszettel app"
@@ -19,6 +26,32 @@ Item {
     property string selectedCategory: ""
     property bool showCategoryOther: false
 
+    Component.onCompleted: init()
+
+
+    function fullIndexByUid(uid){
+        for (var i=0; i<fullEntryModel.count; i++)
+            if (fullEntryModel.get(i).uid === uid)
+                return i
+        return -1
+    }
+
+    function indexByUid(uid){
+        for (var i=0; i<entryModel.count; i++)
+            if (entryModel.get(i).uid === uid)
+                return i
+        return -1
+    }
+
+    function checkForMarkedEntries(){
+        for (var i=0; i<entryModel.count; i++)
+            if (entryModel.get(i).marked===1){
+                hasChecked = true
+                return
+            }
+        hasChecked = false
+    }
+
     function updateSelectedCategory(catName,isOther){
         if (selectedCategory === catName && showCategoryOther === isOther)
             return
@@ -27,11 +60,6 @@ Item {
         showCategoryOther = isOther
         refreshEntryModel()
     }
-
-    property var entryModel: ListModel{}
-    property var fullEntryModel: ListModel{}
-
-    Component.onCompleted: init()
 
     function refreshEntryModel(){
         var i
@@ -49,6 +77,7 @@ Item {
                     if (fullEntryModel.get(i).category === selectedCategory)
                         entryModel.append(fullEntryModel.get(i))
         }
+        checkForMarkedEntries()
     }
 
     function db_test_callback(db){/* do nothing */}
@@ -182,20 +211,14 @@ Item {
             db.transaction(function(tx){
                 tx.executeSql("DELETE FROM "+db_table_name+" WHERE uid='"+uid+"'")
             })
-            var i
-            var item
-            for (i=0; i<fullEntryModel.count; i++){
-                if (fullEntryModel.get(i).uid === uid){
-                    itemRemoved(fullEntryModel.get(i))
-                    fullEntryModel.remove(i)
-                    break
-                }
-            }
-            for (i=0; i<entryModel.count; i++){
-                if (entryModel.get(i).uid === uid){
-                    entryModel.remove(i)
-                    break
-                }
+            var index = fullIndexByUid(uid)
+            itemRemoved(fullEntryModel.get(index))
+            fullEntryModel.remove(index)
+
+            var index2 = indexByUid(uid)
+            if (index2 > -1){
+                entryModel.remove(index2)
+                checkForMarkedEntries()
             }
         } catch (err){
             console.error("Error when delete entry: " + err)
@@ -215,14 +238,23 @@ Item {
             console.error("Error when swaping items in table '"+db_table_name+"': " + err)
         }
     }
-    function toggleItemMarked(uid){
+    function toggleMarked(uid){
         if (!db) init()
         try{
             db.transaction(function(tx){
-                tx.executeSql("UPDATE "+db_table_name+" SET marked=1-marked WHERE uid='"+uid+"'")
+                tx.executeSql("UPDATE "+db_table_name+" SET marked=1-marked WHERE uid=?",
+                              [uid])
             })
+            var indexFull = fullIndexByUid(uid)
+            var marked = 1-fullEntryModel.get(indexFull).marked
+            fullEntryModel.setProperty(indexFull,"marked",marked)
+            var index = indexByUid(uid)
+            if (index > -1)
+                entryModel.setProperty(index,"marked",marked)
+
+            checkForMarkedEntries()
         } catch (err){
-            console.error("Error when toggle marked property of uid="+uid+" in table '"+db_table_name+"': " + err)
+            console.error("Error when toggle marked property of uid="+uid+": " + err)
         }
     }
     function markAsDeleted(uid){

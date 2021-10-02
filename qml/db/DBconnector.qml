@@ -120,20 +120,6 @@ Item {
         }
     }
 
-    /* toggles the selected property of item with given uid */
-    function toggleItemMarked(uid){
-        if (!db) init()
-        try{
-            db.transaction(function(tx){
-                tx.executeSql("UPDATE "+db_table_items+" SET marked=1-marked WHERE uid='"+uid+"'")
-            })
-            //itemsChanged()
-        } catch (err){
-            console.error("Error when toggle marked property of uid="+uid+" in table '"+db_table_items+"': " + err)
-        }
-        //printAllItems()
-    }
-
     /* marks an entry as deleted such that it is not listed anymore but still can be restored */
     function markAsDeleted(uid){
         if (!db) init()

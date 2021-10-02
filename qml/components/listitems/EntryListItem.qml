@@ -4,9 +4,11 @@ import Ubuntu.Components 1.3
 ListItem{
     id: root
 
-    signal toggleMarked(int uid)
     signal moveDown()
     signal moveUp()
+
+    property bool isChecked: marked
+    onIsCheckedChanged: checkBox.checked = marked
 
     leadingActions: ListItemActions{
         actions: [
@@ -29,10 +31,7 @@ ListItem{
             id: checkBox
             SlotsLayout.position: SlotsLayout.First
             checked: marked
-            onTriggered: {
-                toggleMarked(uid)
-                marked = 1-marked
-            }
+            onTriggered: db_entries.toggleMarked(uid)
         }
 
         title.text: ""
