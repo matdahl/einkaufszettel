@@ -101,22 +101,12 @@ Item {
     ClearListButtons{
         id: clearList
         hasItems:        listView.model.count>0
-        hasDeletedItems: dbcon.hasDeletedEntries
+        hasDeletedItems: db_entries.hasDeleted
         hasCheckedItems: db_entries.hasChecked
-        onRemoveDeleted:  dbcon.removeDeleted()
-        onRestoreDeleted: dbcon.restoreDeleted()
-        onRemoveAll:{
-            for (var i=listView.model.count-1;i>-1;i--){
-                dbcon.markAsDeleted(listView.model.get(i).uid)
-            }
-        }
-        onRemoveSelected: {
-            for (var i=listView.model.count-1;i>-1;i--){
-                if (listView.model.get(i).marked===1){
-                    dbcon.markAsDeleted(listView.model.get(i).uid)
-                }
-            }
-        }
+        onRemoveDeleted:  db_entries.removeDeleted()
+        onRemoveAll:      db_entries.removeAll()
+        onRemoveSelected: db_entries.removeSelected()
+        onRestoreDeleted: db_entries.restoreDeleted()
     }
 
     // Navigation buttons to switch between categories

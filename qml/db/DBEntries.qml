@@ -220,8 +220,75 @@ Item {
                 entryModel.remove(index2)
                 checkForMarkedEntries()
             }
+            hasDeleted = true
         } catch (err){
             console.error("Error when delete entry: " + err)
+        }
+    }
+    function removeAll(){
+        for (var i=entryModel.count-1; i>-1; i--){
+            var item = entryModel.get(i)
+            db.transaction(function(tx){
+                tx.executeSql("UPDATE "+db_table_name+" SET deleteFlag=1 WHERE uid='"+item.uid+"'")
+            })
+            fullEntryModel.remove(fullIndexByUid(item.uid))
+            entryModel.remove(i)
+            hasDeleted = true
+        }
+        db_categories.recountEntries()
+        hasChecked = false
+    }
+    function removeSelected(){
+        for (var i=entryModel.count-1; i>-1; i--){
+            var item = entryModel.get(i)
+            if (item.marked === 0)
+                continue
+
+            db.transaction(function(tx){
+                tx.executeSql("UPDATE "+db_table_name+" SET deleteFlag=1 WHERE uid='"+item.uid+"'")
+            })
+            fullEntryModel.remove(fullIndexByUid(item.uid))
+            entryModel.remove(i)
+            hasDeleted = true
+        }
+        hasChecked = false
+        db_categories.recountEntries()
+    }
+    function removeDeleted(){
+        if (!db) init()
+        try{
+            db.transaction(function(tx){
+                tx.executeSql("DELETE FROM "+db_table_name+" WHERE deleteFlag=1")
+            })
+            hasDeleted = false
+        } catch (err){
+            console.error("Error when remove deleted from table '"+db_table_name+"': " + err)
+        }
+    }
+    function restoreDeleted(){
+        if (!db) init()
+        try{
+            var restored
+            db.transaction(function(tx){
+                restored = tx.executeSql("SELECT * FROM "+db_table_name+" WHERE deleteFlag=1").rows
+            })
+            for (var i=0; i<restored.length; i++){
+                restored[i].deleteFlag = 0
+                fullEntryModel.insert(0,restored[i])
+                entryModel.insert(0,restored[i])
+            }
+
+            if (restored.length>0){
+                db_categories.recountEntries()
+                checkForMarkedEntries()
+            }
+
+            db.transaction(function(tx){
+                tx.executeSql("UPDATE "+db_table_name+" SET deleteFlag=0 WHERE deleteFlag=1")
+            })
+            hasDeleted = false
+        } catch (err){
+            console.error("Error when restoring deleted entries in table '"+db_table_name+"': " + err)
         }
     }
     function swapItems(uid1,uid2){
@@ -255,71 +322,6 @@ Item {
             checkForMarkedEntries()
         } catch (err){
             console.error("Error when toggle marked property of uid="+uid+": " + err)
-        }
-    }
-    function markAsDeleted(uid){
-        if (!db) init()
-        try{
-            db.transaction(function(tx){
-                tx.executeSql("UPDATE "+db_table_name+" SET deleteFlag=1 WHERE uid='"+uid+"'")
-            })
-            itemsChanged()
-            hasDeletedEntries = true
-        } catch (err){
-            console.error("Error when marking entry as deleted in table '"+db_table_name+"': " + err)
-        }
-    }
-    function removeDeleted(){
-        if (!db) init()
-        try{
-            db.transaction(function(tx){
-                tx.executeSql("DELETE FROM "+db_table_name+" WHERE deleteFlag=1")
-            })
-            hasDeletedEntries = false
-        } catch (err){
-            console.error("Error when remove deleted from table '"+db_table_name+"': " + err)
-        }
-    }
-    function restoreDeleted(){
-        if (!db) init()
-        try{
-            db.transaction(function(tx){
-                tx.executeSql("UPDATE "+db_table_name+" SET deleteFlag=0 WHERE deleteFlag=1")
-            })
-            itemsChanged()
-            hasDeletedEntries = false
-        } catch (err){
-            console.error("Error when restoring deleted entries in table '"+db_table_name+"': " + err)
-        }
-    }
-    function countEntriesPerCategory(){
-        if (!db) init()
-        try{
-            // get list of all categories
-            var rawcats = []
-            for (var i=1;i<categoriesModel.count-1;i++){
-                rawcats.push(categoriesModel.get(i).name)
-            }
-            var rt
-            db.transaction(function(tx){
-                rt = tx.executeSql("SELECT category FROM "+db_table_name+" WHERE deleteFlag=0")
-            })
-            var counts = [0,0]
-            for (var i=0;i<rawcats.length;i++) counts.push(0)
-            // go through each DB entry
-            for (var i=0; i<rt.rows.length;i++){
-                // check which category is the current one - if none fits, count it as "other"
-                var j
-                for (j=0; j<rawcats.length;j++){
-                    if (rawcats[j]===rt.rows[i].category) break
-                }
-                counts[j+1] += 1
-                // count all
-                counts[0] += 1
-            }
-            return counts
-        } catch (err){
-            console.error("Error when counting items in table '"+db_table_name+"': " + err)
         }
     }
 
