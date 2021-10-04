@@ -32,11 +32,6 @@ MainView {
     width: units.gu(45)
     height: units.gu(75)
 
-    // the database connector which manages all DB interactions for entries and categories
-    DBconnector{
-        id: dbcon
-    }
-
     // the database connector which manage all interactions for entries
     DBEntries{
         id: db_entries
