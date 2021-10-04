@@ -39,7 +39,7 @@ Item {
             return
 
         var index = entriesPerCategory[0].indexOf(item.category)
-        if (index > 0){
+        if (index >= 0){
             entriesPerCategory[1][index] = entriesPerCategory[1][index] + 1
         } else {
             entriesPerCategory[0].push(item.category)
