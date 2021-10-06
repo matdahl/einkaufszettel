@@ -1,0 +1,156 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the einkaufszettel.mdahl package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: einkaufszettel.mdahl\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-20 02:33+0000\n"
+"PO-Revision-Date: 2021-05-20 02:33+0200\n"
+"Last-Translator: tiagotome95\n"
+"Language-Team: \n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../qml/Main.qml:86 ../qml/panels/SettingsUnitsPanel.qml:10
+msgid "Units"
+msgstr "Unidades"
+
+#: ../qml/Main.qml:109 einkaufszettel.desktop.in.h:1
+msgid "Shopping List"
+msgstr "Lista de Compras"
+
+#: ../qml/components/ClearListButtons.qml:84
+msgid "clear list"
+msgstr "Limpar lista"
+
+#: ../qml/components/ClearListButtons.qml:84
+msgid "delete selected"
+msgstr "Apagar selectados"
+
+#: ../qml/components/QuantitySelect.qml:69
+msgid "OK"
+msgstr "OK"
+
+#: ../qml/db/DBconnector.qml:18 ../qml/db/DBconnector.qml:19
+#: ../qml/panels/ListPanel.qml:72 ../qml/panels/ListPanel.qml:73
+msgid "all"
+msgstr "todos"
+
+#: ../qml/db/DBconnector.qml:26 ../qml/db/DBconnector.qml:27
+#: ../qml/panels/ListPanel.qml:79 ../qml/panels/ListPanel.qml:80
+#: ../qml/panels/ListPanel.qml:130 ../qml/panels/ListPanel.qml:134
+msgid "other"
+msgstr "outros"
+
+#: ../qml/db/Dimensions.qml:118
+msgid "Piece"
+msgstr "Peças"
+
+#: ../qml/db/Dimensions.qml:120
+msgid "Gram"
+msgstr "Gramas"
+
+#: ../qml/db/Dimensions.qml:121
+msgid "Kilogram"
+msgstr "Kilos"
+
+#: ../qml/db/Dimensions.qml:122
+msgid "Liter"
+msgstr "Litros"
+
+#: ../qml/panels/ListPanel.qml:90 ../qml/panels/SettingsCategoriesPanel.qml:103
+#: ../qml/panels/SettingsHistoryPanel.qml:27
+#: ../qml/panels/SettingsUnitsPanel.qml:74
+msgid "No entries"
+msgstr "Sem entradas"
+
+#: ../qml/panels/ListPanel.qml:184
+msgid "new entry ..."
+msgstr "Nova entrada ..."
+
+#: ../qml/panels/SettingsCategoriesPanel.qml:9
+msgid "Categories"
+msgstr "Categorias"
+
+#: ../qml/panels/SettingsCategoriesPanel.qml:51
+msgid "new category ..."
+msgstr "Nova categoria ..."
+
+#: ../qml/panels/SettingsHistoryPanel.qml:9
+msgid "History"
+msgstr "História"
+
+#: ../qml/panels/SettingsPanel.qml:10
+msgid "Settings"
+msgstr "Definições"
+
+#: ../qml/panels/SettingsPanel.qml:20
+msgid "Edit categories"
+msgstr "Editar categorias"
+
+#: ../qml/panels/SettingsPanel.qml:25
+msgid "Edit units"
+msgstr "Editar unidades"
+
+#: ../qml/panels/SettingsPanel.qml:29
+msgid "Suggestions"
+msgstr "Sugestão"
+
+#: ../qml/panels/SettingsPanel.qml:32
+msgid "Show suggestions"
+msgstr "Mostrar sugestões"
+
+#: ../qml/panels/SettingsPanel.qml:38
+msgid "Insert suggestion on click"
+msgstr "Criar sugestão ao clicar"
+
+#: ../qml/panels/SettingsPanel.qml:44
+msgid "Edit history"
+msgstr "Editar história"
+
+#: ../qml/panels/SettingsPanel.qml:48
+msgid "Appearance"
+msgstr "Aparência"
+
+#: ../qml/panels/SettingsPanel.qml:50
+msgid "Use default theme"
+msgstr "Usar o tema pré-definido"
+
+#: ../qml/panels/SettingsPanel.qml:57
+msgid "Dark Mode"
+msgstr "Modo escúro"
+
+#: ../qml/panels/SettingsPanel.qml:63
+msgid "Color"
+msgstr "Côr"
+
+#: ../qml/panels/SettingsUnitsPanel.qml:42
+msgid "abbr."
+msgstr "Abrv."
+
+#: ../qml/panels/SettingsUnitsPanel.qml:48
+msgid "new unit ..."
+msgstr "Nova unidade ..."
+
+#: ../qml/panels/SettingsUnitsPanel.qml:128
+msgid "Reset units"
+msgstr "Restaurar unidades padrão"
+
+#: ../qml/panels/SettingsUnitsPanel.qml:129
+msgid "Are you sure that you want to reset to default units?"
+msgstr "Deseja mesmo restaurar as unidades padrão?"
+
+#: ../qml/panels/SettingsUnitsPanel.qml:131
+msgid "cancel"
+msgstr "Cancelar"
+
+#: ../qml/panels/SettingsUnitsPanel.qml:135
+msgid "reset units"
+msgstr "Restaurar unidades"
