@@ -27,6 +27,8 @@ ListItem{
 
 
     ListItemLayout{
+        id: layout
+
         CheckBox{
             id: checkBox
             SlotsLayout.position: SlotsLayout.First
@@ -72,7 +74,38 @@ ListItem{
             height: units.gu(4)
             SlotsLayout.position: SlotsLayout.Last
             name: "sort-listitem"
+            MouseArea{
+                id: dragMouse
+                anchors{
+                    fill: parent
+                    margins: units.gu(-1)
+                }
+                drag.target: layout
+            }
         }
+
+        property int dragItemIndex: index
+
+        states: [
+            State {
+                when: layout.Drag.active
+                ParentChange {
+                    target: layout
+                    parent: listView
+                }
+            },
+            State {
+                when: !layout.Drag.active
+                AnchorChanges {
+                    target: layout
+                    anchors.horizontalCenter: layout.parent.horizontalCenter
+                    anchors.verticalCenter: layout.parent.verticalCenter
+                }
+            }
+        ]
+        Drag.active: dragMouse.drag.active
+        Drag.hotSpot.x: layout.width / 2
+        Drag.hotSpot.y: layout.height / 2
     }
 
     Label{
@@ -80,6 +113,17 @@ ListItem{
         anchors.left:   parent.left
         textSize: Label.Small
         text: category
+    }
+
+    DropArea{
+        anchors.fill: parent
+        onEntered: {
+            if (drag.source.dragItemIndex > index){
+                db_entries.swap(db_entries.entryModel.get(drag.source.dragItemIndex).uid,uid)
+            } else if (drag.source.dragItemIndex < index){
+                db_entries.swap(uid,db_entries.entryModel.get(drag.source.dragItemIndex).uid)
+            }
+        }
     }
 
 }
