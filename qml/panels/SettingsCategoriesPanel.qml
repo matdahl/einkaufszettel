@@ -11,8 +11,8 @@ Item {
     readonly property bool hasCheckedEntries: db_categories.hasChecked
 
     function deselectAll(){
-        for (var i=0;i<db_categories.rawModel.count;i++)
-            if (db_categories.rawModel.get(i).marked===1)
+        for (var i=0;i<db_categories.model.count;i++)
+            if (db_categories.model.get(i).marked===1)
                 db_categories.toggleMarked(i)
     }
 
@@ -55,7 +55,7 @@ Item {
             right:  root.right
         }
         currentIndex: -1
-        model: db_categories.rawModel
+        model: db_categories.model
         delegate: CategoryListItem{}
     }
     Label{

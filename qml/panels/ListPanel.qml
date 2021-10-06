@@ -34,14 +34,47 @@ Item {
             right: parent.right
         }
         height: units.gu(6)
-        model: db_categories.list
+        Component.onCompleted: db_categories.categoriesChanged.connect(update)
         onSelectedIndexChanged: {
-            if (selectedIndex === 0)
+            if (selectedIndex <= 0)
                 db_entries.updateSelectedCategory("",false)
-            else if (selectedIndex === model.length-1)
+            else if (selectedIndex > db_categories.model.count)
                 db_entries.updateSelectedCategory("",true)
             else
-                db_entries.updateSelectedCategory(db_categories.rawModel.get(selectedIndex-1).name,false)
+                db_entries.updateSelectedCategory(db_categories.model.get(selectedIndex-1).name,false)
+        }
+        function update(){
+            // check if sections need to be reduced
+            var index = -2
+            if (db_categories.model.count+2 < actions.length){
+                print("sections: remove sections", typeof actions)
+                index = selectedIndex
+                for (var j=actions.length-1; j>0; j--)
+                    actions[j].destroy()
+                actions = []
+            }
+
+            // check if sections need to be added
+            if (db_categories.model.count+2 > actions.length){
+                print("sections: add sections")
+                index = selectedIndex
+                for (var i=actions.length; i<db_categories.model.count+2; i++){
+                    actions.push(Qt.createQmlObject("import Ubuntu.Components 1.3; Action{text:'test "+i+"'}",sections))
+                }
+            }
+            if (index !== -2 && index < actions.length)
+                selectedIndex = index
+
+            // update texts
+            actions[0].text = i18n.tr("all")
+            actions[db_categories.model.count+1].text = i18n.tr("other")
+            for (var k=0; k<db_categories.model.count; k++){
+                var count = db_categories.model.get(k).count
+                var txt = count>0 ? "<b>" : ""
+                txt += db_categories.model.get(k).name + " ("+count+")"
+                txt += count>0? "</b>" : ""
+                actions[k+1].text = txt
+            }
         }
     }
 

@@ -4,7 +4,9 @@ import QtQuick.LocalStorage 2.0 as Sql
 Item {
     id: root
 
-    property var rawModel: ListModel{}
+    signal categoriesChanged()
+
+    property var model: ListModel{}
     property var list: []
 
     property bool hasChecked: false
@@ -28,8 +30,8 @@ Item {
     }
 
     function exists(catName){
-        for (var i=0; i<rawModel.count; i++)
-            if (rawModel.get(i).name===catName)
+        for (var i=0; i<model.count; i++)
+            if (model.get(i).name===catName)
                 return true
         return false
     }
@@ -119,9 +121,9 @@ Item {
     function countOtherEntries(){
         var sum = 0
         for (var j=0; j<entriesPerCategory[0].length; j++){
-            for (var k=0; k<rawModel.count; k++){
+            for (var k=0; k<model.count; k++){
                 var other = true
-                if (rawModel.get(k).name===entriesPerCategory[0][j]){
+                if (model.get(k).name===entriesPerCategory[0][j]){
                     other = false
                     break
                 }
@@ -143,12 +145,12 @@ Item {
         else
             list.push(i18n.tr("all")+" (0)")
 
-        for (var i=0; i<rawModel.count; i++){
-            var index = entriesPerCategory[0].indexOf(rawModel.get(i).name)
+        for (var i=0; i<model.count; i++){
+            var index = entriesPerCategory[0].indexOf(model.get(i).name)
             if (index<0)
-                list.push(rawModel.get(i).name + " (0)")
+                list.push(model.get(i).name + " (0)")
             else
-                list.push("<b>"+rawModel.get(i).name + " ("+entriesPerCategory[1][index]+")</b>")
+                list.push("<b>"+model.get(i).name + " ("+entriesPerCategory[1][index]+")</b>")
         }
         if (sumOther>0)
             list.push("<b>"+i18n.tr("other")+" ("+sumOther+")</b>")
@@ -170,8 +172,8 @@ Item {
         var index = entriesPerCategory[0].indexOf(catName)
         var count = index<0 ? 0 : entriesPerCategory[1][index]
         var catIndex
-        for (catIndex=0; catIndex<rawModel.count; catIndex++)
-            if (rawModel.get(catIndex).name === catName)
+        for (catIndex=0; catIndex<model.count; catIndex++)
+            if (model.get(catIndex).name === catName)
                 break
         if (count>0)
             list.splice(catIndex+1,1,"<b>"+catName+" ("+count+")</b>")
@@ -188,8 +190,8 @@ Item {
     }
 
     function checkForMarkedCategories(){
-        for (var i=0; i<rawModel.count; i++)
-            if (rawModel.get(i).marked===1){
+        for (var i=0; i<model.count; i++)
+            if (model.get(i).marked===1){
                 hasChecked = true
                 return
             }
@@ -221,11 +223,11 @@ Item {
 
     function insertByRank(cat){
         var j=0
-        while (j < rawModel.count &&
-               rawModel.get(j).rank < cat.rank &&
-               rawModel.get(j).rank > -1)
+        while (j < model.count &&
+               model.get(j).rank < cat.rank &&
+               model.get(j).rank > -1)
             j++
-        rawModel.insert(j,cat)
+        model.insert(j,cat)
         insertToList(j+1,cat.name)
     }
 
@@ -238,7 +240,13 @@ Item {
         try{
             db.transaction(function(tx){
                 tx.executeSql("CREATE TABLE IF NOT EXISTS "+db_table_name+" "
-                              +"(name TEXT, marked INT DEFAULT 0, deleteFlag INT DEFAULT 0, rank INT DEFAULT -1, UNIQUE(name))")
+                              +"(name TEXT"
+                              +",marked INT DEFAULT 0"
+                              +",deleteFlag INT DEFAULT 0"
+                              +",rank INT DEFAULT -1"
+                              +",UNIQUE(name)"
+                              +")"
+                             )
             })
         } catch (err){
             console.error("Error when creating table '"+db_table_name+"': " + err)
@@ -276,7 +284,7 @@ Item {
         }
 
         // read all categories from database
-        rawModel.clear()
+        model.clear()
         insertToList(-1,"all")
         try{
             var rows
@@ -285,25 +293,35 @@ Item {
             })
             var resetRanks = false
             for (var i=0;i<rows.length;i++){
-                if (rows[i].rank<0){
-                    rawModel.append(rows[i])
-                    insertToList(list.length,rows[i].name)
+                var cat = {
+                    name: rows[i].name,
+                    marked: rows[i].marked,
+                    deleteFlag: rows[i].deleteFlag,
+                    rank: rows[i].rank,
+                    count: 0
+                }
+
+                if (cat.rank<0){
+                    model.append(cat)
+                    insertToList(list.length,cat.name)
                     resetRanks = true
                 } else {
-                    insertByRank(rows[i])
+                    insertByRank(cat)
                 }
             }
             insertToList(-2,"other")
 
             if (resetRanks){
-                for (var k=0; k<rawModel.count; k++){
-                    rawModel.get(k).rank = k
-                    updateRank(rawModel.get(k).name,k)
+                for (var k=0; k<model.count; k++){
+                    model.get(k).rank = k
+                    updateRank(model.get(k).name,k)
                 }
             }
 
             checkForMarkedCategories()
             deleteAllRemoved()
+
+            categoriesChanged()
             listChanged()
 
         } catch (e){
@@ -330,9 +348,8 @@ Item {
                 deleteFlag: 0,
                 rank: rank
             }
-            rawModel.append(newCategory)
-            insertToList(rawModel.count,name)
-            listChanged()
+            model.append(newCategory)
+            categoriesChanged()
         } catch (err){
             console.error("Error when insert category into table '"+db_table_name+"': " + err)
         }
@@ -340,15 +357,12 @@ Item {
     function remove(index){
         if (!db) init()
         try{
-            var name = list[index+1]
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_name+" SET deleteFlag=1 WHERE name=?",
-                              [name])
+                              [model.get(index).name])
             })
-            rawModel.remove(index)
-            list.splice(index+1,1)
-            updateOtherCount()
-            listChanged()
+            model.remove(index)
+            categoriesChanged()
             checkForMarkedCategories()
             hasDeletedCategories = true
         } catch (err){
@@ -361,9 +375,9 @@ Item {
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_name+" SET deleteFlag=1 WHERE marked=1")
             })
-            for (var i = rawModel.count-1; i>-1; i--){
-                if (rawModel.get(i).marked===1){
-                    rawModel.remove(i)
+            for (var i = model.count-1; i>-1; i--){
+                if (model.get(i).marked===1){
+                    model.remove(i)
                     list.splice(i+1,1)
                 }
             }
@@ -381,7 +395,7 @@ Item {
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_name+" SET deleteFlag=1")
             })
-            rawModel.clear()
+            model.clear()
             list = []
             hasChecked = false
             hasDeletedCategories = true
@@ -430,12 +444,12 @@ Item {
     function toggleMarked(index){
         if (!db) init()
         try{
-            var name = rawModel.get(index).name
+            var name = model.get(index).name
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_name+" SET marked=1-marked WHERE name=?",
                               [name])
             })
-            rawModel.get(index).marked = 1-rawModel.get(index).marked
+            model.get(index).marked = 1-model.get(index).marked
             checkForMarkedCategories()
         } catch (err){
             console.error("Error when toggle marked property of category '"+name+"': " + err)
@@ -445,8 +459,8 @@ Item {
         if (!db) init()
 
         try{
-            var cat1 = rawModel.get(index1)
-            var cat2 = rawModel.get(index2)
+            var cat1 = model.get(index1)
+            var cat2 = model.get(index2)
             var rank1 = cat1.rank
             var rank2 = cat2.rank
             var name1 = cat1.name
@@ -458,9 +472,9 @@ Item {
                 tx.executeSql("UPDATE "+db_table_name+" SET rank=? WHERE name=?",
                               [rank1,name2])
             })
-            rawModel.get(index1).rank = rank2
-            rawModel.get(index2).rank = rank1
-            rawModel.move(index1,index2,1)
+            model.get(index1).rank = rank2
+            model.get(index2).rank = rank1
+            model.move(index1,index2,1)
             list[index1+1] = name2
             list[index2+1] = name1
             listChanged()
