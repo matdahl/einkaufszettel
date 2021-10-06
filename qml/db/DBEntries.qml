@@ -28,6 +28,14 @@ Item {
 
     Component.onCompleted: init()
 
+    function insertByRank(item){
+        var j=0
+        while (j < entryModel.count &&
+               entryModel.get(j).rank < item.rank &&
+               entryModel.get(j).rank > -1)
+            j++
+        entryModel.insert(j,item)
+    }
 
     function fullIndexByUid(uid){
         for (var i=0; i<fullEntryModel.count; i++)
@@ -67,15 +75,15 @@ Item {
         if (showCategoryOther){
             for (i=0; i<fullEntryModel.count; i++)
                 if (!db_categories.exists(fullEntryModel.get(i).category))
-                    entryModel.append(fullEntryModel.get(i))
+                    insertByRank(fullEntryModel.get(i))
         } else {
             if (selectedCategory === "")
                 for (i=0; i<fullEntryModel.count; i++)
-                        entryModel.append(fullEntryModel.get(i))
+                        insertByRank(fullEntryModel.get(i))
             else
                 for (i=0; i<fullEntryModel.count; i++)
                     if (fullEntryModel.get(i).category === selectedCategory)
-                        entryModel.append(fullEntryModel.get(i))
+                        insertByRank(fullEntryModel.get(i))
         }
         checkForMarkedEntries()
     }
@@ -89,7 +97,13 @@ Item {
         try{
             db.transaction(function(tx){
                 tx.executeSql("CREATE TABLE IF NOT EXISTS "+db_table_name+" "
-                              +"(uid INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, category TEXT, deleteFlag INTEGER DEFAULT 0)")
+                              +"(uid INTEGER PRIMARY KEY AUTOINCREMENT"
+                              +",name TEXT"
+                              +",category TEXT"
+                              +",deleteFlag INTEGER DEFAULT 0"
+                              +",rank INTEGER DEFAULT -1"
+                              +")"
+                             )
             })
         } catch (e1){
             console.error("Error when creating table '"+db_table_name+"': " + e1)
@@ -103,28 +117,33 @@ Item {
                     colnames.push(rt.rows[i].name)
                 }
             })
-            // since v1.0.2: require deleteFlag column
+            // since v1.0.2:
             if (colnames.indexOf("deleteFlag")<0){
                 db.transaction(function(tx){
                     tx.executeSql("ALTER TABLE "+db_table_name+" ADD deleteFlag INTEGER DEFAULT 0")
                 })
             }
-            // since v1.3.0: require dimension column
+            // since v1.3.0:
             if (colnames.indexOf("dimension")<0){
                 db.transaction(function(tx){
                     tx.executeSql("ALTER TABLE "+db_table_name+" ADD dimension TEXT DEFAULT 'x'")
                 })
             }
-            // since v1.3.0: require quantity column
             if (colnames.indexOf("quantity")<0){
                 db.transaction(function(tx){
                     tx.executeSql("ALTER TABLE "+db_table_name+" ADD quantity INT DEFAULT 1")
                 })
             }
-            // since v1.3.1: require selected column
+            // since v1.3.1:
             if (colnames.indexOf("marked")<0){
                 db.transaction(function(tx){
                     tx.executeSql("ALTER TABLE "+db_table_name+" ADD marked INT DEFAULT 0")
+                })
+            }
+            // since v1.4.0:
+            if (colnames.indexOf("rank")<0){
+                db.transaction(function(tx){
+                    tx.executeSql("ALTER TABLE "+db_table_name+" ADD rank INT DEFAULT -1")
                 })
             }
         } catch (e2){
