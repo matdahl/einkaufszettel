@@ -151,6 +151,7 @@ Item {
         }
 
         // init full entryModel
+        var resetRanks = false
         try{
             var rows
             db.transaction(function(tx){
@@ -158,7 +159,19 @@ Item {
             })
             for (var i=0; i<rows.length; i++){
                 fullEntryModel.append(rows[i])
+                if (rows[i].rank < 0)
+                    resetRanks = true
             }
+            if (resetRanks){
+                for (var j=0; j<fullEntryModel.count; j++){
+                    fullEntryModel.get(j).rank = j
+                    db.transaction(function(tx){
+                        tx.executeSql("UPDATE "+db_table_name+" SET rank=? WHERE uid=?",
+                                      [j,fullEntryModel.get(j).uid])
+                    })
+                }
+            }
+
             fullEntryModelChanged()
         } catch (e3){
             console.error("Error when selecting all entries: " + e3)
