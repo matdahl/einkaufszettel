@@ -204,7 +204,10 @@ Item {
             } else {
                 var uid
                 db.transaction(function(tx){
-                    uid = tx.executeSql("INSERT INTO "+db_table_name+" (name,category,quantity,dimension) VALUES (?,?,?,?)"
+                    // increment ranks of all entries
+                    tx.executeSql("UPDATE "+db_table_name+" SET rank=rank+1 ")
+                    // insert new entry on top of list (rank=0)
+                    uid = tx.executeSql("INSERT INTO "+db_table_name+" (name,category,quantity,dimension,rank) VALUES (?,?,?,?,0)"
                                        ,[name,catName,quantity,dimension]).lastInsertId
                 })
                 var newItem = {
@@ -214,7 +217,8 @@ Item {
                     deleteFlag: 0,
                     dimension: dimension,
                     quantity: quantity,
-                    marked: 0
+                    marked: 0,
+                    rank: 0
                 }
 
                 fullEntryModel.insert(0,newItem)
