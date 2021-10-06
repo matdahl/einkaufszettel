@@ -310,16 +310,49 @@ Item {
             console.error("Error when restoring deleted entries in table '"+db_table_name+"': " + err)
         }
     }
-    function swapItems(uid1,uid2){
+    function swap(uid1,uid2){
         if (!db) init()
+
+        // check if both items exists
+        var fullIndex1 = fullIndexByUid(uid1)
+        var fullIndex2 = fullIndexByUid(uid2)
+        if (fullIndex1 === -1 || fullIndex2 === -1)
+            return
+
+        var entry1 = fullEntryModel.get(fullIndex1)
+        var entry2 = fullEntryModel.get(fullIndex2)
+
+        var rank1 = entry1.rank
+        var rank2 = entry2.rank
+
+        var rankMin = entry1.rank < entry2.rank ? entry1.rank : entry2.rank
+        var rankMax = entry1.rank > entry2.rank ? entry1.rank : entry2.rank
+        var uidMax  = entry1.rank > entry2.rank ? entry1.uid : entry2.uid
+
+        var index1 = indexByUid(uid1)
+        var index2 = indexByUid(uid2)
+
         try{
+
+            // update ranks in database
             db.transaction(function(tx){
-                var tempID = -1
-                // swap uids, then DB will sort it
-                tx.executeSql("UPDATE "+db_table_name+" SET uid="+tempID+" WHERE uid="+uid1)
-                tx.executeSql("UPDATE "+db_table_name+" SET uid="+uid1+" WHERE uid="+uid2)
-                tx.executeSql("UPDATE "+db_table_name+" SET uid="+uid2+" WHERE uid="+tempID)
+                tx.executeSql("UPDATE "+db_table_name+" SET rank=rank+1 WHERE rank>=? AND rank<?",
+                              [rankMin,rankMax])
+                tx.executeSql("UPDATE "+db_table_name+" SET rank=? WHERE uid=?",
+                              [rankMin,uidMax])
             })
+            // update ranks in fullEntryModel
+            entry1.rank = rank2
+            entry2.rank = rank1
+            // update ranks in entryModel
+            if (index1 > -1)
+                entryModel.get(index1).rank = rank2
+            if (index2 > -1)
+                entryModel.get(index2).rank = rank1
+            // swap items in entryModel
+            if (index1 > -1 && index2 > -1)
+                entryModel.move(index1,index2,1)
+
         } catch (err){
             console.error("Error when swaping items in table '"+db_table_name+"': " + err)
         }
