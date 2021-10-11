@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-04 17:07+0000\n"
+"POT-Creation-Date: 2021-10-11 19:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/Main.qml:86 ../qml/panels/SettingsUnitsPanel.qml:10
+#: ../qml/Main.qml:91 ../qml/panels/SettingsUnitsPanel.qml:10
 msgid "Units"
 msgstr ""
 
@@ -37,40 +37,38 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: ../qml/db/DBconnector.qml:18 ../qml/db/DBconnector.qml:19
-#: ../qml/panels/ListPanel.qml:72 ../qml/panels/ListPanel.qml:73
-msgid "all"
-msgstr ""
-
-#: ../qml/db/DBconnector.qml:26 ../qml/db/DBconnector.qml:27
-#: ../qml/panels/ListPanel.qml:79 ../qml/panels/ListPanel.qml:80
-#: ../qml/panels/ListPanel.qml:130 ../qml/panels/ListPanel.qml:134
+#: ../qml/db/DBEntries.qml:190 ../qml/panels/ListPanel.qml:69
+#: ../qml/panels/ListPanel.qml:70
 msgid "other"
 msgstr ""
 
-#: ../qml/db/Dimensions.qml:118
+#: ../qml/db/Dimensions.qml:125
 msgid "Piece"
 msgstr ""
 
-#: ../qml/db/Dimensions.qml:120
+#: ../qml/db/Dimensions.qml:127
 msgid "Gram"
 msgstr ""
 
-#: ../qml/db/Dimensions.qml:121
+#: ../qml/db/Dimensions.qml:128
 msgid "Kilogram"
 msgstr ""
 
-#: ../qml/db/Dimensions.qml:122
+#: ../qml/db/Dimensions.qml:129
 msgid "Liter"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:90 ../qml/panels/SettingsCategoriesPanel.qml:103
+#: ../qml/panels/ListPanel.qml:67 ../qml/panels/ListPanel.qml:68
+msgid "all"
+msgstr ""
+
+#: ../qml/panels/ListPanel.qml:83 ../qml/panels/SettingsCategoriesPanel.qml:63
 #: ../qml/panels/SettingsHistoryPanel.qml:27
-#: ../qml/panels/SettingsUnitsPanel.qml:74
+#: ../qml/panels/SettingsUnitsPanel.qml:69
 msgid "No entries"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:184
+#: ../qml/panels/ListPanel.qml:122
 msgid "new entry ..."
 msgstr ""
 
@@ -78,7 +76,7 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: ../qml/panels/SettingsCategoriesPanel.qml:51
+#: ../qml/panels/SettingsCategoriesPanel.qml:27
 msgid "new category ..."
 msgstr ""
 
@@ -130,26 +128,26 @@ msgstr ""
 msgid "Color"
 msgstr ""
 
-#: ../qml/panels/SettingsUnitsPanel.qml:42
+#: ../qml/panels/SettingsUnitsPanel.qml:37
 msgid "abbr."
 msgstr ""
 
-#: ../qml/panels/SettingsUnitsPanel.qml:48
+#: ../qml/panels/SettingsUnitsPanel.qml:43
 msgid "new unit ..."
 msgstr ""
 
-#: ../qml/panels/SettingsUnitsPanel.qml:128
+#: ../qml/panels/SettingsUnitsPanel.qml:123
 msgid "Reset units"
 msgstr ""
 
-#: ../qml/panels/SettingsUnitsPanel.qml:129
+#: ../qml/panels/SettingsUnitsPanel.qml:124
 msgid "Are you sure that you want to reset to default units?"
 msgstr ""
 
-#: ../qml/panels/SettingsUnitsPanel.qml:131
+#: ../qml/panels/SettingsUnitsPanel.qml:126
 msgid "cancel"
 msgstr ""
 
-#: ../qml/panels/SettingsUnitsPanel.qml:135
+#: ../qml/panels/SettingsUnitsPanel.qml:130
 msgid "reset units"
 msgstr ""
