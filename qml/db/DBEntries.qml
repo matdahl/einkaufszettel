@@ -202,11 +202,11 @@ Item {
             // if there is a match, add quantity to this entry
             if (index > -1){
                 var match = entryModel.get(index)
-                db.transaction(function(tx){
-                    tx.executeSql("UPDATE "+db_table_name+" SET quantity = quantity + ? WHERE uid=?"
-                                 ,[quantity,match.uid])
-                })
                 var newQuantity = match.quantity+quantity
+                db.transaction(function(tx){
+                    tx.executeSql("UPDATE "+db_table_name+" SET quantity = ? WHERE uid=?"
+                                 ,[newQuantity,match.uid])
+                })
                 entryModel.setProperty(index,"quantity",newQuantity)
                 for (var j=0; j<fullEntryModel.count; j++){
                     if (fullEntryModel.get(j).uid===match.uid){
@@ -236,6 +236,8 @@ Item {
                 }
 
                 fullEntryModel.insert(0,newItem)
+                if (selectedCategory === "" || selectedCategory === newItem.category)
+                    entryModel.insert(0,newItem)
                 itemAdded(newItem)
             }
         } catch (err){
