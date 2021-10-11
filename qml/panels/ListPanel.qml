@@ -93,7 +93,6 @@ Item {
             right:  root.right
             bottomMargin: units.gu(6)
         }
-        clip: true
         currentIndex: -1
         model: db_entries.entryModel
         delegate: EntryListItem{
