@@ -20,6 +20,7 @@ import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0
 
+import "components"
 import "panels"
 import "db"
 
@@ -31,6 +32,11 @@ MainView {
 
     width: units.gu(45)
     height: units.gu(75)
+
+    Component.onCompleted: {
+        if (settings.showManualOnStart)
+            manual.show()
+    }
 
     // the database connector which manage all interactions for entries
     DBEntries{
@@ -60,6 +66,10 @@ MainView {
         id: dimensions
     }
 
+    Settings{
+        id: settings
+        property bool showManualOnStart: true
+    }
 
     /* ----- components ----- */
     Page {
@@ -117,6 +127,10 @@ MainView {
         SettingsPanel{
             id: settingsPanel
             visible: false
+        }
+
+        ManualPopover{
+            id: manual
         }
     }
 }

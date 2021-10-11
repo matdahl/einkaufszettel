@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-11 19:18+0000\n"
+"POT-Creation-Date: 2021-10-11 19:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/Main.qml:91 ../qml/panels/SettingsUnitsPanel.qml:10
+#: ../qml/Main.qml:101 ../qml/panels/SettingsUnitsPanel.qml:10
 msgid "Units"
 msgstr ""
 
-#: ../qml/Main.qml:109 einkaufszettel.desktop.in.h:1
+#: ../qml/Main.qml:119 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
 msgstr ""
 
@@ -88,43 +88,47 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:20
+#: ../qml/panels/SettingsPanel.qml:19
+msgid "Show manual"
+msgstr ""
+
+#: ../qml/panels/SettingsPanel.qml:26
 msgid "Edit categories"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:25
+#: ../qml/panels/SettingsPanel.qml:32
 msgid "Edit units"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:29
+#: ../qml/panels/SettingsPanel.qml:37
 msgid "Suggestions"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:32
+#: ../qml/panels/SettingsPanel.qml:40
 msgid "Show suggestions"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:38
+#: ../qml/panels/SettingsPanel.qml:46
 msgid "Insert suggestion on click"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:44
+#: ../qml/panels/SettingsPanel.qml:52
 msgid "Edit history"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:48
+#: ../qml/panels/SettingsPanel.qml:57
 msgid "Appearance"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:50
+#: ../qml/panels/SettingsPanel.qml:59
 msgid "Use default theme"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:57
+#: ../qml/panels/SettingsPanel.qml:66
 msgid "Dark Mode"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:63
+#: ../qml/panels/SettingsPanel.qml:72
 msgid "Color"
 msgstr ""
 

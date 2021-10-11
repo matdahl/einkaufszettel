@@ -14,15 +14,23 @@ Item {
         id: col
         width: root.width
 
-        //SettingsCaption{title: i18n.tr("General")}
+        SettingsMenuItem{
+            id: stManual
+            text: i18n.tr("Show manual")
+            iconName: "info"
+            onClicked: manual.show()
+        }
+
         SettingsMenuItem{
             id: stCategories
             text: i18n.tr("Edit categories")
+            iconName: "edit"
             subpage: categoriesPanel
         }
         SettingsMenuItem{
             id: stUnits
             text: i18n.tr("Edit units")
+            iconName: "edit"
             subpage: unitsPanel
         }
 
@@ -42,6 +50,7 @@ Item {
         SettingsMenuItem{
             id: stHistory
             text: i18n.tr("Edit history")
+            iconName: "edit"
             subpage: historyPanel
         }
 
