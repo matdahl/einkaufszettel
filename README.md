@@ -2,7 +2,7 @@
 
 A simple app for [**Ubuntu Touch**](https://ubuntu-touch.io) to manage your shopping lists.
 
-It allows to create different lists where items to be shopped can be easily collected.
+It allows to create different lists where items to be shopped can easily be collected.
 
 ## Features
 
@@ -13,6 +13,7 @@ It allows to create different lists where items to be shopped can be easily coll
   * English
   * French
   * German
+  * Portuguese
 
 ## Installation
 
