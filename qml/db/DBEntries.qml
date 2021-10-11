@@ -319,7 +319,7 @@ Item {
                 if ((selectedCategory === "" && !showCategoryOther)
                         || (!catExist && showCategoryOther)
                         || (item.category === selectedCategory))
-                    entryModel.insert(0,restored[i])
+                    insertByRank(restored[i])
                 itemAdded(item)
             }
 
