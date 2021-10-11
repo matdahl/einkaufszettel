@@ -14,28 +14,31 @@ ListItem{
     // the subpage which should be pushed on stack
     property var subpage
 
+    // if set, the corresponding icon is shown on the left
+    property string iconName
+
     ListItemLayout {
         id: layout
         anchors.fill: parent
 
         title.text: root.text
 
+        Icon{
+            SlotsLayout.position: SlotsLayout.First
+            height: units.gu(3)
+            name: iconName
+        }
+
         Icon {
             SlotsLayout.position: SlotsLayout.Last
-            width: units.gu(2); height: width
+            height: units.gu(2)
+            visible: subpage !== undefined
             name: "next"
         }
     }
 
     onClicked:{
-        if (subpage){
-            if (stack){
-                stack.push(subpage)
-            } else {
-                console.error("SettingsMenuItem '"+text+"': No stack found")
-            }
-        } else {
-            console.log("SettingsMenuItem '"+text+"': No subpage set")
-        }
+        if (subpage && stack)
+            stack.push(subpage)
     }
 }
