@@ -161,6 +161,7 @@ Item {
                 fullEntryModel.append(rows[i])
                 if (rows[i].rank < 0)
                     resetRanks = true
+                itemAdded(rows[i])
             }
             if (resetRanks){
                 for (var j=0; j<fullEntryModel.count; j++){
@@ -267,11 +268,11 @@ Item {
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_name+" SET deleteFlag=1 WHERE uid='"+item.uid+"'")
             })
+            itemRemoved(item)
             fullEntryModel.remove(fullIndexByUid(item.uid))
             entryModel.remove(i)
             hasDeleted = true
         }
-        db_categories.recountEntries()
         hasChecked = false
     }
     function removeSelected(){
@@ -283,12 +284,12 @@ Item {
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_name+" SET deleteFlag=1 WHERE uid='"+item.uid+"'")
             })
+            itemRemoved(item)
             fullEntryModel.remove(fullIndexByUid(item.uid))
             entryModel.remove(i)
             hasDeleted = true
         }
         hasChecked = false
-        db_categories.recountEntries()
     }
     function removeDeleted(){
         if (!db) init()
@@ -312,12 +313,11 @@ Item {
                 restored[i].deleteFlag = 0
                 fullEntryModel.insert(0,restored[i])
                 entryModel.insert(0,restored[i])
+                itemAdded(restored[i])
             }
 
-            if (restored.length>0){
-                db_categories.recountEntries()
+            if (restored.length>0)
                 checkForMarkedEntries()
-            }
 
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_name+" SET deleteFlag=0 WHERE deleteFlag=1")

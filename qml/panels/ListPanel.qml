@@ -47,7 +47,6 @@ Item {
             // check if sections need to be reduced
             var index = -2
             if (db_categories.model.count+2 < actions.length){
-                print("sections: remove sections", typeof actions)
                 index = selectedIndex
                 for (var j=actions.length-1; j>0; j--)
                     actions[j].destroy()
@@ -56,7 +55,6 @@ Item {
 
             // check if sections need to be added
             if (db_categories.model.count+2 > actions.length){
-                print("sections: add sections")
                 index = selectedIndex
                 for (var i=actions.length; i<db_categories.model.count+2; i++){
                     actions.push(Qt.createQmlObject("import Ubuntu.Components 1.3; Action{text:'test "+i+"'}",sections))
@@ -66,8 +64,10 @@ Item {
                 selectedIndex = index
 
             // update texts
-            actions[0].text = i18n.tr("all")
-            actions[db_categories.model.count+1].text = i18n.tr("other")
+            actions[0].text = db_categories.countAll>0 ? "<b>" + i18n.tr("all") + " ("+db_categories.countAll+")</b>"
+                                                       : i18n.tr("all") + " (0)"
+            actions[db_categories.model.count+1].text = db_categories.countOther>0 ? "<b>" + i18n.tr("other") + " ("+db_categories.countOther+")</b>"
+                                                                                   : i18n.tr("other") + " (0)"
             for (var k=0; k<db_categories.model.count; k++){
                 var count = db_categories.model.get(k).count
                 var txt = count>0 ? "<b>" : ""
