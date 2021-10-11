@@ -312,10 +312,15 @@ Item {
                 restored = tx.executeSql("SELECT * FROM "+db_table_name+" WHERE deleteFlag=1").rows
             })
             for (var i=0; i<restored.length; i++){
-                restored[i].deleteFlag = 0
-                fullEntryModel.insert(0,restored[i])
-                entryModel.insert(0,restored[i])
-                itemAdded(restored[i])
+                var item = restored[i]
+                item.deleteFlag = 0
+                fullEntryModel.insert(0,item)
+                var catExist = db_categories.exists(item.category)
+                if ((selectedCategory === "" && !showCategoryOther)
+                        || (!catExist && showCategoryOther)
+                        || (item.category === selectedCategory))
+                    entryModel.insert(0,restored[i])
+                itemAdded(item)
             }
 
             if (restored.length>0)
