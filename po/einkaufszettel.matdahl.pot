@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-24 11:06+0000\n"
+"POT-Creation-Date: 2022-04-24 12:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,11 +33,30 @@ msgstr ""
 msgid "delete selected"
 msgstr ""
 
-#: ../qml/components/ManualPopover.qml:41
-msgid "Always show on start"
+#: ../qml/components/ManualPopover.qml:27
+msgid "Einkaufszettel"
 msgstr ""
 
-#: ../qml/components/ManualPopover.qml:49
+#: ../qml/components/ManualPopover.qml:58
+msgid "Welcome to Einkaufszettel!"
+msgstr ""
+
+#: ../qml/components/ManualPopover.qml:59
+msgid ""
+"This app helps you to organise your shopping lists. Below you find the "
+"manual."
+msgstr ""
+
+#: ../qml/components/ManualPopover.qml:63
+#: ../qml/panels/SettingsCategoriesPanel.qml:9
+msgid "Categories"
+msgstr ""
+
+#: ../qml/components/ManualPopover.qml:99
+msgid "Show on start"
+msgstr ""
+
+#: ../qml/components/ManualPopover.qml:109
 #: ../qml/components/QuantitySelect.qml:69
 msgid "OK"
 msgstr ""
@@ -75,10 +94,6 @@ msgstr ""
 
 #: ../qml/panels/ListPanel.qml:122
 msgid "new entry ..."
-msgstr ""
-
-#: ../qml/panels/SettingsCategoriesPanel.qml:9
-msgid "Categories"
 msgstr ""
 
 #: ../qml/panels/SettingsCategoriesPanel.qml:27

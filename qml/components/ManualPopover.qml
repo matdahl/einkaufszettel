@@ -14,41 +14,108 @@ Item {
         id: popoverComponent
         Popover{
             id: popover
-            height: root.height
-            Component.onCompleted: print("height:",height)
 
-            Column{
-                width: popover.contentWidth
-                spacing: units.gu(2)
-                padding: units.gu(2)
-                ScrollView{
-                    id: scrollView
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    width: popover.contentWidth - units.gu(6)
-
-                 //   height: popover.height - checkRow.height - btOK.height - units.gu(8)
-                    Component.onCompleted: print("scroll height:",height, popover.height,checkRow.height,btOK.height,units.gu(8))
+            Label{
+                id: lbTitle
+                anchors{
+                    horizontalCenter: parent.horizontalCenter
+                    top: parent.top
+                    topMargin: units.gu(2)
                 }
-                Row{
-                    id: checkRow
-                    spacing: units.gu(2)
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    CheckBox{
-                        Component.onCompleted: checked = settings.showManualOnStart
-                        onCheckedChanged: settings.showManualOnStart = checked
+                textSize: Label.Large
+                font.bold: true
+                text: i18n.tr("Einkaufszettel")
+            }
+
+            Rectangle{
+                anchors{
+                    fill: scrollView
+                    margins: units.gu(-1)
+                }
+                radius: units.gu(1)
+                color: theme.palette.normal.base
+                opacity: 0.2
+            }
+
+            /* ---- manual content ---- */
+            ScrollView{
+                    id: scrollView
+                    anchors{
+                        top: lbTitle.bottom
+                        left: parent.left
+                        right: parent.right
+                        margins: units.gu(2)
                     }
-                    Label{
-                        text: i18n.tr("Always show on start")
+                    height: root.height - lbTitle.height - popoverFooter.height - units.gu(12)
+                    Component.onCompleted: print("scroll height:",height)
+
+                    Column{
+                        id: contentCol
+                        width: scrollView.width
+                        spacing: units.gu(1)
+
+                        ManualText{
+                            text: "<b>" + i18n.tr("Welcome to Einkaufszettel!") + "</b><br><br>"
+                                + i18n.tr("This app helps you to organise your shopping lists. Below you find the manual.")
+                        }
+
+                        ManualCaption{
+                            title: i18n.tr("Categories")
+                        }
+
                     }
+                }
+
+
+            /* ---- footer part of the manual ---- */
+            Item{
+                id: popoverFooter
+                anchors{
+                    top: scrollView.bottom
+                    left: parent.left
+                    right: parent.right
+                    margins: units.gu(2)
+                }
+                height: units.gu(4)
+
+                CheckBox{
+                    id: cbShowOnStart
+                    anchors{
+                        verticalCenter: parent.verticalCenter
+                        left: parent.left
+                    }
+                    Component.onCompleted: checked = settings.showManualOnStart
+                    onCheckedChanged: settings.showManualOnStart = checked
+                }
+
+                Label{
+                    anchors{
+                        verticalCenter: parent.verticalCenter
+                        left: cbShowOnStart.right
+                        right: btOK.left
+                        leftMargin: units.gu(1)
+                        rightMargin: units.gu(2)
+                    }
+                    text: i18n.tr("Show on start")
                 }
 
                 Button{
                     id: btOK
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors{
+                        verticalCenter: parent.verticalCenter
+                        right: parent.right
+                    }
                     color: UbuntuColors.orange
                     text: i18n.tr("OK")
                     onClicked: PopupUtils.close(popover)
                 }
+            }
+
+            // insert empty item to ensure there is a bottom margin in the popover
+            Item{
+                anchors.top: popoverFooter.bottom
+                width: scrollView.width
+                height: units.gu(4)
             }
         }
     }
