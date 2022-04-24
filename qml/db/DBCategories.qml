@@ -86,6 +86,12 @@ Item {
         model.insert(j,cat)
     }
 
+    function deselectAll(){
+        for (var i=0;i<root.model.count;i++)
+            if (root.model.get(i).marked===1)
+                root.toggleMarked(i)
+    }
+
     function db_test_callback(db){/* do nothing */}
     function init(){
         // open database

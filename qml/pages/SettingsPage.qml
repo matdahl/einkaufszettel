@@ -32,7 +32,7 @@ Page {
                 id: stCategories
                 text: i18n.tr("Edit categories")
                 iconName: "edit"
-                subpage: categoriesPanel
+                subpage: "pages/SettingsCategoriesPanel.qml"
             }
             SettingsMenuItem{
                 id: stUnits

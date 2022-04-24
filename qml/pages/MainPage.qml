@@ -21,7 +21,6 @@ Page {
             //    visible: pages.currentItem.hasCheckedEntries
             //    onTriggered: stack.currentItem.deselectAll()
             }
-
         ]
     }
 }

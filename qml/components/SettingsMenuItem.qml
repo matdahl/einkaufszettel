@@ -12,7 +12,7 @@ ListItem{
     property string text
 
     // the subpage which should be pushed on stack
-    property var subpage
+    property string subpage: ""
 
     // if set, the corresponding icon is shown on the left
     property string iconName
@@ -32,13 +32,10 @@ ListItem{
         Icon {
             SlotsLayout.position: SlotsLayout.Last
             height: units.gu(2)
-            visible: subpage !== undefined
+            visible: subpage !== ""
             name: "next"
         }
     }
 
-    onClicked:{
-        if (subpage && stack)
-            stack.push(subpage)
-    }
+    onClicked: pages.push(Qt.resolvedUrl("../"+subpage))
 }
