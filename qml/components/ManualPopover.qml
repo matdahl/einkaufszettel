@@ -47,7 +47,6 @@ Item {
                         margins: units.gu(2)
                     }
                     height: root.height - lbTitle.height - popoverFooter.height - units.gu(12)
-                    Component.onCompleted: print("scroll height:",height)
 
                     Column{
                         id: contentCol
@@ -55,14 +54,59 @@ Item {
                         spacing: units.gu(1)
 
                         ManualText{
-                            text: "<b>" + i18n.tr("Welcome to Einkaufszettel!") + "</b><br><br>"
-                                + i18n.tr("This app helps you to organise your shopping lists. Below you find the manual.")
+                            text: "<b>" + i18n.tr("Welcome to Einkaufszettel!") + "</b>"
+                        }
+                        ManualText{
+                            text: i18n.tr("This app helps you to organise your shopping lists.")
+                        }
+
+                        ManualText{
+                            text: i18n.tr("Just enter new entries in the text field on the top of the list. "
+                                          +"When you've put an item into your cart, you can select it. "
+                                          +"When you finished your buying, you can easily remove all items that you bought by clicking 'delete all selected', so that only entries remain in the list, that you didn't bought yet.")
                         }
 
                         ManualCaption{
                             title: i18n.tr("Categories")
                         }
 
+                        ManualText{
+                            text: i18n.tr("To organise different shopping lists, you can define categories in the settings. "
+                                          +"Each category has its own list, so that items can be managed separately for different categories. "
+                                          +"In addition to costum categories, there are always two default categories, that can't be edited:")
+                        }
+                        ManualText{
+                            text: i18n.tr("%1: In this list, the entries from all categories are listed.").arg("<i>"+i18n.tr("all")+"</i>")
+                        }
+                        ManualText{
+                            text: i18n.tr("%1: In this list, all items that do not belong to any other category are listed. If you delete a category that still has entries in it, they will also end up here.").arg("<i>"+i18n.tr("other")+"</i>")
+                        }
+
+                        ManualCaption{
+                            title: i18n.tr("Suggestions")
+                        }
+
+                        ManualText{
+                            text: "to do ..."
+                        }
+
+                        ManualCaption{
+                            title: i18n.tr("Units")
+                        }
+
+                        ManualText{
+                            text: "to do ..."
+                        }
+
+                        ManualCaption{
+                            title: i18n.tr("Appearance")
+                        }
+
+                        ManualText{
+                            text: i18n.tr("You can choose between a dark or a light appearance and select from 8 different color flavours. "
+                                         +"The default setting is the magenta flavoured dark mode. "
+                                         +"You can change the appearance in the settings.")
+                        }
                     }
                 }
 

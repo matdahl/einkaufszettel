@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-24 12:16+0000\n"
+"POT-Creation-Date: 2022-04-24 12:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/Main.qml:101 ../qml/panels/SettingsUnitsPanel.qml:10
+#: ../qml/Main.qml:101 ../qml/components/ManualPopover.qml:94
+#: ../qml/panels/SettingsUnitsPanel.qml:10
 msgid "Units"
 msgstr ""
 
@@ -37,33 +38,79 @@ msgstr ""
 msgid "Einkaufszettel"
 msgstr ""
 
-#: ../qml/components/ManualPopover.qml:58
+#: ../qml/components/ManualPopover.qml:57
 msgid "Welcome to Einkaufszettel!"
 msgstr ""
 
-#: ../qml/components/ManualPopover.qml:59
-msgid ""
-"This app helps you to organise your shopping lists. Below you find the "
-"manual."
+#: ../qml/components/ManualPopover.qml:60
+msgid "This app helps you to organise your shopping lists."
 msgstr ""
 
-#: ../qml/components/ManualPopover.qml:63
+#: ../qml/components/ManualPopover.qml:64
+msgid ""
+"Just enter new entries in the text field on the top of the list. When you've "
+"put an item into your cart, you can select it. When you finished your "
+"buying, you can easily remove all items that you bought by clicking 'delete "
+"all selected', so that only entries remain in the list, that you didn't "
+"bought yet."
+msgstr ""
+
+#: ../qml/components/ManualPopover.qml:70
 #: ../qml/panels/SettingsCategoriesPanel.qml:9
 msgid "Categories"
 msgstr ""
 
-#: ../qml/components/ManualPopover.qml:99
+#: ../qml/components/ManualPopover.qml:74
+msgid ""
+"To organise different shopping lists, you can define categories in the "
+"settings. Each category has its own list, so that items can be managed "
+"separately for different categories. In addition to costum categories, there "
+"are always two default categories, that can't be edited:"
+msgstr ""
+
+#: ../qml/components/ManualPopover.qml:79
+msgid "%1: In this list, the entries from all categories are listed."
+msgstr ""
+
+#: ../qml/components/ManualPopover.qml:79 ../qml/panels/ListPanel.qml:67
+#: ../qml/panels/ListPanel.qml:68
+msgid "all"
+msgstr ""
+
+#: ../qml/components/ManualPopover.qml:82
+msgid ""
+"%1: In this list, all items that do not belong to any other category are "
+"listed. If you delete a category that still has entries in it, they will "
+"also end up here."
+msgstr ""
+
+#: ../qml/components/ManualPopover.qml:82 ../qml/db/DBEntries.qml:190
+#: ../qml/panels/ListPanel.qml:69 ../qml/panels/ListPanel.qml:70
+msgid "other"
+msgstr ""
+
+#: ../qml/components/ManualPopover.qml:86 ../qml/panels/SettingsPanel.qml:37
+msgid "Suggestions"
+msgstr ""
+
+#: ../qml/components/ManualPopover.qml:102 ../qml/panels/SettingsPanel.qml:57
+msgid "Appearance"
+msgstr ""
+
+#: ../qml/components/ManualPopover.qml:106
+msgid ""
+"You can choose between a dark or a light appearance and select from 8 "
+"different color flavours. The default setting is the magenta flavoured dark "
+"mode. You can change the appearance in the settings."
+msgstr ""
+
+#: ../qml/components/ManualPopover.qml:143
 msgid "Show on start"
 msgstr ""
 
-#: ../qml/components/ManualPopover.qml:109
+#: ../qml/components/ManualPopover.qml:153
 #: ../qml/components/QuantitySelect.qml:69
 msgid "OK"
-msgstr ""
-
-#: ../qml/db/DBEntries.qml:190 ../qml/panels/ListPanel.qml:69
-#: ../qml/panels/ListPanel.qml:70
-msgid "other"
 msgstr ""
 
 #: ../qml/db/Dimensions.qml:125
@@ -80,10 +127,6 @@ msgstr ""
 
 #: ../qml/db/Dimensions.qml:129
 msgid "Liter"
-msgstr ""
-
-#: ../qml/panels/ListPanel.qml:67 ../qml/panels/ListPanel.qml:68
-msgid "all"
 msgstr ""
 
 #: ../qml/panels/ListPanel.qml:83 ../qml/panels/SettingsCategoriesPanel.qml:63
@@ -120,10 +163,6 @@ msgstr ""
 msgid "Edit units"
 msgstr ""
 
-#: ../qml/panels/SettingsPanel.qml:37
-msgid "Suggestions"
-msgstr ""
-
 #: ../qml/panels/SettingsPanel.qml:40
 msgid "Show suggestions"
 msgstr ""
@@ -134,10 +173,6 @@ msgstr ""
 
 #: ../qml/panels/SettingsPanel.qml:52
 msgid "Edit history"
-msgstr ""
-
-#: ../qml/panels/SettingsPanel.qml:57
-msgid "Appearance"
 msgstr ""
 
 #: ../qml/panels/SettingsPanel.qml:59
