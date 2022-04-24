@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-24 15:12+0000\n"
+"POT-Creation-Date: 2022-04-24 15:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,8 +64,7 @@ msgid "%1: In this list, the entries from all categories are listed."
 msgstr ""
 
 #: ../qml/components/ManualPopover.qml:78 ../qml/pages/MainPage.qml:79
-#: ../qml/pages/MainPage.qml:80 ../qml/panels/ListPanel.qml:67
-#: ../qml/panels/ListPanel.qml:68
+#: ../qml/pages/MainPage.qml:80
 msgid "all"
 msgstr ""
 
@@ -78,7 +77,6 @@ msgstr ""
 
 #: ../qml/components/ManualPopover.qml:81 ../qml/db/DBEntries.qml:190
 #: ../qml/pages/MainPage.qml:81 ../qml/pages/MainPage.qml:82
-#: ../qml/panels/ListPanel.qml:69 ../qml/panels/ListPanel.qml:70
 msgid "other"
 msgstr ""
 
@@ -152,11 +150,11 @@ msgstr ""
 
 #: ../qml/pages/MainPage.qml:95 ../qml/pages/SettingsCategoriesPage.qml:69
 #: ../qml/pages/SettingsHistoryPage.qml:24
-#: ../qml/pages/SettingsUnitsPage.qml:64 ../qml/panels/ListPanel.qml:83
+#: ../qml/pages/SettingsUnitsPage.qml:64
 msgid "No entries"
 msgstr ""
 
-#: ../qml/pages/MainPage.qml:134 ../qml/panels/ListPanel.qml:122
+#: ../qml/pages/MainPage.qml:134
 msgid "new entry ..."
 msgstr ""
 
