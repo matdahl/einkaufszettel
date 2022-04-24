@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-24 15:04+0000\n"
+"POT-Creation-Date: 2022-04-24 15:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,7 +48,6 @@ msgstr ""
 
 #: ../qml/components/ManualPopover.qml:69
 #: ../qml/pages/SettingsCategoriesPage.qml:18
-#: ../qml/panels/SettingsCategoriesPanel.qml:9
 msgid "Categories"
 msgstr ""
 
@@ -64,7 +63,8 @@ msgstr ""
 msgid "%1: In this list, the entries from all categories are listed."
 msgstr ""
 
-#: ../qml/components/ManualPopover.qml:78 ../qml/panels/ListPanel.qml:67
+#: ../qml/components/ManualPopover.qml:78 ../qml/pages/MainPage.qml:79
+#: ../qml/pages/MainPage.qml:80 ../qml/panels/ListPanel.qml:67
 #: ../qml/panels/ListPanel.qml:68
 msgid "all"
 msgstr ""
@@ -77,12 +77,12 @@ msgid ""
 msgstr ""
 
 #: ../qml/components/ManualPopover.qml:81 ../qml/db/DBEntries.qml:190
+#: ../qml/pages/MainPage.qml:81 ../qml/pages/MainPage.qml:82
 #: ../qml/panels/ListPanel.qml:69 ../qml/panels/ListPanel.qml:70
 msgid "other"
 msgstr ""
 
 #: ../qml/components/ManualPopover.qml:85 ../qml/pages/SettingsPage.qml:44
-#: ../qml/panels/SettingsPanel.qml:37
 msgid "Suggestions"
 msgstr ""
 
@@ -97,7 +97,6 @@ msgid ""
 msgstr ""
 
 #: ../qml/components/ManualPopover.qml:96 ../qml/pages/SettingsUnitsPage.qml:13
-#: ../qml/panels/SettingsUnitsPanel.qml:10
 msgid "Units"
 msgstr ""
 
@@ -110,7 +109,6 @@ msgid ""
 msgstr ""
 
 #: ../qml/components/ManualPopover.qml:105 ../qml/pages/SettingsPage.qml:64
-#: ../qml/panels/SettingsPanel.qml:57
 msgid "Appearance"
 msgstr ""
 
@@ -146,101 +144,90 @@ msgstr ""
 msgid "Liter"
 msgstr ""
 
-#: ../qml/pages/MainPage.qml:10 ../qml/pages/SettingsCategoriesPage.qml:18
+#: ../qml/pages/MainPage.qml:21 ../qml/pages/SettingsCategoriesPage.qml:18
 #: ../qml/pages/SettingsHistoryPage.qml:12 ../qml/pages/SettingsPage.qml:11
 #: ../qml/pages/SettingsUnitsPage.qml:13 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
 msgstr ""
 
-#: ../qml/pages/SettingsCategoriesPage.qml:36
-#: ../qml/panels/SettingsCategoriesPanel.qml:32
-msgid "new category ..."
-msgstr ""
-
-#: ../qml/pages/SettingsCategoriesPage.qml:69
+#: ../qml/pages/MainPage.qml:95 ../qml/pages/SettingsCategoriesPage.qml:69
 #: ../qml/pages/SettingsHistoryPage.qml:24
 #: ../qml/pages/SettingsUnitsPage.qml:64 ../qml/panels/ListPanel.qml:83
-#: ../qml/panels/SettingsCategoriesPanel.qml:65
-#: ../qml/panels/SettingsHistoryPanel.qml:27
-#: ../qml/panels/SettingsUnitsPanel.qml:69
 msgid "No entries"
 msgstr ""
 
+#: ../qml/pages/MainPage.qml:134 ../qml/panels/ListPanel.qml:122
+msgid "new entry ..."
+msgstr ""
+
+#: ../qml/pages/SettingsCategoriesPage.qml:36
+msgid "new category ..."
+msgstr ""
+
 #: ../qml/pages/SettingsHistoryPage.qml:12
-#: ../qml/panels/SettingsHistoryPanel.qml:9
 msgid "History"
 msgstr ""
 
-#: ../qml/pages/SettingsPage.qml:11 ../qml/panels/SettingsPanel.qml:10
+#: ../qml/pages/SettingsPage.qml:11
 msgid "Settings"
 msgstr ""
 
-#: ../qml/pages/SettingsPage.qml:26 ../qml/panels/SettingsPanel.qml:19
+#: ../qml/pages/SettingsPage.qml:26
 msgid "Show manual"
 msgstr ""
 
-#: ../qml/pages/SettingsPage.qml:33 ../qml/panels/SettingsPanel.qml:26
+#: ../qml/pages/SettingsPage.qml:33
 msgid "Edit categories"
 msgstr ""
 
-#: ../qml/pages/SettingsPage.qml:39 ../qml/panels/SettingsPanel.qml:32
+#: ../qml/pages/SettingsPage.qml:39
 msgid "Edit units"
 msgstr ""
 
-#: ../qml/pages/SettingsPage.qml:47 ../qml/panels/SettingsPanel.qml:40
+#: ../qml/pages/SettingsPage.qml:47
 msgid "Show suggestions"
 msgstr ""
 
-#: ../qml/pages/SettingsPage.qml:53 ../qml/panels/SettingsPanel.qml:46
+#: ../qml/pages/SettingsPage.qml:53
 msgid "Insert suggestion on click"
 msgstr ""
 
-#: ../qml/pages/SettingsPage.qml:59 ../qml/panels/SettingsPanel.qml:52
+#: ../qml/pages/SettingsPage.qml:59
 msgid "Edit history"
 msgstr ""
 
-#: ../qml/pages/SettingsPage.qml:66 ../qml/panels/SettingsPanel.qml:59
+#: ../qml/pages/SettingsPage.qml:66
 msgid "Use default theme"
 msgstr ""
 
-#: ../qml/pages/SettingsPage.qml:73 ../qml/panels/SettingsPanel.qml:66
+#: ../qml/pages/SettingsPage.qml:73
 msgid "Dark Mode"
 msgstr ""
 
-#: ../qml/pages/SettingsPage.qml:79 ../qml/panels/SettingsPanel.qml:72
+#: ../qml/pages/SettingsPage.qml:79
 msgid "Color"
 msgstr ""
 
 #: ../qml/pages/SettingsUnitsPage.qml:32
-#: ../qml/panels/SettingsUnitsPanel.qml:37
 msgid "abbr."
 msgstr ""
 
 #: ../qml/pages/SettingsUnitsPage.qml:38
-#: ../qml/panels/SettingsUnitsPanel.qml:43
 msgid "new unit ..."
 msgstr ""
 
 #: ../qml/pages/SettingsUnitsPage.qml:118
-#: ../qml/panels/SettingsUnitsPanel.qml:123
 msgid "Reset units"
 msgstr ""
 
 #: ../qml/pages/SettingsUnitsPage.qml:119
-#: ../qml/panels/SettingsUnitsPanel.qml:124
 msgid "Are you sure that you want to reset to default units?"
 msgstr ""
 
 #: ../qml/pages/SettingsUnitsPage.qml:121
-#: ../qml/panels/SettingsUnitsPanel.qml:126
 msgid "cancel"
 msgstr ""
 
 #: ../qml/pages/SettingsUnitsPage.qml:125
-#: ../qml/panels/SettingsUnitsPanel.qml:130
 msgid "reset units"
-msgstr ""
-
-#: ../qml/panels/ListPanel.qml:122
-msgid "new entry ..."
 msgstr ""
