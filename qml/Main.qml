@@ -59,6 +59,8 @@ MainView {
         defaultIndex: 1
     }
     theme.name: colors.currentThemeName
+    backgroundColor: colors.currentBackground
+
 
 
     // the units to measure quantities of entries
