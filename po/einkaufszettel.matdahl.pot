@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-24 14:08+0000\n"
+"POT-Creation-Date: 2022-04-24 14:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgid ""
 msgstr ""
 
 #: ../qml/components/ManualPopover.qml:69
-#: ../qml/pages/SettingsCategoriesPanel.qml:18
+#: ../qml/pages/SettingsCategoriesPage.qml:18
 #: ../qml/panels/SettingsCategoriesPanel.qml:9
 msgid "Categories"
 msgstr ""
@@ -96,7 +96,7 @@ msgid ""
 "the suggestions, you can also disable this feature entirely."
 msgstr ""
 
-#: ../qml/components/ManualPopover.qml:96
+#: ../qml/components/ManualPopover.qml:96 ../qml/pages/SettingsUnitsPage.qml:12
 #: ../qml/panels/SettingsUnitsPanel.qml:10
 msgid "Units"
 msgstr ""
@@ -146,21 +146,28 @@ msgstr ""
 msgid "Liter"
 msgstr ""
 
-#: ../qml/pages/MainPage.qml:10 ../qml/pages/SettingsCategoriesPanel.qml:18
-#: ../qml/pages/SettingsPage.qml:11 einkaufszettel.desktop.in.h:1
+#: ../qml/pages/MainPage.qml:10 ../qml/pages/SettingsCategoriesPage.qml:18
+#: ../qml/pages/SettingsHistoryPage.qml:12 ../qml/pages/SettingsPage.qml:11
+#: ../qml/pages/SettingsUnitsPage.qml:12 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
 msgstr ""
 
-#: ../qml/pages/SettingsCategoriesPanel.qml:36
+#: ../qml/pages/SettingsCategoriesPage.qml:36
 #: ../qml/panels/SettingsCategoriesPanel.qml:32
 msgid "new category ..."
 msgstr ""
 
-#: ../qml/pages/SettingsCategoriesPanel.qml:69 ../qml/panels/ListPanel.qml:83
+#: ../qml/pages/SettingsCategoriesPage.qml:69
+#: ../qml/pages/SettingsHistoryPage.qml:24 ../qml/panels/ListPanel.qml:83
 #: ../qml/panels/SettingsCategoriesPanel.qml:65
 #: ../qml/panels/SettingsHistoryPanel.qml:27
 #: ../qml/panels/SettingsUnitsPanel.qml:69
 msgid "No entries"
+msgstr ""
+
+#: ../qml/pages/SettingsHistoryPage.qml:12
+#: ../qml/panels/SettingsHistoryPanel.qml:9
+msgid "History"
 msgstr ""
 
 #: ../qml/pages/SettingsPage.qml:11 ../qml/panels/SettingsPanel.qml:10
@@ -205,10 +212,6 @@ msgstr ""
 
 #: ../qml/panels/ListPanel.qml:122
 msgid "new entry ..."
-msgstr ""
-
-#: ../qml/panels/SettingsHistoryPanel.qml:9
-msgid "History"
 msgstr ""
 
 #: ../qml/panels/SettingsUnitsPanel.qml:37

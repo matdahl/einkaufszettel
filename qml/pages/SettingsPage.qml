@@ -32,13 +32,13 @@ Page {
                 id: stCategories
                 text: i18n.tr("Edit categories")
                 iconName: "edit"
-                subpage: "pages/SettingsCategoriesPanel.qml"
+                subpage: "pages/SettingsCategoriesPage.qml"
             }
             SettingsMenuItem{
                 id: stUnits
                 text: i18n.tr("Edit units")
                 iconName: "edit"
-                subpage: unitsPanel
+                subpage: "pages/SettingsUnitsPage.qml"
             }
 
             SettingsCaption{title: i18n.tr("Suggestions")}
@@ -58,7 +58,7 @@ Page {
                 id: stHistory
                 text: i18n.tr("Edit history")
                 iconName: "edit"
-                subpage: historyPanel
+                subpage: "pages/SettingsHistoryPage.qml"
             }
 
             SettingsCaption{title: i18n.tr("Appearance")}

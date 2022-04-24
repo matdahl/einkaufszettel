@@ -37,5 +37,8 @@ ListItem{
         }
     }
 
-    onClicked: pages.push(Qt.resolvedUrl("../"+subpage))
+    onClicked:{
+        if (subpage !== "")
+            pages.push(Qt.resolvedUrl("../"+subpage))
+    }
 }

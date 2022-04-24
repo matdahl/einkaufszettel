@@ -17,25 +17,29 @@ Item {
         presortedKeyModel.clear()
         sortedKeyModel.clear()
 
-        var i
+        var i,entry,j
+
         // build unsortedKeyModel
         var keys = selectKeys()
         for (i=0;i<keys.length;i++){
             unsortedKeyModel.append(keys[i])
         }
+
         // build presortedKeyModel
         for (i=0;i<unsortedKeyModel.count;i++){
-            var entry = unsortedKeyModel.get(i)
-            var j=0
-            while (j<presortedKeyModel.count && entry.key>presortedKeyModel.get(j).key) j++
+            entry = unsortedKeyModel.get(i)
+            j=0
+            while (j<presortedKeyModel.count && entry.key>presortedKeyModel.get(j).key)
+                j++
             presortedKeyModel.insert(j,entry)
         }
+
         // build sortedKeyModel
         for (i=0;i<presortedKeyModel.count;i++){
-            var entry = presortedKeyModel.get(i)
-            var j = sortedKeyModel.count-1
-//            if (j<0) j = 0
-            while (j>0 && entry.count>sortedKeyModel.get(j).count) j--
+            entry = presortedKeyModel.get(i)
+            j = sortedKeyModel.count-1
+            while (j>0 && entry.count>sortedKeyModel.get(j).count)
+                j--
             sortedKeyModel.insert(j+1,entry)
         }
         checkForMarkedEntries()
@@ -91,48 +95,20 @@ Item {
         }
     }
 
-    function models_toggleMarked(key){
-        var i
-        for (i=0; i<unsortedKeyModel.count; i++){
-            if (unsortedKeyModel.get(i).key===key){
-                unsortedKeyModel.get(i).marked = 1 - unsortedKeyModel.get(i).marked
-                break
-            }
-        }
-        for (i=0; i<presortedKeyModel.count; i++){
-            if (presortedKeyModel.get(i).key===key){
-                presortedKeyModel.get(i).marked = 1 - presortedKeyModel.get(i).marked
-                break
-            }
-        }
-        for (i=0; i<sortedKeyModel.count; i++){
-            if (sortedKeyModel.get(i).key===key){
-                sortedKeyModel.get(i).marked = 1 - sortedKeyModel.get(i).marked
-                break
-            }
-        }
-        checkForMarkedEntries()
-    }
-
-    function models_deselect_all(){
-        for (var i=0; i<unsortedKeyModel.count; i++){
-            unsortedKeyModel.get(i).marked  = 0
-            presortedKeyModel.get(i).marked = 0
-            sortedKeyModel.get(i).marked    = 0
-        }
-    }
-
     function checkForMarkedEntries(){
-        hasMarkedKeys = false
-        for (var i=0; i<unsortedKeyModel.count;i++){
-            if (unsortedKeyModel.get(i).marked===1) {
+        for (var i=0; i<presortedKeyModel.count;i++){
+            if (presortedKeyModel.get(i).marked===1) {
                 hasMarkedKeys = true
-                break
+                return
             }
         }
+        hasMarkedKeys = false
     }
 
-    Component.onCompleted: init()
+    Component.onCompleted: {
+        init()
+        removeDeleted()
+    }
 
     Settings{
         id: settings
@@ -150,7 +126,6 @@ Item {
 
     property bool hasMarkedKeys:  false
     property bool hasDeletedKeys: false
-
 
     // connection details
     property var db
@@ -254,7 +229,13 @@ Item {
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_keys+" SET marked=1-marked WHERE key=?",[key])
             })
-            models_toggleMarked(key)
+            for (var i=0; i<presortedKeyModel.count; i++){
+                if (presortedKeyModel.get(i).key===key){
+                    presortedKeyModel.get(i).marked = 1 - presortedKeyModel.get(i).marked
+                    break
+                }
+            }
+            checkForMarkedEntries()
         } catch (err){
             console.error("Error when toggleing marked flag of key '"+key+"' in table '"+db_table_keys+"': " + err)
         }
@@ -265,7 +246,8 @@ Item {
             db.transaction(function(tx){
                 tx.executeSql("UPDATE "+db_table_keys+" SET marked=0")
             })
-            models_deselect_all()
+            for (var i=0; i<unsortedKeyModel.count; i++)
+                presortedKeyModel.get(i).marked = 0
             hasMarkedKeys = false
         } catch (err){
             console.error("Error when deselect all keys in table '"+db_table_keys+"': " + err)

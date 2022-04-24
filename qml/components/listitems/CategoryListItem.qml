@@ -6,12 +6,14 @@ ListItem{
     property bool isChecked: marked
     onIsCheckedChanged: checkBox.checked = marked
 
-    leadingActions: ListItemActions{ actions: [
-        Action{
-            iconName: "delete"
-            onTriggered: db_categories.remove(index)
-        }
-    ]}
+    leadingActions: ListItemActions{
+        actions: [
+            Action{
+                iconName: "delete"
+                onTriggered: db_categories.remove(index)
+            }
+        ]
+    }
 
     Rectangle{
         anchors.fill: parent

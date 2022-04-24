@@ -2,19 +2,18 @@ import QtQuick 2.7
 import Ubuntu.Components 1.3
 
 ListItem{
-    signal remove()
-    signal toggleMarked()
 
-    function uncheck(){
-        if (checkBox) checkBox.checked = false
+    property bool isChecked: marked
+    onIsCheckedChanged: checkBox.checked = marked
+
+    leadingActions: ListItemActions{
+        actions: [
+            Action{
+                iconName: "delete"
+                onTriggered: db_history.deleteKey(key)
+            }
+        ]
     }
-
-    leadingActions: ListItemActions{ actions: [
-        Action{
-            iconName: "delete"
-            onTriggered: remove()
-        }
-    ]}
 
     Rectangle{
         anchors.fill: parent
@@ -23,38 +22,21 @@ ListItem{
         visible: marked
     }
 
-    Label {
-        id: lbCount
-        anchors{
-            left: parent.left
-            verticalCenter: parent.verticalCenter
+    ListItemLayout{
+        CheckBox{
+            id: checkBox
+            SlotsLayout.position: SlotsLayout.First
+            checked: marked
+            onTriggered: db_history.toggleMarked(key)
         }
-        width: units.gu(6)
-        horizontalAlignment: Label.AlignHCenter
-        text: "("+count+")"
-    }
 
-    Label{
-        id: lbKey
-        anchors{
-            left:  parent.left
-            right: parent.right
-            verticalCenter: parent.verticalCenter
-            margins: units.gu(6)
-        }
-        horizontalAlignment: Label.AlignHCenter
-        text: key
-        elide: Qt.ElideRight
-    }
+        title.text: key
 
-    CheckBox{
-        id: checkBox
-        anchors{
-            right: parent.right
-            verticalCenter: parent.verticalCenter
-            margins: units.gu(2)
+        Label {
+            id: lbCount
+            SlotsLayout.position: SlotsLayout.Last
+            horizontalAlignment: Label.AlignHCenter
+            text: "("+count+")"
         }
-        checked: marked
-        onTriggered: toggleMarked()
     }
 }
