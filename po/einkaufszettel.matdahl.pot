@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-24 12:51+0000\n"
+"POT-Creation-Date: 2022-04-24 13:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/Main.qml:101 ../qml/components/ManualPopover.qml:94
+#: ../qml/Main.qml:101 ../qml/components/ManualPopover.qml:97
 #: ../qml/panels/SettingsUnitsPanel.qml:10
 msgid "Units"
 msgstr ""
@@ -93,22 +93,40 @@ msgstr ""
 msgid "Suggestions"
 msgstr ""
 
-#: ../qml/components/ManualPopover.qml:102 ../qml/panels/SettingsPanel.qml:57
+#: ../qml/components/ManualPopover.qml:90
+msgid ""
+"Based on your previous entries, you can get suggestions when typing new "
+"entries, filtered by your input and sorted by the frequency, you used an "
+"entry before. This makes it more convenient to enter items that you "
+"frequently use. You can manage the history, that is used to generate "
+"suggestions in the settings and remove items from there. If you don't like "
+"the suggestions, you can also disable this feature entirely."
+msgstr ""
+
+#: ../qml/components/ManualPopover.qml:101
+msgid ""
+"To manage the amount you need from a certain entry, you can use units. By "
+"default, you always enter one 'piece of' the entry. If you enter an item, "
+"that exists already in the list, the specified amount of the item will be "
+"added to the existing entry."
+msgstr ""
+
+#: ../qml/components/ManualPopover.qml:106 ../qml/panels/SettingsPanel.qml:57
 msgid "Appearance"
 msgstr ""
 
-#: ../qml/components/ManualPopover.qml:106
+#: ../qml/components/ManualPopover.qml:110
 msgid ""
 "You can choose between a dark or a light appearance and select from 8 "
 "different color flavours. The default setting is the magenta flavoured dark "
 "mode. You can change the appearance in the settings."
 msgstr ""
 
-#: ../qml/components/ManualPopover.qml:143
+#: ../qml/components/ManualPopover.qml:147
 msgid "Show on start"
 msgstr ""
 
-#: ../qml/components/ManualPopover.qml:153
+#: ../qml/components/ManualPopover.qml:157
 #: ../qml/components/QuantitySelect.qml:69
 msgid "OK"
 msgstr ""

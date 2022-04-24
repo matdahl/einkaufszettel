@@ -87,7 +87,10 @@ Item {
                         }
 
                         ManualText{
-                            text: "to do ..."
+                            text: i18n.tr("Based on your previous entries, you can get suggestions when typing new entries, filtered by your input and sorted by the frequency, you used an entry before. "
+                                          +"This makes it more convenient to enter items that you frequently use. "
+                                          +"You can manage the history, that is used to generate suggestions in the settings and remove items from there. "
+                                          +"If you don't like the suggestions, you can also disable this feature entirely.")
                         }
 
                         ManualCaption{
@@ -95,7 +98,8 @@ Item {
                         }
 
                         ManualText{
-                            text: "to do ..."
+                            text: i18n.tr("To manage the amount you need from a certain entry, you can use units. "
+                                          +"By default, you always enter one 'piece of' the entry. If you enter an item, that exists already in the list, the specified amount of the item will be added to the existing entry.")
                         }
 
                         ManualCaption{
