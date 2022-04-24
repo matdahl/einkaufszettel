@@ -16,6 +16,11 @@ Item {
                 db_categories.toggleMarked(i)
     }
 
+    function insertCategory(){
+        if (!db_categories.exists(inputCategory.text))
+            db_categories.insertCategory(inputCategory.text)
+        inputCategory.text = ""
+    }
 
     Row{
         id: inputRow
@@ -25,7 +30,7 @@ Item {
             id: inputCategory
             width: root.width - btNewCategory.width - 2*inputRow.padding - inputRow.spacing
             placeholderText: i18n.tr("new category ...")
-            onAccepted: btNewCategory.clicked()
+            onAccepted: root.insertCategory()
         }
         Button{
             id: btNewCategory
@@ -39,10 +44,7 @@ Item {
                 name:   "add"
                 color:  theme.palette.normal.positiveText
             }
-            onClicked: {
-                db_categories.insertCategory(inputCategory.text)
-                inputCategory.text = ""
-            }
+            onClicked: root.insertCategory()
         }
     }
     UbuntuListView{
