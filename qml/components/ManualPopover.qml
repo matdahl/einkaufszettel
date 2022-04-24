@@ -4,7 +4,6 @@ import Ubuntu.Components.Popups 1.3
 
 Item {
     id: root
-    anchors.fill: parent
 
     function show(){
         PopupUtils.open(popoverComponent,root)
@@ -46,7 +45,7 @@ Item {
                         right: parent.right
                         margins: units.gu(2)
                     }
-                    height: root.height - lbTitle.height - popoverFooter.height - units.gu(12)
+                    height: root.parent.height - lbTitle.height - popoverFooter.height - units.gu(14)
 
                     Column{
                         id: contentCol

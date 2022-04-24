@@ -128,9 +128,9 @@ MainView {
             id: settingsPanel
             visible: false
         }
+    }
 
-        ManualPopover{
-            id: manual
-        }
+    ManualPopover{
+        id: manual
     }
 }
