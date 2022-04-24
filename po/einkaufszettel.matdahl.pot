@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-11 19:46+0000\n"
+"POT-Creation-Date: 2022-04-24 11:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,6 +33,11 @@ msgstr ""
 msgid "delete selected"
 msgstr ""
 
+#: ../qml/components/ManualPopover.qml:41
+msgid "Always show on start"
+msgstr ""
+
+#: ../qml/components/ManualPopover.qml:49
 #: ../qml/components/QuantitySelect.qml:69
 msgid "OK"
 msgstr ""
