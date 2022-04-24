@@ -34,6 +34,7 @@ MainView {
     height: units.gu(75)
 
     Component.onCompleted: {
+        pages.push(Qt.resolvedUrl("pages/MainPage.qml"))
         if (settings.showManualOnStart)
             manual.show()
     }
@@ -71,8 +72,14 @@ MainView {
         property bool showManualOnStart: true
     }
 
+
+    /* ---- user interface ---- */
+    PageStack{
+        id: pages
+    }
+
     /* ----- components ----- */
-    Page {
+    /*Page {
         anchors.fill: parent
         header: PageHeader {
             id: header
@@ -128,7 +135,7 @@ MainView {
             id: settingsPanel
             visible: false
         }
-    }
+    }*/
 
     ManualPopover{
         id: manual
