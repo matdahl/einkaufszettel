@@ -21,7 +21,6 @@ import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0
 
 import "components"
-import "panels"
 import "db"
 
 MainView {
@@ -67,75 +66,16 @@ MainView {
         id: dimensions
     }
 
+    // settings
     Settings{
         id: settings
         property bool showManualOnStart: true
     }
 
-
-    /* ---- user interface ---- */
+    // user interface
     PageStack{
         id: pages
     }
-
-    /* ----- components ----- */
-    /*Page {
-        anchors.fill: parent
-        header: PageHeader {
-            id: header
-            StyleHints{backgroundColor: colors.currentHeader}
-
-            leadingActionBar.actions: [
-                Action{
-                    iconName: "back"
-                    visible: stack.depth>1
-                    onTriggered: stack.pop()
-                }
-            ]
-            trailingActionBar.actions: [
-                Action{
-                    iconName: "settings"
-                    onTriggered: {
-                        while (stack.depth>1 && stack.currentItem!==settingsPanel) stack.pop()
-                        if (stack.currentItem!==settingsPanel) {
-                            stack.push(settingsPanel)
-                        }
-                    }
-                    visible: stack.currentItem === listPanel
-                },
-                Action{
-                    iconName: "reset"
-                    visible: stack.currentItem.headerSuffix === i18n.tr("Units")
-                    onTriggered: stack.currentItem.reset()
-                },
-                Action{
-                    iconName: "select-none"
-                    visible: stack.currentItem.hasCheckedEntries
-                    onTriggered: stack.currentItem.deselectAll()
-                }
-
-            ]
-        }
-        Rectangle{
-            anchors.fill: parent
-            color: colors.currentBackground
-        }
-        StackView{
-            id: stack
-            anchors.fill: parent
-            onCurrentItemChanged: header.title = i18n.tr("Shopping List") + ((currentItem.headerSuffix !== "") ? " - "+currentItem.headerSuffix : "")
-        }
-
-        ListPanel{
-            id: listPanel
-            Component.onCompleted: stack.push(listPanel)
-        }
-
-        SettingsPanel{
-            id: settingsPanel
-            visible: false
-        }
-    }*/
 
     ManualPopover{
         id: manual
