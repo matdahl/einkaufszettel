@@ -55,6 +55,8 @@ Item {
     property int    db_size: 128
     property string db_table_units: "units"
 
+    Component.onCompleted: init()
+
     function db_test_callback(db){/* do nothing */}
     function init(){
         if (!db){

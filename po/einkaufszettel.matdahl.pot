@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-24 14:54+0000\n"
+"POT-Creation-Date: 2022-04-24 15:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -96,7 +96,7 @@ msgid ""
 "the suggestions, you can also disable this feature entirely."
 msgstr ""
 
-#: ../qml/components/ManualPopover.qml:96 ../qml/pages/SettingsUnitsPage.qml:12
+#: ../qml/components/ManualPopover.qml:96 ../qml/pages/SettingsUnitsPage.qml:13
 #: ../qml/panels/SettingsUnitsPanel.qml:10
 msgid "Units"
 msgstr ""
@@ -130,25 +130,25 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: ../qml/db/Dimensions.qml:125
+#: ../qml/db/Dimensions.qml:127
 msgid "Piece"
 msgstr ""
 
-#: ../qml/db/Dimensions.qml:127
+#: ../qml/db/Dimensions.qml:129
 msgid "Gram"
 msgstr ""
 
-#: ../qml/db/Dimensions.qml:128
+#: ../qml/db/Dimensions.qml:130
 msgid "Kilogram"
 msgstr ""
 
-#: ../qml/db/Dimensions.qml:129
+#: ../qml/db/Dimensions.qml:131
 msgid "Liter"
 msgstr ""
 
 #: ../qml/pages/MainPage.qml:10 ../qml/pages/SettingsCategoriesPage.qml:18
 #: ../qml/pages/SettingsHistoryPage.qml:12 ../qml/pages/SettingsPage.qml:11
-#: ../qml/pages/SettingsUnitsPage.qml:12 einkaufszettel.desktop.in.h:1
+#: ../qml/pages/SettingsUnitsPage.qml:13 einkaufszettel.desktop.in.h:1
 msgid "Shopping List"
 msgstr ""
 
@@ -158,7 +158,8 @@ msgid "new category ..."
 msgstr ""
 
 #: ../qml/pages/SettingsCategoriesPage.qml:69
-#: ../qml/pages/SettingsHistoryPage.qml:24 ../qml/panels/ListPanel.qml:83
+#: ../qml/pages/SettingsHistoryPage.qml:24
+#: ../qml/pages/SettingsUnitsPage.qml:64 ../qml/panels/ListPanel.qml:83
 #: ../qml/panels/SettingsCategoriesPanel.qml:65
 #: ../qml/panels/SettingsHistoryPanel.qml:27
 #: ../qml/panels/SettingsUnitsPanel.qml:69
@@ -210,30 +211,36 @@ msgstr ""
 msgid "Color"
 msgstr ""
 
-#: ../qml/panels/ListPanel.qml:122
-msgid "new entry ..."
-msgstr ""
-
+#: ../qml/pages/SettingsUnitsPage.qml:32
 #: ../qml/panels/SettingsUnitsPanel.qml:37
 msgid "abbr."
 msgstr ""
 
+#: ../qml/pages/SettingsUnitsPage.qml:38
 #: ../qml/panels/SettingsUnitsPanel.qml:43
 msgid "new unit ..."
 msgstr ""
 
+#: ../qml/pages/SettingsUnitsPage.qml:118
 #: ../qml/panels/SettingsUnitsPanel.qml:123
 msgid "Reset units"
 msgstr ""
 
+#: ../qml/pages/SettingsUnitsPage.qml:119
 #: ../qml/panels/SettingsUnitsPanel.qml:124
 msgid "Are you sure that you want to reset to default units?"
 msgstr ""
 
+#: ../qml/pages/SettingsUnitsPage.qml:121
 #: ../qml/panels/SettingsUnitsPanel.qml:126
 msgid "cancel"
 msgstr ""
 
+#: ../qml/pages/SettingsUnitsPage.qml:125
 #: ../qml/panels/SettingsUnitsPanel.qml:130
 msgid "reset units"
+msgstr ""
+
+#: ../qml/panels/ListPanel.qml:122
+msgid "new entry ..."
 msgstr ""
