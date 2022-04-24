@@ -19,7 +19,7 @@ Item {
     property int defaultIndex: 0
 
     // the currently selected color scheme
-    property int currentIndex: initialIndex
+    property int currentIndex: defaultIndex
 
     // ensure that index in not out of range
     readonly property int maxIndex: headerColors.length-1
