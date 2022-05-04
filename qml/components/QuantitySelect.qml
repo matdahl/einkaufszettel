@@ -73,6 +73,13 @@ Button {
                     }
                 }
 
+                Rectangle{
+                    anchors.verticalCenter: dimensionPicker.verticalCenter
+                    height: dimensionPicker.height - units.gu(4)
+                    width: units.gu(0.25)
+                    color: theme.palette.normal.base
+                }
+
                 Picker{
                     id: dimensionPicker
                     model: dimensions.unitsModel
@@ -85,6 +92,14 @@ Button {
                             text: symbol
                         }
                     }
+                }
+
+                Button{
+                    height: dimensionPicker.height
+                    width: units.gu(7)
+                    text: i18n.tr("OK")
+                    color: UbuntuColors.orange
+                    onClicked: PopupUtils.close(popover)
                 }
             }
         }
