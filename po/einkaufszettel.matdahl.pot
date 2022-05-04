@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.matdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-24 15:13+0000\n"
+"POT-Creation-Date: 2022-05-04 18:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,7 +122,6 @@ msgid "Show on start"
 msgstr ""
 
 #: ../qml/components/ManualPopover.qml:156
-#: ../qml/components/QuantitySelect.qml:69
 msgid "OK"
 msgstr ""
 
