@@ -57,17 +57,19 @@ Button {
                 padding: units.gu(2)
                 spacing: units.gu(1)
 
-                Repeater{
-                    id: quantityPickers
-                    model: root.quantityDigits
-                    delegate: Picker{
-                        model: 10
-                        width: units.gu(4)
-                        onSelectedIndexChanged: popover.updateQuantity()
-                        delegate: PickerDelegate{
-                            Label{
-                                anchors.centerIn: parent
-                                text: modelData
+                Row{
+                    Repeater{
+                        id: quantityPickers
+                        model: root.quantityDigits
+                        delegate: Picker{
+                            model: 10
+                            width: units.gu(4)
+                            onSelectedIndexChanged: popover.updateQuantity()
+                            delegate: PickerDelegate{
+                                Label{
+                                    anchors.centerIn: parent
+                                    text: modelData
+                                }
                             }
                         }
                     }
