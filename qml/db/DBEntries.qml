@@ -222,10 +222,10 @@ Item {
                     tx.executeSql("UPDATE "+db_table_name+" SET rank=rank+1 ")
                     // insert new entry on top of list (rank=0)
                     uid = tx.executeSql("INSERT INTO "+db_table_name+" (name,category,quantity,dimension,rank) VALUES (?,?,?,?,0)"
-                                       ,[name,catName,quantity,dimension]).lastInsertId
+                                       ,[name,catName,quantity,dimension]).insertId
                 })
                 var newItem = {
-                    uid: uid,
+                    uid: parseInt(uid),
                     name: name,
                     category: catName,
                     deleteFlag: 0,
