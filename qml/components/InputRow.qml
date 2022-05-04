@@ -11,7 +11,7 @@ Row{
     property bool enabled: true
 
     property alias  quantity: quantitySelect.quantity
-    property string dimension: quantitySelect.dimension ? quantitySelect.dimension.symbol : 'x'
+    property string dimension: dimensions.unitsModel.get(quantitySelect.dimensionIndex).symbol
 
 
     SortFilterModel{
@@ -47,12 +47,10 @@ Row{
         onAccepted: root.accepted()
 
         onFocusChanged: {
-            if (focus){
-                quantitySelect.expanded = false
+            if (focus)
                 if (text.length>0) dropDown.visible = true
-            } else {
+            else
                 dropDown.visible = false
-            }
         }
         onTextChanged:  dropDown.visible = (db_history.active && text.length>0)
         inputMethodHints: Qt.ImhNoPredictiveText
@@ -105,9 +103,6 @@ Row{
         }
 
         enabled: root.enabled
-        onClicked: {
-            quantitySelect.expanded = false
-            root.accepted()
-        }
+        onClicked: root.accepted()
     }
 }

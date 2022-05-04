@@ -9,15 +9,15 @@ Button {
     width: lbText.width + units.gu(2) > minWidth ? lbText.width + units.gu(2) : minWidth
 
     property int quantity: 1
-    property var dimension
+    property int dimensionIndex: 0
 
     property int quantityDigits: 4
     property int minWidth: units.gu(6)
 
     function reset(){
         quantity = 1
+        dimensionIndex = 0
         dimensions.init()
-        dimension = dimensions.unitsModel.get(0)
     }
 
     onClicked: PopupUtils.open(popoverComponent,root)
@@ -25,7 +25,7 @@ Button {
     Label{
         id: lbText
         anchors.centerIn: parent
-        text: quantity + " " + (dimension ? dimension.symbol : "x")
+        text: quantity + " " + dimensions.unitsModel.get(root.dimensionIndex).symbol
     }
 
     Component{
@@ -33,6 +33,13 @@ Button {
         Popover{
             id: popover
             width: row.width
+
+            Component.onCompleted: {
+                var q = root.quantity
+                for (var i=0; i<root.quantityDigits; i++)
+                    quantityPickers.itemAt(i).selectedIndex = (q / Math.pow(10,root.quantityDigits-i-1)) % 10
+                dimensionPicker.selectedIndex = root.dimensionIndex
+            }
 
             function updateQuantity(){
                 var q = 0
@@ -42,18 +49,19 @@ Button {
             }
 
             function updateDimension(){
-                root.dimension = dimensions.unitsModel.get(dimensionPicker.selectedIndex)
+                root.dimensionIndex = dimensionPicker.selectedIndex
             }
 
             Row{
                 id: row
                 padding: units.gu(2)
                 spacing: units.gu(1)
+
                 Repeater{
                     id: quantityPickers
                     model: root.quantityDigits
                     delegate: Picker{
-                        model: 9
+                        model: 10
                         width: units.gu(4)
                         onSelectedIndexChanged: popover.updateQuantity()
                         delegate: PickerDelegate{
@@ -61,11 +69,10 @@ Button {
                                 anchors.centerIn: parent
                                 text: modelData
                             }
-
                         }
-
                     }
                 }
+
                 Picker{
                     id: dimensionPicker
                     model: dimensions.unitsModel
