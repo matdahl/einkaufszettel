@@ -83,11 +83,15 @@ Item {
                model.get(j).rank < cat.rank &&
                model.get(j).rank > -1)
             j++
+
+        // count number of entries for this category
         for (var i=0; i<db_entries.fullEntryModel.count; i++)
             if (db_entries.fullEntryModel.get(i).category === cat.name)
                 cat.count += 1
+
         model.insert(j,cat)
         recountOther()
+        checkForMarkedCategories()
         categoriesChanged()
     }
 
@@ -98,7 +102,6 @@ Item {
     }
 
     function recountOther(){
-        print("recount other")
         var counter = 0
         for (var j=0; j<db_entries.fullEntryModel.count; j++)
             if (indexOf(db_entries.fullEntryModel.get(j).category) < 0)
@@ -245,7 +248,7 @@ Item {
     function removeSelected(){
         for (var i = model.count-1; i>-1; i--)
             if (model.get(i).marked===1)
-                remove(model.get(i))
+                remove(i)
     }
     function removeAll(){
         for (var i = model.count-1; i>-1; i--)
@@ -270,13 +273,16 @@ Item {
                 restored = tx.executeSql("SELECT * FROM "+db_table_name+" WHERE deleteFlag>0").rows
             })
             for (var i=0; i<restored.length; i++){
-                restored[i].deleteFlag = 0
-                insertByRank(restored[i])
+                var cat = {
+                    name: restored[i].name,
+                    marked: restored[i].marked,
+                    deleteFlag: 0,
+                    rank: restored[i].rank,
+                    count: 0
+                }
+                insertByRank(cat)
             }
 
-            checkForMarkedCategories()
-            recountOther()
-            categoriesChanged()
             hasDeletedCategories = false
 
             db.transaction(function(tx){
