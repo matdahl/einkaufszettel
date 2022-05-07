@@ -73,6 +73,7 @@ file(GLOB_RECURSE PROJECT_SRC_FILES
     qml/*.qml
     qml/*.js
     src/*
+    *.yaml
     *.json
     *.json.in
     *.apparmor
