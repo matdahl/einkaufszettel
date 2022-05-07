@@ -92,6 +92,18 @@ Item {
                 root.toggleMarked(i)
     }
 
+    function recountOther(){
+        print("recount other")
+        var counter = 0
+        for (var j=0; j<db_entries.fullEntryModel.count; j++){
+            print(indexOf(db_entries.fullEntryModel.get(j).category))
+            if (indexOf(db_entries.fullEntryModel.get(j).category) < 0)
+                counter++
+        }
+        countOther = counter
+    }
+
+
     function db_test_callback(db){/* do nothing */}
     function init(){
         // open database
@@ -206,6 +218,7 @@ Item {
                 rank: rank
             }
             model.append(newCategory)
+            recountOther()
             categoriesChanged()
         } catch (err){
             console.error("Error when insert category into table '"+db_table_name+"': " + err)
@@ -221,6 +234,7 @@ Item {
             model.remove(index)
             categoriesChanged()
             checkForMarkedCategories()
+            recountOther()
             hasDeletedCategories = true
         } catch (err){
             console.error("Error when remove category: " + err)
@@ -233,9 +247,7 @@ Item {
     }
     function removeAll(){
         for (var i = model.count-1; i>-1; i--)
-            if (model.get(i).marked===1)
-                remove(model.get(i))
-        hasChecked = false
+            remove(model.get(i))
     }
     function deleteAllRemoved(){
         if (!db) init()
