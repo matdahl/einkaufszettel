@@ -83,7 +83,12 @@ Item {
                model.get(j).rank < cat.rank &&
                model.get(j).rank > -1)
             j++
+        for (var i=0; i<db_entries.fullEntryModel.count; i++)
+            if (db_entries.fullEntryModel.get(i).category === cat.name)
+                cat.count += 1
         model.insert(j,cat)
+        recountOther()
+        categoriesChanged()
     }
 
     function deselectAll(){
@@ -95,11 +100,9 @@ Item {
     function recountOther(){
         print("recount other")
         var counter = 0
-        for (var j=0; j<db_entries.fullEntryModel.count; j++){
-            print(indexOf(db_entries.fullEntryModel.get(j).category))
+        for (var j=0; j<db_entries.fullEntryModel.count; j++)
             if (indexOf(db_entries.fullEntryModel.get(j).category) < 0)
                 counter++
-        }
         countOther = counter
     }
 
@@ -215,11 +218,10 @@ Item {
                 name: name,
                 marked: 0,
                 deleteFlag: 0,
-                rank: rank
+                rank: rank,
+                count: 0
             }
-            model.append(newCategory)
-            recountOther()
-            categoriesChanged()
+            insertByRank(newCategory)
         } catch (err){
             console.error("Error when insert category into table '"+db_table_name+"': " + err)
         }
