@@ -4,11 +4,12 @@ import Ubuntu.Components 1.3
 Item {
     id: root
     width: parent.width
-    height: units.gu(2.5)
+    height: units.gu(3)
     property string title: ""
 
     Label{
         id: lbTitle
+        y: units.gu(0.5)
         width: root.width
         text: root.title
         font.bold: true
