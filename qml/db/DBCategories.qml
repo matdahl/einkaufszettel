@@ -228,18 +228,9 @@ Item {
     }
     function removeSelected(){
         if (!db) init()
-        try{
-            db.transaction(function(tx){
-                tx.executeSql("UPDATE "+db_table_name+" SET deleteFlag=1 WHERE marked=1")
-            })
-            for (var i = model.count-1; i>-1; i--)
-                if (model.get(i).marked===1)
-                    model.remove(i)
-            checkForMarkedCategories()
-            hasDeletedCategories = true
-        } catch (err){
-            console.error("Error when marking selected categories as deleted: " + err)
-        }
+        for (var i = model.count-1; i>-1; i--)
+            if (model.get(i).marked===1)
+                remove(model.get(i))
     }
     function removeAll(){
         if (!db) init()
