@@ -227,23 +227,15 @@ Item {
         }
     }
     function removeSelected(){
-        if (!db) init()
         for (var i = model.count-1; i>-1; i--)
             if (model.get(i).marked===1)
                 remove(model.get(i))
     }
     function removeAll(){
-        if (!db) init()
-        try{
-            db.transaction(function(tx){
-                tx.executeSql("UPDATE "+db_table_name+" SET deleteFlag=1")
-            })
-            model.clear()
-            hasChecked = false
-            hasDeletedCategories = true
-        } catch (err){
-            console.error("Error when marking all categories as deleted: " + err)
-        }
+        for (var i = model.count-1; i>-1; i--)
+            if (model.get(i).marked===1)
+                remove(model.get(i))
+        hasChecked = false
     }
     function deleteAllRemoved(){
         if (!db) init()
@@ -269,6 +261,8 @@ Item {
             }
 
             checkForMarkedCategories()
+            recountOther()
+            categoriesChanged()
             hasDeletedCategories = false
 
             db.transaction(function(tx){
