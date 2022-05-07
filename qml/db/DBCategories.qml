@@ -234,9 +234,9 @@ Item {
                               [model.get(index).name])
             })
             model.remove(index)
-            categoriesChanged()
-            checkForMarkedCategories()
             recountOther()
+            checkForMarkedCategories()
+            categoriesChanged()
             hasDeletedCategories = true
         } catch (err){
             console.error("Error when remove category: " + err)
