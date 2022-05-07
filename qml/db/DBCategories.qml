@@ -1,4 +1,4 @@
-import QtQuick 2.12
+import QtQuick 2.7
 import QtQuick.LocalStorage 2.0 as Sql
 
 Item {
