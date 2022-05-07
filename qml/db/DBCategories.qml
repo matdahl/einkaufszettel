@@ -322,6 +322,7 @@ Item {
             model.get(index1).rank = rank2
             model.get(index2).rank = rank1
             model.move(index1,index2,1)
+            categoriesChanged()
         } catch (err){
             console.error("Error when swap categories: " + err)
         }
