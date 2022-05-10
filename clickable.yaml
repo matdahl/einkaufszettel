@@ -1,3 +1,4 @@
 clickable_minimum_required: 7.0.0
 builder: cmake
 kill: lingu-assist
+ignore_review_warnings: true
