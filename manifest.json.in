@@ -9,7 +9,7 @@
             "desktop":  "einkaufszettel.desktop"
         }
     },
-    "version": "1.4.0",
+    "version": "1.4.1",
     "maintainer": "Matthias Dahlmanns <matdahl@gmx.de>",
     "framework" : "ubuntu-sdk-16.04"
 }
