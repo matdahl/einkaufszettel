@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: einkaufszettel.mdahl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-04 16:55+0000\n"
-"PO-Revision-Date: 2021-05-04 18:57+0200\n"
+"POT-Creation-Date: 2022-05-13 14:40+0000\n"
+"PO-Revision-Date: 2022-05-13 16:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -18,140 +18,247 @@ msgstr ""
 "X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../qml/Main.qml:86 ../qml/panels/SettingsUnitsPanel.qml:10
-msgid "Units"
-msgstr "Einheiten"
-
-#: ../qml/Main.qml:109 einkaufszettel.desktop.in.h:1
-msgid "Shopping List"
-msgstr "Einkaufszettel"
-
 #: ../qml/components/ClearListButtons.qml:84
 msgid "clear list"
 msgstr "Liste leeren"
 
 #: ../qml/components/ClearListButtons.qml:84
+#: ../qml/components/ManualPopover.qml:68
 msgid "delete selected"
 msgstr "Auswahl löschen"
 
-#: ../qml/components/QuantitySelect.qml:69
-msgid "OK"
-msgstr "OK"
+#: ../qml/components/ManualPopover.qml:26
+msgid "Einkaufszettel"
+msgstr "Einkaufszettel"
 
-#: ../qml/db/DBconnector.qml:18 ../qml/db/DBconnector.qml:19
-#: ../qml/panels/ListPanel.qml:72 ../qml/panels/ListPanel.qml:73
-msgid "all"
-msgstr "alle"
+#: ../qml/components/ManualPopover.qml:58
+msgid "Welcome to Einkaufszettel!"
+msgstr "Wilkommen bei Einkaufszettel!"
 
-#: ../qml/db/DBconnector.qml:26 ../qml/db/DBconnector.qml:27
-#: ../qml/panels/ListPanel.qml:79 ../qml/panels/ListPanel.qml:80
-#: ../qml/panels/ListPanel.qml:130 ../qml/panels/ListPanel.qml:134
-msgid "other"
-msgstr "sonstige"
+#: ../qml/components/ManualPopover.qml:61
+msgid "This app helps you to organise your shopping lists."
+msgstr "Diese App hilft dir bei der Organisation deiner Einkaufslisten."
 
-#: ../qml/db/Dimensions.qml:118
-msgid "Piece"
-msgstr "Stück"
+#: ../qml/components/ManualPopover.qml:65
+msgid ""
+"Just enter new items in the text field on the top of the list. The new item "
+"is automatically added to the currently selected category. When you've put "
+"an item into your cart, you can select it and remove all items that you "
+"bought by clicking '%1'."
+msgstr ""
+"Gebe einfach neue Artikel im Textfeld oberhalb der Liste ein. Der Artikel "
+"wird automatisch zur aktuell ausgewählten Kategorie hinzugefügt. Wenn du "
+"einen Artikel gefunden und den Einkaufswagen gelegt hast, kannst du diesen "
+"markieren und am Ende des Einkaufs alle gefundenen Artikel durch Klick auf "
+"'%1' aus der Liste entfernen."
 
-#: ../qml/db/Dimensions.qml:120
-msgid "Gram"
-msgstr "Gramm"
-
-#: ../qml/db/Dimensions.qml:121
-msgid "Kilogram"
-msgstr "Kilogramm"
-
-#: ../qml/db/Dimensions.qml:122
-msgid "Liter"
-msgstr "Liter"
-
-#: ../qml/panels/ListPanel.qml:90 ../qml/panels/SettingsCategoriesPanel.qml:103
-#: ../qml/panels/SettingsHistoryPanel.qml:27
-#: ../qml/panels/SettingsUnitsPanel.qml:74
-msgid "No entries"
-msgstr "Keine Einträge"
-
-#: ../qml/panels/ListPanel.qml:184
-msgid "new entry ..."
-msgstr "neuer Eintrag ..."
-
-#: ../qml/panels/SettingsCategoriesPanel.qml:9
+#: ../qml/components/ManualPopover.qml:72
+#: ../qml/pages/SettingsCategoriesPage.qml:18
 msgid "Categories"
 msgstr "Kategorien"
 
-#: ../qml/panels/SettingsCategoriesPanel.qml:51
-msgid "new category ..."
-msgstr "neue Kategorie ..."
+#: ../qml/components/ManualPopover.qml:76
+msgid ""
+"You can organise different items separately by defining costum categories in "
+"the settings. Each category has its own list, so that items can be managed "
+"clearly and arranged by topics. In addition to costum categories, there are "
+"always two default categories, that can't be edited:"
+msgstr ""
+"Du kannst Artikel organisieren, indem du in den Einstellungen individuelle "
+"Kategorien definierst. Jede Kategorie bekommt ihre eigene Liste, sodass du "
+"Einträge übersichtlich und nach Themen sortiert organisieren kannst. "
+"Zusätzlich zu den individuellen Kategorien gibt es zwei Standardkategorien, "
+"welche nicht verändert werden können:"
 
-#: ../qml/panels/SettingsHistoryPanel.qml:9
-msgid "History"
-msgstr "Verlauf"
+#: ../qml/components/ManualPopover.qml:81
+msgid "%1: In this list, the items from all categories are shown."
+msgstr ""
+"%1: In dieser Liste werden die Einträge aus allen Kategorien angezeigt."
 
-#: ../qml/panels/SettingsPanel.qml:10
-msgid "Settings"
-msgstr "Einstellungen"
+#: ../qml/components/ManualPopover.qml:81 ../qml/pages/MainPage.qml:79
+#: ../qml/pages/MainPage.qml:80
+msgid "all"
+msgstr "alle"
 
-#: ../qml/panels/SettingsPanel.qml:20
-msgid "Edit categories"
-msgstr "Kategorien bearbeiten"
+#: ../qml/components/ManualPopover.qml:84
+msgid ""
+"%1: In this list, all items that do not belong to any other category are "
+"shown. If you delete a category that still has items in it, they will also "
+"end up here."
+msgstr ""
+"%1: In dieser Liste werden Einträge angezeigt, welche keiner anderen "
+"Kategorie zugeordnet sind. Wenn du eine Kategorie löschst, welche noch "
+"Artikel beinhaltet, dann landen diese ebenfalls hier."
 
-#: ../qml/panels/SettingsPanel.qml:25
-msgid "Edit units"
-msgstr "Einheiten bearbeiten"
+#: ../qml/components/ManualPopover.qml:84 ../qml/db/DBEntries.qml:190
+#: ../qml/pages/MainPage.qml:81 ../qml/pages/MainPage.qml:82
+msgid "other"
+msgstr "sonstige"
 
-#: ../qml/panels/SettingsPanel.qml:29
+#: ../qml/components/ManualPopover.qml:88 ../qml/pages/SettingsPage.qml:44
 msgid "Suggestions"
 msgstr "Vorschläge"
 
-#: ../qml/panels/SettingsPanel.qml:32
-msgid "Show suggestions"
-msgstr "Vorschläge anzeigen"
+#: ../qml/components/ManualPopover.qml:92
+msgid ""
+"Based on your previous entries, you can get suggestions when typing new "
+"entries, filtered by your input and sorted by the frequency, you used an "
+"entry before. This makes it more convenient to input items that you "
+"frequently buy. You can manage the history, that is used to generate "
+"suggestions in the settings and remove items from there. If you don't like "
+"the suggestions, you can also disable this feature entirely."
+msgstr ""
+"Aufbauend auf deinen bisherigen Einträgen kannst du Vorschläge angezeigt "
+"bekommen, wenn du neue Artikel eingibst. Diese werden nach deiner aktuellen "
+"Eingabe gefiltert und nach der Häufigkeit sortiert, wie oft du diesen "
+"Artikel zuvor eingegeben hast. Dies vereinfacht die Eingabe häufig zu "
+"kaufender Artikel. Du kannst den Verlauf bearbeiten, auf dessen Grundlage "
+"die Vorschläge erstellt werden und einzelne Einträge dort wieder entfernen. "
+"Wenn du keine Vorschläge angezeigt bekommen möchtest, kannst du diese "
+"Funktion auch ganz ausschalten."
 
-#: ../qml/panels/SettingsPanel.qml:38
-msgid "Insert suggestion on click"
-msgstr "Vorschlag durch klicken hinzufügen"
+#: ../qml/components/ManualPopover.qml:99 ../qml/pages/SettingsUnitsPage.qml:13
+msgid "Units"
+msgstr "Einheiten"
 
-#: ../qml/panels/SettingsPanel.qml:44
-msgid "Edit history"
-msgstr "Verlauf bearbeiten"
+#: ../qml/components/ManualPopover.qml:103
+msgid ""
+"To manage the amount you need from a certain item, you can use units. By "
+"default, you always enter one 'piece of' the item. If you enter an item, "
+"that exists already in the list, the specified amount of the item will be "
+"added to the existing entry."
+msgstr ""
+"Um die benötigte Menge eines Artikels anzugeben, kannst du verschiedene "
+"Einheiten verwenden. Standardmäßig gibst du immer 'ein Stück' eines Artikels "
+"ein. Gibst du einen Artikel ein, welcher bereits in der Liste existiert, "
+"dann wird die angegebene Menge dem existierenden Eintrag hinzugefügt."
 
-#: ../qml/panels/SettingsPanel.qml:48
+#: ../qml/components/ManualPopover.qml:108 ../qml/pages/SettingsPage.qml:64
 msgid "Appearance"
 msgstr "Erscheinungsbild"
 
-#: ../qml/panels/SettingsPanel.qml:50
+#: ../qml/components/ManualPopover.qml:112
+msgid ""
+"You can choose between a dark or a light appearance and select from 8 "
+"different color flavours. The default setting is the magenta flavoured dark "
+"mode. You can change the appearance in the settings if you prefer an other "
+"flavour."
+msgstr ""
+"Du kannst zwischen einem hellen und einem dunklen Erscheinungsbild wählen "
+"und eine von 8 verschiedenen Farbtönen auswählen. Die Standardeinstellung "
+"ist der dunkle Modus in magenta. Du kannst das Erscheinungsbild in den "
+"Einstellungen ändern."
+
+#: ../qml/components/ManualPopover.qml:149
+msgid "Show on start"
+msgstr "Beim Start anzeigen"
+
+#: ../qml/components/ManualPopover.qml:159
+#: ../qml/components/QuantitySelect.qml:102
+msgid "OK"
+msgstr "OK"
+
+#: ../qml/db/Dimensions.qml:127
+msgid "Piece"
+msgstr "Stück"
+
+#: ../qml/db/Dimensions.qml:129
+msgid "Gram"
+msgstr "Gramm"
+
+#: ../qml/db/Dimensions.qml:130
+msgid "Kilogram"
+msgstr "Kilogramm"
+
+#: ../qml/db/Dimensions.qml:131
+msgid "Liter"
+msgstr "Liter"
+
+#: ../qml/pages/MainPage.qml:21 ../qml/pages/SettingsCategoriesPage.qml:18
+#: ../qml/pages/SettingsHistoryPage.qml:12 ../qml/pages/SettingsPage.qml:11
+#: ../qml/pages/SettingsUnitsPage.qml:13 einkaufszettel.desktop.in.h:1
+msgid "Shopping List"
+msgstr "Einkaufszettel"
+
+#: ../qml/pages/MainPage.qml:95 ../qml/pages/SettingsCategoriesPage.qml:69
+#: ../qml/pages/SettingsHistoryPage.qml:24
+#: ../qml/pages/SettingsUnitsPage.qml:64
+msgid "No entries"
+msgstr "Keine Einträge"
+
+#: ../qml/pages/MainPage.qml:134
+msgid "new entry ..."
+msgstr "neuer Eintrag ..."
+
+#: ../qml/pages/SettingsCategoriesPage.qml:36
+msgid "new category ..."
+msgstr "neue Kategorie ..."
+
+#: ../qml/pages/SettingsHistoryPage.qml:12
+msgid "History"
+msgstr "Verlauf"
+
+#: ../qml/pages/SettingsPage.qml:11
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: ../qml/pages/SettingsPage.qml:26
+msgid "Show manual"
+msgstr "Hilfe anzeigen"
+
+#: ../qml/pages/SettingsPage.qml:33
+msgid "Edit categories"
+msgstr "Kategorien bearbeiten"
+
+#: ../qml/pages/SettingsPage.qml:39
+msgid "Edit units"
+msgstr "Einheiten bearbeiten"
+
+#: ../qml/pages/SettingsPage.qml:47
+msgid "Show suggestions"
+msgstr "Vorschläge anzeigen"
+
+#: ../qml/pages/SettingsPage.qml:53
+msgid "Insert suggestion on click"
+msgstr "Vorschlag durch klicken hinzufügen"
+
+#: ../qml/pages/SettingsPage.qml:59
+msgid "Edit history"
+msgstr "Verlauf bearbeiten"
+
+#: ../qml/pages/SettingsPage.qml:66
 msgid "Use default theme"
 msgstr "Standardthema verwenden"
 
-#: ../qml/panels/SettingsPanel.qml:57
+#: ../qml/pages/SettingsPage.qml:73
 msgid "Dark Mode"
 msgstr "Dunkler Modus"
 
-#: ../qml/panels/SettingsPanel.qml:63
+#: ../qml/pages/SettingsPage.qml:79
 msgid "Color"
 msgstr "Farbe"
 
-#: ../qml/panels/SettingsUnitsPanel.qml:42
+#: ../qml/pages/SettingsUnitsPage.qml:32
 msgid "abbr."
 msgstr "Abk."
 
-#: ../qml/panels/SettingsUnitsPanel.qml:48
+#: ../qml/pages/SettingsUnitsPage.qml:38
 msgid "new unit ..."
 msgstr "neue Einheit ..."
 
-#: ../qml/panels/SettingsUnitsPanel.qml:128
+#: ../qml/pages/SettingsUnitsPage.qml:118
 msgid "Reset units"
 msgstr "Einheiten zurücksetzen"
 
-#: ../qml/panels/SettingsUnitsPanel.qml:129
+#: ../qml/pages/SettingsUnitsPage.qml:119
 msgid "Are you sure that you want to reset to default units?"
 msgstr "Sollen die Einheiten wirklich zurückgesetzt werden?"
 
-#: ../qml/panels/SettingsUnitsPanel.qml:131
+#: ../qml/pages/SettingsUnitsPage.qml:121
 msgid "cancel"
 msgstr "abbrechen"
 
-#: ../qml/panels/SettingsUnitsPanel.qml:135
+#: ../qml/pages/SettingsUnitsPage.qml:125
 msgid "reset units"
 msgstr "Einheiten zurücksetzen"
 
