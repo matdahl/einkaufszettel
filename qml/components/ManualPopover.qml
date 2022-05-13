@@ -65,7 +65,7 @@ Item {
                             text: i18n.tr("Just enter new items in the text field on the top of the list. "
                                           +"The new item is automatically added to the currently selected category. "
                                           +"When you've put an item into your cart, you can select it and "
-                                          +"remove all items that you bought by clicking 'delete all selected'.")
+                                          +"remove all items that you bought by clicking '%1'.").arg(i18n.tr("delete selected"))
                         }
 
                         ManualCaption{
@@ -90,7 +90,7 @@ Item {
 
                         ManualText{
                             text: i18n.tr("Based on your previous entries, you can get suggestions when typing new entries, filtered by your input and sorted by the frequency, you used an entry before. "
-                                          +"This makes it more convenient to inout items that you frequently buy. "
+                                          +"This makes it more convenient to input items that you frequently buy. "
                                           +"You can manage the history, that is used to generate suggestions in the settings and remove items from there. "
                                           +"If you don't like the suggestions, you can also disable this feature entirely.")
                         }
