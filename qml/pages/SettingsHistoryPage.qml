@@ -1,5 +1,5 @@
 import QtQuick 2.7
-import Ubuntu.Components 1.3
+import Lomiri.Components 1.3
 
 import "../components/"
 import "../components/listitems"
@@ -25,7 +25,7 @@ Page {
         visible: listView.model.count===0
     }
 
-    UbuntuListView{
+    LomiriListView{
         id: listView
         anchors{
             fill: parent

@@ -1,5 +1,5 @@
 import QtQuick 2.7
-import Ubuntu.Components.Themes 1.3
+import Lomiri.Components.Themes 1.3
 import Qt.labs.settings 1.0
 
 Item {
@@ -40,7 +40,7 @@ Item {
     // the current colors
     readonly property color currentHeader:     headerColors    [indexColor][indexTheme]
     readonly property color currentBackground: backgroundColors[indexColor][indexTheme]
-    readonly property string currentThemeName: useDefaultTheme || darkMode ? "Ubuntu.Components.Themes.SuruDark" : "Ubuntu.Components.Themes.Ambiance"
+    readonly property string currentThemeName: useDefaultTheme || darkMode ? "Lomiri.Components.Themes.SuruDark" : "Lomiri.Components.Themes.Ambiance"
 
 
     readonly property var headerColors:

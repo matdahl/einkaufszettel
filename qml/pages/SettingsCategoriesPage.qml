@@ -1,5 +1,5 @@
 import QtQuick 2.7
-import Ubuntu.Components 1.3
+import Lomiri.Components 1.3
 
 import "../components/"
 import "../components/listitems"
@@ -51,7 +51,7 @@ Page {
             onClicked: root.insertCategory()
         }
     }
-    UbuntuListView{
+    LomiriListView{
         id: listView
         clip: true
         anchors{
