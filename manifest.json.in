@@ -9,7 +9,7 @@
             "desktop":  "einkaufszettel.desktop"
         }
     },
-    "version": "1.4.1.1",
+    "version": "1.4.2-focal",
     "maintainer": "Matthias Dahlmanns <matdahl@gmx.de>",
     "framework" : "ubuntu-sdk-20.04"
 }
