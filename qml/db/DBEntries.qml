@@ -220,6 +220,8 @@ Item {
                 db.transaction(function(tx){
                     // increment ranks of all entries
                     tx.executeSql("UPDATE "+db_table_name+" SET rank=rank+1 ")
+                    for (var i=0; i< entryModel.count; i++)
+                        entryModel.get(i).rank += 1
                     // insert new entry on top of list (rank=0)
                     uid = tx.executeSql("INSERT INTO "+db_table_name+" (name,category,quantity,dimension,rank) VALUES (?,?,?,?,0)"
                                        ,[name,catName,quantity,dimension]).insertId
