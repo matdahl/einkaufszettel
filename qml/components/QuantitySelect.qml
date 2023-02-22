@@ -1,7 +1,7 @@
 import QtQuick 2.7
-import Ubuntu.Components 1.3
-import Ubuntu.Components.Pickers 1.3
-import Ubuntu.Components.Popups 1.3
+import Lomiri.Components 1.3
+import Lomiri.Components.Pickers 1.3
+import Lomiri.Components.Popups 1.3
 
 Button {
     id: root
@@ -100,7 +100,7 @@ Button {
                     height: dimensionPicker.height
                     width: units.gu(7)
                     text: i18n.tr("OK")
-                    color: UbuntuColors.orange
+                    color: LomiriColors.orange
                     onClicked: PopupUtils.close(popover)
                 }
             }

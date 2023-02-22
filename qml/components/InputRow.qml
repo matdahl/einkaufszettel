@@ -1,7 +1,7 @@
 import QtQuick 2.7
-import Ubuntu.Components 1.3
-import Ubuntu.Components.ListItems 1.3
-import Ubuntu.Components.Popups 1.3
+import Lomiri.Components 1.3
+import Lomiri.Components.ListItems 1.3
+import Lomiri.Components.Popups 1.3
 
 Row{
     id: root
@@ -69,7 +69,7 @@ Row{
             border.color: theme.palette.normal.base
             radius: units.gu(1)
 
-            UbuntuListView{
+            LomiriListView{
                 id: dropDownList
                 anchors.fill: parent
                 model: filterModel

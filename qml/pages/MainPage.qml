@@ -1,5 +1,5 @@
 import QtQuick 2.7
-import Ubuntu.Components 1.3
+import Lomiri.Components 1.3
 
 import "../components"
 import "../components/listitems"
@@ -69,7 +69,7 @@ Page {
             if (db_categories.model.count+2 > actions.length){
                 index = selectedIndex
                 for (var i=actions.length; i<db_categories.model.count+2; i++){
-                    actions.push(Qt.createQmlObject("import Ubuntu.Components 1.3; Action{text:'test "+i+"'}",sections))
+                    actions.push(Qt.createQmlObject("import Lomiri.Components 1.3; Action{text:'test "+i+"'}",sections))
                 }
             }
             if (index !== -2 && index < actions.length)
@@ -96,7 +96,7 @@ Page {
         visible: listView.model.count===0
     }
 
-    UbuntuListView{
+    LomiriListView{
         id: listView
         anchors{
             top:    inputRow.bottom

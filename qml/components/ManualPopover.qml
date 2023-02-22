@@ -1,6 +1,6 @@
 import QtQuick 2.7
-import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.3
+import Lomiri.Components 1.3
+import Lomiri.Components.Popups 1.3
 
 Item {
     id: root
@@ -155,7 +155,7 @@ Item {
                         verticalCenter: parent.verticalCenter
                         right: parent.right
                     }
-                    color: UbuntuColors.orange
+                    color: LomiriColors.orange
                     text: i18n.tr("OK")
                     onClicked: PopupUtils.close(popover)
                 }

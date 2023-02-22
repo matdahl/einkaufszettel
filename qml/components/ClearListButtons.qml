@@ -1,5 +1,5 @@
 import QtQuick 2.7
-import Ubuntu.Components 1.3
+import Lomiri.Components 1.3
 
 Item{
     id: root
@@ -82,7 +82,7 @@ Item{
         x:     root.width/4
 
         text: hasCheckedItems ? i18n.tr("delete selected") : i18n.tr("clear list")
-        color: UbuntuColors.orange
+        color: LomiriColors.orange
         state: hasItems ? "on" : "off"
         states: [
             State{
